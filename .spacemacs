@@ -407,14 +407,196 @@ you should place your code here."
   (setq bibtex-completion-pdf-open-function 'org-open-file)
   (setq org-ref-completion-library 'org-ref-ivy-cite)
 
-  ;; Use XeLaTeX to export PDF in Org-mode
-  (setq org-latex-pdf-process
-        '("xelatex -interaction nonstopmode -output-directory %o %f"
-          "xelatex -interaction nonstopmode -output-directory %o %f"
-          "xelatex -interaction nonstopmode -output-directory %o %f"))
   (setq org-latex-create-formula-image-program 'imagemagick)
 
   (add-hook 'text-mode-hook 'spacemacs/toggle-spelling-checking-on)
+
+  (defun zilongshanren/org-insert-src-block (src-code-type)
+    "Insert a `SRC-CODE-TYPE' type source code block in org-mode."
+    (interactive
+     (let ((src-code-types
+            '("emacs-lisp" "python" "C" "sh" "java" "js" "clojure" "C++" "css"
+              "calc" "asymptote" "dot" "gnuplot" "ledger" "lilypond" "mscgen"
+              "octave" "oz" "plantuml" "R" "sass" "screen" "sql" "awk" "ditaa"
+              "haskell" "latex" "lisp" "matlab" "ocaml" "org" "perl" "ruby" "R"
+              "scheme" "sqlite")))
+       (list (ido-completing-read "Source code type: " src-code-types))))
+    (progn
+      (newline-and-indent)
+      (insert (format "#+BEGIN_SRC %s\n" src-code-type))
+      (newline-and-indent)
+      (insert "#+END_SRC\n")
+      (previous-line 2)
+      (org-edit-src-code)))
+
+      (spacemacs/set-leader-keys-for-major-mode 'org-mode
+        "," 'org-priority)
+      (require 'org-compat)
+      (require 'org)
+      (add-to-list 'org-modules 'org-habit)
+      (require 'org-habit)
+
+      (setq org-refile-use-outline-path 'file)
+      (setq org-outline-path-complete-in-steps nil)
+      (setq org-refile-targets
+            '((nil :maxlevel . 4)
+              (org-agenda-files :maxlevel . 4)))
+      ;; config stuck project
+      (setq org-stuck-projects
+            '("TODO={.+}/-DONE" nil nil "SCHEDULED:\\|DEADLINE:"))
+
+      (setq org-agenda-inhibit-startup t)   ;; ~50x speedup
+      (setq org-agenda-use-tag-inheritance nil) ;; 3-4x speedup
+      (setq org-agenda-window-setup 'current-window)
+      (setq org-log-done t)
+
+      (setq org-todo-keywords
+            (quote ((sequence "TODO(t)" "STARTED(s)" "|" "DONE(d!/!)")
+                    (sequence "WAITING(w@/!)" "SOMEDAY(S)" "|" "CANCELLED(c@/!)" "MEETING(m)" "PHONE(p)"))))
+
+      (setq org-tags-match-list-sublevels nil)
+
+      (add-hook 'org-mode-hook '(lambda ()
+                                  ;; keybinding for editing source code blocks
+                                  ;; keybinding for inserting code blocks
+                                  (local-set-key (kbd "C-c i s")
+                                                 'zilongshanren/org-insert-src-block)))
+      (add-to-list 'org-latex-classes '("ctexart" "\\documentclass[11pt]{ctexart}
+                                        [NO-DEFAULT-PACKAGES]
+                                        \\usepackage[utf8]{inputenc}
+                                        \\usepackage[T1]{fontenc}
+                                        \\usepackage{fixltx2e}
+                                        \\usepackage{graphicx}
+                                        \\usepackage{longtable}
+                                        \\usepackage{float}
+                                        \\usepackage{wrapfig}
+                                        \\usepackage{rotating}
+                                        \\usepackage[normalem]{ulem}
+                                        \\usepackage{amsmath}
+                                        \\usepackage{textcomp}
+                                        \\usepackage{marvosym}
+                                        \\usepackage{wasysym}
+                                        \\usepackage{amssymb}
+                                        \\usepackage{booktabs}
+                                        \\usepackage[colorlinks,linkcolor=black,anchorcolor=black,citecolor=black]{hyperref}
+                                        \\tolerance=1000
+                                        \\usepackage{listings}
+                                        \\usepackage{xcolor}
+                                        \\lstset{
+                                        %行号
+                                        numbers=left,
+                                        %背景框
+                                        framexleftmargin=10mm,
+                                        frame=none,
+                                        %背景色
+                                        %backgroundcolor=\\color[rgb]{1,1,0.76},
+                                        backgroundcolor=\\color[RGB]{245,245,244},
+                                        %样式
+                                        keywordstyle=\\bf\\color{blue},
+                                        identifierstyle=\\bf,
+                                        numberstyle=\\color[RGB]{0,192,192},
+                                        commentstyle=\\it\\color[RGB]{0,96,96},
+                                        stringstyle=\\rmfamily\\slshape\\color[RGB]{128,0,0},
+                                        %显示空格
+                                        showstringspaces=false
+                                        }
+                                        "
+                                        ("\\section{%s}" . "\\section*{%s}")
+                                        ("\\subsection{%s}" . "\\subsection*{%s}")
+                                        ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+                                        ("\\paragraph{%s}" . "\\paragraph*{%s}")
+                                        ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
+
+      ;; {{ export org-mode in Chinese into PDF
+      ;; @see http://freizl.github.io/posts/tech/2012-04-06-export-orgmode-file-in-Chinese.html
+      ;; and you need install texlive-xetex on different platforms
+      ;; To install texlive-xetex:
+      ;;    `sudo USE="cjk" emerge texlive-xetex` on Gentoo Linux
+      ;; }}
+      (setq org-latex-default-class "ctexart")
+      (setq org-latex-pdf-process
+            '(
+              "xelatex -interaction nonstopmode -output-directory %o %f"
+              "xelatex -interaction nonstopmode -output-directory %o %f"
+              "xelatex -interaction nonstopmode -output-directory %o %f"
+              "rm -fr %b.out %b.log %b.tex auto"))
+
+      (setq org-latex-listings t)
+
+      ;;reset subtask
+      (setq org-default-properties (cons "RESET_SUBTASKS" org-default-properties))
+
+      (org-babel-do-load-languages
+       'org-babel-load-languages
+       '((R . t)
+         (latex .t)
+         (sh . t)
+         (python . t)
+         (emacs-lisp . t)
+         (plantuml . t)
+         (dot . t)
+         (ditaa . t)))
+
+      ;; define the refile targets
+      (setq org-agenda-files (quote ("~/Dropbox/Org" )))
+      (setq org-default-notes-file "~/Dropbox/Org/gtd.org")
+
+      (with-eval-after-load 'org-agenda
+        (spacemacs/set-leader-keys-for-major-mode 'org-agenda-mode
+          "." 'spacemacs/org-agenda-transient-state/body)
+        )
+      ;; the %i would copy the selected text into the template
+      ;;http://www.howardism.org/Technical/Emacs/journaling-org.html
+      ;;add multi-file journal
+      (setq org-capture-templates
+            '(("t" "Todo" entry (file+headline "~/Dropbox/Org/gtd.org" "Daily")
+               "* TODO [#D] %?\n  %i\n"
+               :empty-lines 1)
+              ("w" "Work" entry (file+headline "~/Dropbox/Org/gtd.org" "Work")
+               "* TODO [#W] %?\n  %i\n %U"
+               :empty-lines 1)
+              ("n" "Notes" entry (file+headline "~/Dropbox/Org/notes.org" "Quick notes")
+               "* %?\n  %i\n %U"
+               :empty-lines 1)
+              ("l" "Links" entry (file+headline "~/Dropbox/Org/notes.org" "Quick notes")
+               "* TODO [#C] %?\n  %i\n %a \n %U"
+               :empty-lines 1)
+              ("s" "Code Snippet" entry
+               (file "~/Dropbox/Org/snippets.org")
+               "* %?\t%^g\n#+BEGIN_SRC %^{language}\n\n#+END_SRC")
+              ("j" "Journal Entry"
+               entry (file+datetree "~/Dropbox/Org/journal.org")
+               "* %?"
+               :empty-lines 1)))
+
+      ;;An entry without a cookie is treated just like priority ' B '.
+      ;;So when create new task, they are default 重要且紧急
+      (setq org-agenda-custom-commands
+            '(
+              ("w" . "任务安排")
+              ("wa" "重要且紧急的任务" tags-todo "+PRIORITY=\"A\"")
+              ("wb" "重要且不紧急的任务" tags-todo "-Weekly-Monthly-Daily+PRIORITY=\"B\"")
+              ("wc" "不重要且紧急的任务" tags-todo "+PRIORITY=\"C\"")
+              ("d" "日常生活" tags-todo "DAILY")
+              ("p" . "项目安排")
+              ("W" "Weekly Review"
+               ((stuck "") ;; review stuck projects as designated by org-stuck-projects
+                (tags-todo "PROJECT") ;; review all projects (assuming you use todo keywords to designate projects)
+                ))))
+
+      (defun zilong/org-summary-todo (n-done n-not-done)
+        "Switch entry to DONE when all subentries are done, to TODO otherwise."
+        (let (org-log-done org-log-states)    ; turn off logging
+          (org-todo (if (= n-not-done 0) "DONE" "TODO"))))
+
+      (add-hook 'org-after-todo-statistics-hook 'zilong/org-summary-todo)
+      ;; used by zilong/org-clock-sum-today-by-tags
+
+      (define-key org-mode-map (kbd "s-p") 'org-priority)
+      (spacemacs/set-leader-keys-for-major-mode 'org-mode
+        "tl" 'org-toggle-link-display)
+      (define-key evil-normal-state-map (kbd "C-c C-w") 'org-refile)
+      (setq org-mobile-directory "~/Dropbox/Org")
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
