@@ -49,6 +49,7 @@ values."
      ivy
      markdown
      latex
+     bibtex
      org
      syntax-checking
      ranger
@@ -60,7 +61,6 @@ values."
    ;; configuration in `dotspacemacs/user-config'.
    dotspacemacs-additional-packages '(
                                       zotxt
-                                      org-ref
                                       chinese-fonts-setup
                                       ox-pandoc
                                       )
@@ -399,7 +399,7 @@ you should place your code here."
   (add-hook 'org-mode-hook 'turn-on-org-show-all-inline-images)
   ;; Org-Ref settings
   (setq reftex-default-bibliography '("~/Dropbox/3-Literatures/reference.bib"))
-  (setq org-ref-bibliography-notes "~/Dropbox/3-Literatures/Literature_Notes/notes.org"
+  (setq org-ref-bibliography-notes "~/Dropbox/Org/literatures_notes.org"
         org-ref-default-bibliography '("~/Dropbox/3-Literatures/reference.bib")
         org-ref-pdf-directory "~/Dropbox/3-Literatures/Dissertation/")
   (setq bibtex-completion-bibliography "~/Dropbox/3-Literatures/reference.bib"
