@@ -40,7 +40,8 @@ values."
      (shell :variables shell-default-shell 'eshell)
      (spacemacs-layouts :variables layouts-enable-autosave nil
                                    layouts-autosave-delay 300)
-     (spell-checking :variables enable-flyspell-auto-completion t)
+     (spell-checking :variables enable-flyspell-auto-completion t
+                     spell-checking-enable-by-default nil)
      better-defaults
      colors
      emacs-lisp
@@ -412,6 +413,8 @@ you should place your code here."
           "xelatex -interaction nonstopmode -output-directory %o %f"
           "xelatex -interaction nonstopmode -output-directory %o %f"))
   (setq org-latex-create-formula-image-program 'imagemagick)
+
+  (add-hook 'text-mode-hook 'spacemacs/toggle-spelling-checking-on)
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
