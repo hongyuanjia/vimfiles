@@ -34,8 +34,8 @@ values."
      html
      (auto-completion :variables auto-completion-enable-sort-by-usage t
                                  auto-completion-enable-snippets-in-popup t)
-     (chinese :variables chinese-default-input-method 'wubi
-              chinese-enable-fcitx t)
+     (chinese :variables chinese-default-input-method 'wubi)
+              ;;chinese-enable-fcitx t)
      (ess :variables ess-use-auto-complete t)
      (shell :variables shell-default-shell 'eshell)
      (spacemacs-layouts :variables layouts-enable-autosave nil
@@ -53,6 +53,7 @@ values."
      org
      syntax-checking
      ranger
+     pandoc
      ;; version-control
      )
    ;; List of additional packages that will be installed without being
@@ -62,7 +63,6 @@ values."
    dotspacemacs-additional-packages '(
                                       zotxt
                                       chinese-fonts-setup
-                                      ox-pandoc
                                       )
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
@@ -88,7 +88,7 @@ values."
   (setq-default
    ;; If non nil ELPA repositories are contacted via HTTPS whenever it's
    ;; possible. Set it to nil if you have no way to use HTTPS in your
-   ;; environmorg-use-sub-superscriptsent, otherwise it is strongly recommended to let it set to t.
+   ;; environment, otherwise it is strongly recommended to let it set to t.
    ;; This variable has no effect if Emacs is launched with the parameter
    ;; `--insecure' which forces the value of this variable to nil.
    ;; (default t)
@@ -332,7 +332,9 @@ you should place your code here."
   (require 'chinese-fonts-setup)
   (chinese-fonts-setup-enable)
   (cfs-set-spacemacs-fallback-fonts)
-
+  (when (configuration-layer/layer-usedp 'chinese)
+    (when (and (spacemacs/system-is-linux) window-system)
+      (setq chinese-enable-fcitx t)))
   ;;Powerline setup
   (setq ns-use-srgb-colorspace nil)
   (setq powerline-default-separator 'arrow)
@@ -342,8 +344,10 @@ you should place your code here."
   (define-key evil-motion-state-map "L" 'evil-end-of-line)
 
   ;;Spell configurations
-  (setq-default ispell-program-name "aspell")
-  (ispell-change-dictionary "american" t)
+  (when (and (spacemacs/system-is-mswindows) window-system)
+  (add-to-list 'exec-path "C:/Program Files (x86)/Aspell/bin/")
+  (setq ispell-personal-dictionary "C:/Program Files (x86)/Aspell/dict/"))
+  ;; (ispell-change-dictionary "american" t)
 
   ;;Auto-completion popup color
   (let ((bg (face-attribute 'default :background)))
@@ -375,12 +379,12 @@ you should place your code here."
   (with-eval-after-load 'smartparens
     (show-smartparens-global-mode -1))
 
-  ;;Org-mode settings
-  (org-babel-do-load-languages
-   'org-babel-load-languages
-   '((R . t)
-     (emacs-lisp . t)
-     (latex . t)))
+  (setq-default fill-column 80)
+
+  (add-hook 'text-mode-hook 'spacemacs/toggle-spelling-checking-on)
+
+  ;;Org-mode settings----------------------------------------------------------------
+  (with-eval-after-load 'org
   (setq org-confirm-babel-evaluate nil)
   (setq org-edit-src-content-indentation 0
         org-src-tab-acts-natively t
@@ -390,26 +394,36 @@ you should place your code here."
   ;;                             (visual-line-mode)
                               (org-indent-mode)))
 
-  (setq-default fill-column 80)
-  ;;Use Pandoc to export docx files through org files.
-  (require 'ox-pandoc)
+  ;; ;;Use Pandoc to export docx files through org files.
+  ;; (require 'ox-pandoc)
 
   (defun turn-on-org-show-all-inline-images ()
     (org-display-inline-images t t))
   (add-hook 'org-mode-hook 'turn-on-org-show-all-inline-images)
   ;; Org-Ref settings
+  (when (and (spacemacs/system-is-mswindows) window-system)
+    (setq w32-pass-alt-to-system nil)
+    (setq reftex-default-bibliography '("c:/Users/jiaho/Dropbox/3-Literatures/reference.bib"))
+    (setq org-ref-bibliography-notes "c:/Users/jiaho/Dropbox/Org/literatures_notes.org"
+          org-ref-default-bibliography '("c:/Users/jiaho/Dropbox/3-Literatures/reference.bib")
+          org-ref-pdf-directory "c:/Users/jiaho/Dropbox/3-Literatures/Dissertation/")
+    (setq bibtex-completion-bibliography "c:/Users/jiaho/Dropbox/3-Literatures/reference.bib"
+          bibtex-completion-library-path "c:/Users/jiaho/Dropbox/3-Literatures/Dissertation/"))
+
+  (when (and (spacemacs/system-is-mswindows) window-system)
   (setq reftex-default-bibliography '("~/Dropbox/3-Literatures/reference.bib"))
   (setq org-ref-bibliography-notes "~/Dropbox/Org/literatures_notes.org"
         org-ref-default-bibliography '("~/Dropbox/3-Literatures/reference.bib")
         org-ref-pdf-directory "~/Dropbox/3-Literatures/Dissertation/")
   (setq bibtex-completion-bibliography "~/Dropbox/3-Literatures/reference.bib"
-        bibtex-completion-library-path "~/Dropbox/3-Literatures/Dissertation/")
+        bibtex-completion-library-path "~/Dropbox/3-Literatures/Dissertation/"))
   (setq bibtex-completion-pdf-open-function 'org-open-file)
   (setq org-ref-completion-library 'org-ref-ivy-cite)
 
-  (setq org-latex-create-formula-image-program 'imagemagick)
-
-  (add-hook 'text-mode-hook 'spacemacs/toggle-spelling-checking-on)
+  (when (and (spacemacs/system-is-linux) window-system)
+    (setq org-latex-create-formula-image-program 'imagemagick))
+  (when (and (spacemacs/system-is-mswindows) window-system)
+    (setq org-latex-create-formula-image-program 'dvipng))
 
   (defun zilongshanren/org-insert-src-block (src-code-type)
     "Insert a `SRC-CODE-TYPE' type source code block in org-mode."
@@ -455,7 +469,7 @@ you should place your code here."
                     (sequence "WAITING(w@/!)" "SOMEDAY(S)" "|" "CANCELLED(c@/!)" "MEETING(m)" "PHONE(p)"))))
 
       (setq org-tags-match-list-sublevels nil)
-
+      
       (add-hook 'org-mode-hook '(lambda ()
                                   ;; keybinding for editing source code blocks
                                   ;; keybinding for inserting code blocks
@@ -515,7 +529,7 @@ you should place your code here."
       ;; }}
       (setq org-latex-default-class "ctexart")
       (setq org-latex-pdf-process
-            '("latexmk -pdflatex='xelatex -interaction nonstopmode' -output-directory %o -pdf -bibtex -f %f"
+            '("latexmk -xelatex -f -interaction=nonstopmode -output-directory=%o -bibtex %f"
               "rm -fr %b.out %b.log %b.tex auto"))
 
       (setq org-latex-listings t)
@@ -535,8 +549,12 @@ you should place your code here."
          (ditaa . t)))
 
       ;; define the refile targets
+      (when (and (spacemacs/system-is-linux) window-system)
       (setq org-agenda-files (quote ("~/Dropbox/Org" )))
-      (setq org-default-notes-file "~/Dropbox/Org/gtd.org")
+      (setq org-default-notes-file "~/Dropbox/Org/gtd.org"))
+      (when (and (spacemacs/system-is-mswindows) window-system)
+        (setq org-agenda-files (quote ("c:/Users/jiaho/Dropbox/Org" )))
+        (setq org-default-notes-file "c:/Users/jiaho/Dropbox/Org/gtd.org"))
 
       (with-eval-after-load 'org-agenda
         (spacemacs/set-leader-keys-for-major-mode 'org-agenda-mode
@@ -545,6 +563,7 @@ you should place your code here."
       ;; the %i would copy the selected text into the template
       ;;http://www.howardism.org/Technical/Emacs/journaling-org.html
       ;;add multi-file journal
+      (when (and (spacemacs/system-is-linux) window-system)
       (setq org-capture-templates
             '(("t" "Todo" entry (file+headline "~/Dropbox/Org/gtd.org" "Daily")
                "* TODO [#D] %?\n  %i\n"
@@ -564,8 +583,29 @@ you should place your code here."
               ("j" "Journal Entry"
                entry (file+datetree "~/Dropbox/Org/journal.org")
                "* %?"
-               :empty-lines 1)))
+               :empty-lines 1))))
 
+      (when (and (spacemacs/system-is-mswindows) window-system)
+      (setq org-capture-templates
+            '(("t" "Todo" entry (file+headline "c:/Users/jiaho/Dropbox/Org/gtd.org" "Daily")
+               "* TODO [#D] %?\n  %i\n"
+               :empty-lines 1)
+              ("w" "Work" entry (file+headline "c:/Users/jiaho/Dropbox/Org/gtd.org" "Work")
+               "* TODO [#W] %?\n  %i\n %U"
+               :empty-lines 1)
+              ("n" "Notes" entry (file+headline "c:/Users/jiaho/Dropbox/Org/notes.org" "Quick notes")
+               "* %?\n  %i\n %U"
+               :empty-lines 1)
+              ("l" "Links" entry (file+headline "c:/Users/jiaho/Dropbox/Org/notes.org" "Quick notes")
+               "* TODO [#C] %?\n  %i\n %a \n %U"
+               :empty-lines 1)
+              ("s" "Code Snippet" entry
+               (file "c:/Users/jiaho/Dropbox/Org/snippets.org")
+               "* %?\t%^g\n#+BEGIN_SRC %^{language}\n\n#+END_SRC")
+              ("j" "Journal Entry"
+               entry (file+datetree "c:/Users/jiaho/Dropbox/Org/journal.org")
+               "* %?"
+               :empty-lines 1))))
       ;;An entry without a cookie is treated just like priority ' B '.
       ;;So when create new task, they are default 重要且紧急
       (setq org-agenda-custom-commands
@@ -593,7 +633,7 @@ you should place your code here."
       (spacemacs/set-leader-keys-for-major-mode 'org-mode
         "tl" 'org-toggle-link-display)
       (define-key evil-normal-state-map (kbd "C-c C-w") 'org-refile)
-      (setq org-mobile-directory "~/Dropbox/Org")
+      (setq org-mobile-directory "~/Dropbox/Org"))
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
@@ -612,7 +652,7 @@ you should place your code here."
  '(org-highlight-latex-and-related (quote (latex script entities)))
  '(package-selected-packages
    (quote
-    (ox-pandoc flyspell-popup git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter diff-hl company-auctex auctex-latexmk auctex ivy-purpose helm-swoop helm-purpose helm-projectile helm-mode-manager helm-gitignore helm-flx helm-descbinds helm-css-scss helm-company helm-c-yasnippet helm-ag flyspell-correct-helm org-ref key-chord helm-bibtex biblio parsebib biblio-core web-mode tagedit slim-mode scss-mode sass-mode pug-mode less-css-mode haml-mode emmet-mode company-web web-completion-data ranger youdao-dictionary names chinese-word-at-point rainbow-mode rainbow-identifiers magit-gh-pulls gh marshal logito pcache ht helm-themes fcitx color-identifiers-mode ace-jump-helm-line zotxt request-deferred deferred color-theme-sanityinc-solarized ess-smart-equals ess-R-object-popup ess-R-data-view ctable ess julia-mode xterm-color shell-pop mwim multi-term flycheck-pos-tip flycheck eshell-z eshell-prompt-extras esh-help chinese-wbim molokai-theme pangu-spacing find-by-pinyin-dired chinese-pyim chinese-pyim-basedict pos-tip ace-pinyin pinyinlib ace-jump-mode chinese-fonts-setup smeargle orgit org-projectile org-present org org-pomodoro alert log4e gntp org-download mmm-mode markdown-toc markdown-mode magit-gitflow htmlize gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link gh-md flyspell-correct-ivy flyspell-correct evil-magit magit magit-popup git-commit with-editor company-statistics company auto-yasnippet yasnippet auto-dictionary ac-ispell auto-complete ws-butler window-numbering which-key wgrep volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline smex restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox spinner org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint ivy-hydra info+ indent-guide ido-vertical-mode hydra hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation help-fns+ helm-make helm helm-core google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu highlight elisp-slime-nav dumb-jump popup f s diminish define-word counsel-projectile projectile pkg-info epl counsel swiper ivy column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed dash async aggressive-indent adaptive-wrap ace-window ace-link avy quelpa package-build spacemacs-theme)))
+    (pandoc-mode hide-comnt ox-pandoc flyspell-popup git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter diff-hl company-auctex auctex-latexmk auctex ivy-purpose helm-swoop helm-purpose helm-projectile helm-mode-manager helm-gitignore helm-flx helm-descbinds helm-css-scss helm-company helm-c-yasnippet helm-ag flyspell-correct-helm org-ref key-chord helm-bibtex biblio parsebib biblio-core web-mode tagedit slim-mode scss-mode sass-mode pug-mode less-css-mode haml-mode emmet-mode company-web web-completion-data ranger youdao-dictionary names chinese-word-at-point rainbow-mode rainbow-identifiers magit-gh-pulls gh marshal logito pcache ht helm-themes fcitx color-identifiers-mode ace-jump-helm-line zotxt request-deferred deferred color-theme-sanityinc-solarized ess-smart-equals ess-R-object-popup ess-R-data-view ctable ess julia-mode xterm-color shell-pop mwim multi-term flycheck-pos-tip flycheck eshell-z eshell-prompt-extras esh-help chinese-wbim molokai-theme pangu-spacing find-by-pinyin-dired chinese-pyim chinese-pyim-basedict pos-tip ace-pinyin pinyinlib ace-jump-mode chinese-fonts-setup smeargle orgit org-projectile org-present org org-pomodoro alert log4e gntp org-download mmm-mode markdown-toc markdown-mode magit-gitflow htmlize gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link gh-md flyspell-correct-ivy flyspell-correct evil-magit magit magit-popup git-commit with-editor company-statistics company auto-yasnippet yasnippet auto-dictionary ac-ispell auto-complete ws-butler window-numbering which-key wgrep volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline smex restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox spinner org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint ivy-hydra info+ indent-guide ido-vertical-mode hydra hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation help-fns+ helm-make helm helm-core google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu highlight elisp-slime-nav dumb-jump popup f s diminish define-word counsel-projectile projectile pkg-info epl counsel swiper ivy column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed dash async aggressive-indent adaptive-wrap ace-window ace-link avy quelpa package-build spacemacs-theme)))
  '(vc-annotate-background nil)
  '(vc-annotate-color-map
    (quote
@@ -646,6 +686,6 @@ you should place your code here."
  '(company-tooltip-common ((t (:inherit font-lock-constant-face))))
  '(company-tooltip-selection ((t (:inherit font-lock-function-name-face))))
  '(org-block ((t (:background "gray25"))))
- '(org-block-begin-line ((t (:inherit default :background "black" :foreground "white" :slant italic :weight semi-bold))))
+ '(org-block-begin-line ((t (:inherit default :background "black" :foreground "white" :slant italic :weight semi-bold))) t)
  '(org-code ((t (:inherit shadow :foreground "light gray" :weight semi-light :height 1.1))))
  '(org-verbatim ((t (:inherit shadow :foreground "light gray" :weight semi-light :height 1.1)))))
