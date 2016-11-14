@@ -515,10 +515,7 @@ you should place your code here."
       ;; }}
       (setq org-latex-default-class "ctexart")
       (setq org-latex-pdf-process
-            '(
-              "xelatex -interaction nonstopmode -output-directory %o %f"
-              "xelatex -interaction nonstopmode -output-directory %o %f"
-              "xelatex -interaction nonstopmode -output-directory %o %f"
+            '("latexmk -pdflatex='xelatex -interaction nonstopmode' -output-directory %o -pdf -bibtex -f %f"
               "rm -fr %b.out %b.log %b.tex auto"))
 
       (setq org-latex-listings t)
