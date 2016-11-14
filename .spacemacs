@@ -33,17 +33,14 @@ values."
    '(
      html
      (auto-completion :variables auto-completion-enable-sort-by-usage t
-                                 auto-completion-enable-snippets-in-popup t
-                      :disabled-for org markdown)
-     (chinese :packages youdao-dictionary fcitx
-              :variables chinese-enable-youdao-dict t
-              chinese-default-input-method 'wubi
+                                 auto-completion-enable-snippets-in-popup t)
+     (chinese :variables chinese-default-input-method 'wubi
               chinese-enable-fcitx t)
      (ess :variables ess-use-auto-complete t)
      (shell :variables shell-default-shell 'eshell)
      (spacemacs-layouts :variables layouts-enable-autosave nil
                                    layouts-autosave-delay 300)
-     (spell-checking :variables =enable-flyspell-auto-completion= t)
+     (spell-checking :variables enable-flyspell-auto-completion t)
      better-defaults
      colors
      emacs-lisp
@@ -54,6 +51,7 @@ values."
      org
      syntax-checking
      ranger
+     ;; version-control
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -67,9 +65,7 @@ values."
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
    ;; A list of packages that will not be installed and loaded.
-   dotspacemacs-excluded-packages '(auto-dictionary persp-mode
-                                                    counsel-projectile magit-gitflow smooth-scrolling
-                                                    spacemacs-theme ace-jump-helm-line helm-themes)
+   dotspacemacs-excluded-packages '()
    ;; Defines the behaviour of Spacemacs when installing packages.
    ;; Possible values are `used-only', `used-but-keep-unused' and `all'.
    ;; `used-only' installs only explicitly used packages and uninstall any
@@ -308,7 +304,9 @@ before packages are loaded. If you are unsure, you should try in setting them in
   ;; (setq org-ref-insert-cite-key "C-c """)
   ;; https://github.com/syl20bnr/spacemacs/issues/2705
   ;; (setq tramp-mode nil)
+
   (setq-default
+   ispell-program-name "aspell"
    tramp-ssh-controlmaster-options "-o ControlMaster=auto -o ControlPath='tramp.%%C' -o ControlPersist=no"
    byte-compile-warnings '(not obsolete)
    warning-minimum-level :error
@@ -389,7 +387,8 @@ you should place your code here."
   (add-hook 'org-mode-hook '(lambda ()
   ;;                             (visual-line-mode)
                               (org-indent-mode)))
-  ;; (add-hook 'org-mode-hook 'fci-mode)
+
+  (setq-default fill-column 80)
 
   (defun turn-on-org-show-all-inline-images ()
     (org-display-inline-images t t))
@@ -403,12 +402,12 @@ you should place your code here."
         bibtex-completion-library-path "~/Dropbox/3-Literatures/Dissertation/")
   (setq bibtex-completion-pdf-open-function 'org-open-file)
   (setq org-ref-completion-library 'org-ref-ivy-cite)
+
   ;; Use XeLaTeX to export PDF in Org-mode
   (setq org-latex-pdf-process
         '("xelatex -interaction nonstopmode -output-directory %o %f"
           "xelatex -interaction nonstopmode -output-directory %o %f"
           "xelatex -interaction nonstopmode -output-directory %o %f"))
-  ;; (setq pyim-default-scheme 'wubi)
   (setq org-latex-create-formula-image-program 'imagemagick)
   )
 
@@ -424,9 +423,11 @@ you should place your code here."
  '(ansi-color-names-vector
    (vector "#839496" "#dc322f" "#859900" "#b58900" "#268bd2" "#d33682" "#2aa198" "#eee8d5"))
  '(fci-rule-color "#073642" t)
+ '(org-hide-emphasis-markers t)
+ '(org-highlight-latex-and-related (quote (latex script entities)))
  '(package-selected-packages
    (quote
-    (company-auctex auctex-latexmk auctex ivy-purpose helm-swoop helm-purpose helm-projectile helm-mode-manager helm-gitignore helm-flx helm-descbinds helm-css-scss helm-company helm-c-yasnippet helm-ag flyspell-correct-helm org-ref key-chord helm-bibtex biblio parsebib biblio-core web-mode tagedit slim-mode scss-mode sass-mode pug-mode less-css-mode haml-mode emmet-mode company-web web-completion-data ranger youdao-dictionary names chinese-word-at-point rainbow-mode rainbow-identifiers magit-gh-pulls gh marshal logito pcache ht helm-themes fcitx color-identifiers-mode ace-jump-helm-line zotxt request-deferred deferred color-theme-sanityinc-solarized ess-smart-equals ess-R-object-popup ess-R-data-view ctable ess julia-mode xterm-color shell-pop mwim multi-term flycheck-pos-tip flycheck eshell-z eshell-prompt-extras esh-help chinese-wbim molokai-theme pangu-spacing find-by-pinyin-dired chinese-pyim chinese-pyim-basedict pos-tip ace-pinyin pinyinlib ace-jump-mode chinese-fonts-setup smeargle orgit org-projectile org-present org org-pomodoro alert log4e gntp org-download mmm-mode markdown-toc markdown-mode magit-gitflow htmlize gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link gh-md flyspell-correct-ivy flyspell-correct evil-magit magit magit-popup git-commit with-editor company-statistics company auto-yasnippet yasnippet auto-dictionary ac-ispell auto-complete ws-butler window-numbering which-key wgrep volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline smex restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox spinner org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint ivy-hydra info+ indent-guide ido-vertical-mode hydra hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation help-fns+ helm-make helm helm-core google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu highlight elisp-slime-nav dumb-jump popup f s diminish define-word counsel-projectile projectile pkg-info epl counsel swiper ivy column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed dash async aggressive-indent adaptive-wrap ace-window ace-link avy quelpa package-build spacemacs-theme)))
+    (flyspell-popup git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter diff-hl company-auctex auctex-latexmk auctex ivy-purpose helm-swoop helm-purpose helm-projectile helm-mode-manager helm-gitignore helm-flx helm-descbinds helm-css-scss helm-company helm-c-yasnippet helm-ag flyspell-correct-helm org-ref key-chord helm-bibtex biblio parsebib biblio-core web-mode tagedit slim-mode scss-mode sass-mode pug-mode less-css-mode haml-mode emmet-mode company-web web-completion-data ranger youdao-dictionary names chinese-word-at-point rainbow-mode rainbow-identifiers magit-gh-pulls gh marshal logito pcache ht helm-themes fcitx color-identifiers-mode ace-jump-helm-line zotxt request-deferred deferred color-theme-sanityinc-solarized ess-smart-equals ess-R-object-popup ess-R-data-view ctable ess julia-mode xterm-color shell-pop mwim multi-term flycheck-pos-tip flycheck eshell-z eshell-prompt-extras esh-help chinese-wbim molokai-theme pangu-spacing find-by-pinyin-dired chinese-pyim chinese-pyim-basedict pos-tip ace-pinyin pinyinlib ace-jump-mode chinese-fonts-setup smeargle orgit org-projectile org-present org org-pomodoro alert log4e gntp org-download mmm-mode markdown-toc markdown-mode magit-gitflow htmlize gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link gh-md flyspell-correct-ivy flyspell-correct evil-magit magit magit-popup git-commit with-editor company-statistics company auto-yasnippet yasnippet auto-dictionary ac-ispell auto-complete ws-butler window-numbering which-key wgrep volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline smex restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox spinner org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint ivy-hydra info+ indent-guide ido-vertical-mode hydra hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation help-fns+ helm-make helm helm-core google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu highlight elisp-slime-nav dumb-jump popup f s diminish define-word counsel-projectile projectile pkg-info epl counsel swiper ivy column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed dash async aggressive-indent adaptive-wrap ace-window ace-link avy quelpa package-build spacemacs-theme)))
  '(vc-annotate-background nil)
  '(vc-annotate-color-map
    (quote
@@ -458,4 +459,8 @@ you should place your code here."
  '(company-scrollbar-fg ((t (:background "#27292b"))))
  '(company-tooltip ((t (:inherit default :background "#1f2223"))))
  '(company-tooltip-common ((t (:inherit font-lock-constant-face))))
- '(company-tooltip-selection ((t (:inherit font-lock-function-name-face)))))
+ '(company-tooltip-selection ((t (:inherit font-lock-function-name-face))))
+ '(org-block ((t (:background "gray25"))))
+ '(org-block-begin-line ((t (:inherit default :background "black" :foreground "white" :slant italic :weight semi-bold))))
+ '(org-code ((t (:inherit shadow :foreground "light gray" :weight semi-light :height 1.1))))
+ '(org-verbatim ((t (:inherit shadow :foreground "light gray" :weight semi-light :height 1.1)))))
