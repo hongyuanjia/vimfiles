@@ -39,14 +39,6 @@ let localleader =","
 let maplocalleader = ","
 " }}}
 
-" 使用主题 {{{2
-set background=dark
-" let g:solarized_bold = 0
-" colorscheme solarized
-let g:molokai_original = 1
-set t_Co=256
-colorscheme molokai
-" }}}
 
 " 设置Vim的GUI样式 {{{2
 set guioptions-=m "去掉Menu Bar
@@ -81,7 +73,7 @@ set vb t_vb=
 " }}}
 
 " Vim 启动后最大化窗口 {{{2
-au GUIEnter * simalt ~x
+" au GUIEnter * simalt ~x
 " }}}
 
 " 启动英文单位补全 {{{2
@@ -267,6 +259,8 @@ call neobundle#begin(expand('$HOME/.vim/bundle/'))
 NeoBundleFetch 'Shougo/neobundle.vim'
 
 " 自定义插件
+" 主题
+NeoBundle 'crusoexia/vim-monokai'
 " 语法检查
 " NeoBundle 'scrooloose/syntastic'
 " 状态栏
@@ -413,8 +407,8 @@ autocmd VimLeave * if exists("g:SendCmdToR") && string(g:SendCmdToR) != "functio
 set laststatus=2   " Always show the statusline
 set t_Co=256       " Explicitly tell Vim that the terminal supports 256 colors
 let g:airline#extensions#tabline#enabled = 1
-set guifont=DroidSansMonoForPowerline_NF:h11
-set guifontwide=SimHei:h12:cGB2312
+set guifont=DroidSansMonoForPowerline\ NF\ 12
+set guifontwide=文泉驿等宽正黑\ 14
 let g:airline_powerline_fonts = 1
 let g:Powerline_symbols="fancy"
 " }}}
@@ -744,3 +738,11 @@ augroup END
 "}}}
 "}}}
 
+" 使用主题 {{{2
+set background=dark
+" let g:solarized_bold = 0
+" colorscheme solarized
+let g:molokai_original = 1
+set t_Co=256
+colorscheme monokai
+" }}}
