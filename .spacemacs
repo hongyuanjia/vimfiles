@@ -417,8 +417,9 @@ you should place your code here."
         org-ref-default-bibliography '("~/Dropbox/3-Literatures/reference.bib")
         org-ref-pdf-directory "~/Dropbox/3-Literatures/Dissertation/")
   (setq bibtex-completion-bibliography "~/Dropbox/3-Literatures/reference.bib"
-        bibtex-completion-library-path "~/Dropbox/3-Literatures/Dissertation/"))
-  (setq bibtex-completion-pdf-open-function 'org-open-file)
+        bibtex-completion-library-path "~/Dropbox/3-Literatures/Dissertation/"
+        bibtex-completion-pdf-field "file"))
+
   (defun my/org-ref-open-pdf-at-point ()
     "Open the pdf for bibtex key under point if it exists."
     (interactive)
@@ -428,9 +429,7 @@ you should place your code here."
       (if (file-exists-p pdf-file)
           (org-open-file pdf-file)
         (message "No PDF found for %s" key))))
-
   (setq org-ref-open-pdf-function 'my/org-ref-open-pdf-at-point)
-  ;; (setq org-ref-completion-library 'org-ref-ivy-cite)
 
   (when (and (spacemacs/system-is-linux) window-system)
     (setq org-latex-create-formula-image-program 'imagemagick))
@@ -481,7 +480,7 @@ you should place your code here."
                     (sequence "WAITING(w@/!)" "SOMEDAY(S)" "|" "CANCELLED(c@/!)" "MEETING(m)" "PHONE(p)"))))
 
       (setq org-tags-match-list-sublevels nil)
-      
+
       (add-hook 'org-mode-hook '(lambda ()
                                   ;; keybinding for editing source code blocks
                                   ;; keybinding for inserting code blocks
