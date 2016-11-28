@@ -55,7 +55,7 @@ values."
      syntax-checking
      ranger
      pandoc
-     ;; version-control
+     version-control
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -542,9 +542,14 @@ you should place your code here."
       ;;    `sudo USE="cjk" emerge texlive-xetex` on Gentoo Linux
       ;; }}
       (setq org-latex-default-class "ctexart")
+      (when (and (spacemacs/system-is-linux) window-system)
       (setq org-latex-pdf-process
             '("latexmk -xelatex -f -interaction=nonstopmode -output-directory=%o -bibtex %f"
-              "rm -fr %b.out %b.log %b.tex auto"))
+              "rm -fr %b.out %b.log %b.tex auto")))
+      (when (and (spacemacs/system-is-mswindows) window-system)
+        (setq org-latex-pdf-process
+              '("latexmk -xelatex -f -interaction=nonstopmode -output-directory=%o -bibtex %f"
+                "del /Q /F %b.out %b.log %b.tex auto")))
 
       (setq org-latex-listings t)
 
@@ -662,7 +667,7 @@ you should place your code here."
  '(ansi-color-names-vector
    (vector "#839496" "#dc322f" "#859900" "#b58900" "#268bd2" "#d33682" "#2aa198" "#eee8d5"))
  '(fci-rule-color "#073642" t)
- '(org-hide-emphasis-markers t)
+ '(org-hide-emphasis-markers nil)
  '(org-highlight-latex-and-related (quote (latex script entities)))
  '(package-selected-packages
    (quote
@@ -700,6 +705,6 @@ you should place your code here."
  '(company-tooltip-common ((t (:inherit font-lock-constant-face))))
  '(company-tooltip-selection ((t (:inherit font-lock-function-name-face))))
  '(org-block ((t (:background "gray25"))))
- '(org-block-begin-line ((t (:inherit default :background "black" :foreground "white" :slant italic :weight semi-bold))) t)
+ '(org-block-begin-line ((t (:inherit default :background "black" :foreground "white" :slant italic :weight semi-bold))))
  '(org-code ((t (:inherit shadow :foreground "light gray" :weight semi-light :height 1.1))))
  '(org-verbatim ((t (:inherit shadow :foreground "light gray" :weight semi-light :height 1.1)))))
