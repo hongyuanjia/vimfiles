@@ -31,6 +31,7 @@ values."
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
    '(
+     vimscript
      pdf-tools
      html
      (auto-completion :variables auto-completion-enable-sort-by-usage t

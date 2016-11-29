@@ -73,7 +73,7 @@ set vb t_vb=
 " }}}
 
 " Vim 启动后最大化窗口 {{{2
-" au GUIEnter * simalt ~x
+au GUIEnter * simalt ~x
 " }}}
 
 " 启动英文单位补全 {{{2
@@ -742,6 +742,7 @@ call vimfiler#custom#profile('default', 'context', {
 augroup ft_idf
     au!
 au BufRead,BufNewFile *.idf set filetype=idf
+au BufRead,BufNewFile *.imf set filetype=idf
 augroup END
 "}}}
 "}}}
