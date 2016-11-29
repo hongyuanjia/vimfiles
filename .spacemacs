@@ -31,8 +31,6 @@ values."
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
    '(
-     vimscript
-     pdf-tools
      html
      (auto-completion :variables auto-completion-enable-sort-by-usage t
                                  auto-completion-enable-snippets-in-popup t)
@@ -54,7 +52,6 @@ values."
      bibtex
      org
      syntax-checking
-     ranger
      pandoc
      version-control
      )
