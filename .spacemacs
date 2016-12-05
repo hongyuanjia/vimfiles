@@ -60,6 +60,8 @@ values."
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
    dotspacemacs-additional-packages '(
+                                      material-theme
+                                      monokai-theme
                                       zotxt
                                       chinese-fonts-setup
                                       )
@@ -136,7 +138,8 @@ values."
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
    dotspacemacs-themes '(
-                         molokai
+                         material
+                         monokai
                          sanityinc-solarized-dark
                          spacemacs-dark
                          )
@@ -144,7 +147,7 @@ values."
    dotspacemacs-colorize-cursor-according-to-state t
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
    ;; quickly tweak the mode-line size to make separators look not too crappy.
-   dotspacemacs-default-font '("Source Code Pro"
+   dotspacemacs-default-font '("DroidSansMonoForPowerline NF"
                                :size 14
                                :weight demibold
                                :width normal
@@ -278,7 +281,7 @@ values."
    dotspacemacs-highlight-delimiters 'all
    ;; If non nil, advise quit functions to keep server open when quitting.
    ;; (default nil)
-   dotspacemacs-persistent-server nil
+   dotspacemacs-persistent-server t
    ;; List of search tool executable names. Spacemacs uses the first installed
    ;; tool of the list. Supported tools are `ag', `pt', `ack' and `grep'.
    ;; (default '("ag" "pt" "ack" "grep"))
@@ -312,11 +315,11 @@ before packages are loaded. If you are unsure, you should try in setting them in
    byte-compile-warnings '(not obsolete)
    warning-minimum-level :error
    evil-shift-round nil
+   menu-bar-mode t
    whitespace-style '(face tabs trailing space-before-tab newline indentation empty space-after-tab tab-mark newline-mark)
    whitespace-display-mappings
    '((newline-mark 10 [172 10])
      (tab-mark 9 [9655 9]))
-   monokai-highlight-line "#3A3A3A"
   )
 )
 
@@ -361,9 +364,6 @@ you should place your code here."
   ;;Only toggle relative line number mode when press F8
   (global-set-key (kbd "<f8>") 'linum-relative-mode)
 
-  ;;Enable menu bar
-  (setq menu-bar-mode t)
-
   ;;Not save abbrevs
   (setq save-abbrevs nil)
   ;; turn on abbrev mode globally
@@ -406,7 +406,7 @@ you should place your code here."
   (when (and (spacemacs/system-is-mswindows) window-system)
     (setq w32-pass-alt-to-system nil)
     (setq reftex-default-bibliography '("c:/Dropbox/3-Literatures/reference.bib"))
-    (setq org-ref-bibliography-notes "c:/Dropbox/Org/literatures_notes.org"
+    (setq org-ref-bibliography-notes "c:/Dropbox/org/literatures_notes.org"
           org-ref-default-bibliography '("c:/Dropbox/3-Literatures/reference.bib")
           org-ref-pdf-directory "c:/Dropbox/3-Literatures/Dissertation/")
     (setq bibtex-completion-bibliography "c:/Dropbox/3-Literatures/reference.bib"
@@ -414,7 +414,7 @@ you should place your code here."
 
   (when (and (spacemacs/system-is-linux) window-system)
   (setq reftex-default-bibliography '("~/Dropbox/3-Literatures/reference.bib"))
-  (setq org-ref-bibliography-notes "~/Dropbox/Org/literatures_notes.org"
+  (setq org-ref-bibliography-notes "~/Dropbox/org/literatures_notes.org"
         org-ref-default-bibliography '("~/Dropbox/3-Literatures/reference.bib")
         org-ref-pdf-directory "~/Dropbox/3-Literatures/Dissertation/")
   (setq bibtex-completion-bibliography "~/Dropbox/3-Literatures/reference.bib"
@@ -582,45 +582,45 @@ you should place your code here."
       ;;add multi-file journal
       (when (and (spacemacs/system-is-linux) window-system)
       (setq org-capture-templates
-            '(("t" "Todo" entry (file+headline "~/Dropbox/Org/gtd.org" "Daily")
+            '(("t" "Todo" entry (file+headline "~/Dropbox/org/gtd.org" "Daily")
                "* TODO [#D] %?\n  %i\n"
                :empty-lines 1)
-              ("w" "Work" entry (file+headline "~/Dropbox/Org/gtd.org" "Work")
+              ("w" "Work" entry (file+headline "~/Dropbox/org/gtd.org" "Work")
                "* TODO [#W] %?\n  %i\n %U"
                :empty-lines 1)
-              ("n" "Notes" entry (file+headline "~/Dropbox/Org/notes.org" "Quick notes")
+              ("n" "Notes" entry (file+headline "~/Dropbox/org/notes.org" "Quick notes")
                "* %?\n  %i\n %U"
                :empty-lines 1)
-              ("l" "Links" entry (file+headline "~/Dropbox/Org/notes.org" "Quick notes")
+              ("l" "Links" entry (file+headline "~/Dropbox/org/notes.org" "Quick notes")
                "* TODO [#C] %?\n  %i\n %a \n %U"
                :empty-lines 1)
               ("s" "Code Snippet" entry
                (file "~/Dropbox/Org/snippets.org")
                "* %?\t%^g\n#+BEGIN_SRC %^{language}\n\n#+END_SRC")
               ("j" "Journal Entry"
-               entry (file+datetree "~/Dropbox/Org/journal.org")
+               entry (file+datetree "~/Dropbox/org/journal.org")
                "* %?"
                :empty-lines 1))))
 
       (when (and (spacemacs/system-is-mswindows) window-system)
       (setq org-capture-templates
-            '(("t" "Todo" entry (file+headline "c:/Dropbox/Org/gtd.org" "Daily")
+            '(("t" "Todo" entry (file+headline "c:/Dropbox/org/gtd.org" "Daily")
                "* TODO [#D] %?\n  %i\n"
                :empty-lines 1)
-              ("w" "Work" entry (file+headline "c:/Dropbox/Org/gtd.org" "Work")
+              ("w" "Work" entry (file+headline "c:/Dropbox/org/gtd.org" "Work")
                "* TODO [#W] %?\n  %i\n %U"
                :empty-lines 1)
-              ("n" "Notes" entry (file+headline "c:/Dropbox/Org/notes.org" "Quick notes")
+              ("n" "Notes" entry (file+headline "c:/Dropbox/org/notes.org" "Quick notes")
                "* %?\n  %i\n %U"
                :empty-lines 1)
-              ("l" "Links" entry (file+headline "c:/Dropbox/Org/notes.org" "Quick notes")
+              ("l" "Links" entry (file+headline "c:/Dropbox/org/notes.org" "Quick notes")
                "* TODO [#C] %?\n  %i\n %a \n %U"
                :empty-lines 1)
               ("s" "Code Snippet" entry
-               (file "c:/Dropbox/Org/snippets.org")
+               (file "c:/Dropbox/org/snippets.org")
                "* %?\t%^g\n#+BEGIN_SRC %^{language}\n\n#+END_SRC")
               ("j" "Journal Entry"
-               entry (file+datetree "c:/Dropbox/Org/journal.org")
+               entry (file+datetree "c:/Dropbox/org/journal.org")
                "* %?"
                :empty-lines 1))))
       ;;An entry without a cookie is treated just like priority ' B '.
@@ -662,14 +662,12 @@ you should place your code here."
  ;; If there is more than one, they won't work right.
  '(ansi-color-faces-vector
    [default bold shadow italic underline bold bold-italic bold])
- '(ansi-color-names-vector
-   (vector "#839496" "#dc322f" "#859900" "#b58900" "#268bd2" "#d33682" "#2aa198" "#eee8d5"))
  '(fci-rule-color "#073642" t)
  '(org-hide-emphasis-markers nil)
  '(org-highlight-latex-and-related (quote (latex script entities)))
  '(package-selected-packages
    (quote
-    (window-purpose imenu-list pdf-tools tablist vimrc-mode dactyl-mode pandoc-mode hide-comnt ox-pandoc flyspell-popup git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter diff-hl company-auctex auctex-latexmk auctex ivy-purpose helm-swoop helm-purpose helm-projectile helm-mode-manager helm-gitignore helm-flx helm-descbinds helm-css-scss helm-company helm-c-yasnippet helm-ag flyspell-correct-helm org-ref key-chord helm-bibtex biblio parsebib biblio-core web-mode tagedit slim-mode scss-mode sass-mode pug-mode less-css-mode haml-mode emmet-mode company-web web-completion-data ranger youdao-dictionary names chinese-word-at-point rainbow-mode rainbow-identifiers magit-gh-pulls gh marshal logito pcache ht helm-themes fcitx color-identifiers-mode ace-jump-helm-line zotxt request-deferred deferred color-theme-sanityinc-solarized ess-smart-equals ess-R-object-popup ess-R-data-view ctable ess julia-mode xterm-color shell-pop mwim multi-term flycheck-pos-tip flycheck eshell-z eshell-prompt-extras esh-help chinese-wbim molokai-theme pangu-spacing find-by-pinyin-dired chinese-pyim chinese-pyim-basedict pos-tip ace-pinyin pinyinlib ace-jump-mode chinese-fonts-setup smeargle orgit org-projectile org-present org org-pomodoro alert log4e gntp org-download mmm-mode markdown-toc markdown-mode magit-gitflow htmlize gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link gh-md flyspell-correct-ivy flyspell-correct evil-magit magit magit-popup git-commit with-editor company-statistics company auto-yasnippet yasnippet auto-dictionary ac-ispell auto-complete ws-butler window-numbering which-key wgrep volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline smex restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox spinner org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint ivy-hydra info+ indent-guide ido-vertical-mode hydra hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation help-fns+ helm-make helm helm-core google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu highlight elisp-slime-nav dumb-jump popup f s diminish define-word counsel-projectile projectile pkg-info epl counsel swiper ivy column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed dash async aggressive-indent adaptive-wrap ace-window ace-link avy quelpa package-build spacemacs-theme)))
+    (window-purpose imenu-list tablist dactyl-mode pandoc-mode hide-comnt ox-pandoc flyspell-popup git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter diff-hl company-auctex auctex-latexmk auctex ivy-purpose helm-swoop helm-purpose helm-projectile helm-mode-manager helm-gitignore helm-flx helm-descbinds helm-css-scss helm-company helm-c-yasnippet helm-ag flyspell-correct-helm org-ref key-chord helm-bibtex biblio parsebib biblio-core web-mode tagedit slim-mode scss-mode sass-mode pug-mode less-css-mode haml-mode emmet-mode company-web web-completion-data ranger youdao-dictionary names chinese-word-at-point rainbow-mode rainbow-identifiers magit-gh-pulls gh marshal logito pcache ht helm-themes fcitx color-identifiers-mode ace-jump-helm-line zotxt request-deferred deferred color-theme-sanityinc-solarized ess-smart-equals ess-R-object-popup ess-R-data-view ctable ess julia-mode xterm-color shell-pop mwim multi-term flycheck-pos-tip flycheck eshell-z eshell-prompt-extras esh-help chinese-wbim molokai-theme pangu-spacing find-by-pinyin-dired chinese-pyim chinese-pyim-basedict pos-tip ace-pinyin pinyinlib ace-jump-mode chinese-fonts-setup smeargle orgit org-projectile org-present org org-pomodoro alert log4e gntp org-download mmm-mode markdown-toc markdown-mode magit-gitflow htmlize gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link gh-md flyspell-correct-ivy flyspell-correct evil-magit magit magit-popup git-commit with-editor company-statistics company auto-yasnippet yasnippet auto-dictionary ac-ispell auto-complete ws-butler window-numbering which-key wgrep volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline smex restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox spinner org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint ivy-hydra info+ indent-guide ido-vertical-mode hydra hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation help-fns+ helm-make helm helm-core google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu highlight elisp-slime-nav dumb-jump popup f s diminish define-word counsel-projectile projectile pkg-info epl counsel swiper ivy column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed dash async aggressive-indent adaptive-wrap ace-window ace-link avy quelpa package-build spacemacs-theme)))
  '(vc-annotate-background nil)
  '(vc-annotate-color-map
    (quote
@@ -697,12 +695,8 @@ you should place your code here."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(company-scrollbar-bg ((t (:background "#333638"))))
- '(company-scrollbar-fg ((t (:background "#27292b"))))
- '(company-tooltip ((t (:inherit default :background "#1f2223"))))
+ '(company-scrollbar-bg ((t (:background "#414339"))))
+ '(company-scrollbar-fg ((t (:background "#34352d"))))
+ '(company-tooltip ((t (:inherit default :background "#2c2d26"))))
  '(company-tooltip-common ((t (:inherit font-lock-constant-face))))
- '(company-tooltip-selection ((t (:inherit font-lock-function-name-face))))
- '(org-block ((t (:background "gray25"))))
- '(org-block-begin-line ((t (:inherit default :background "black" :foreground "white" :slant italic :weight semi-bold))))
- '(org-code ((t (:inherit shadow :foreground "light gray" :weight semi-light :height 1.1))))
- '(org-verbatim ((t (:inherit shadow :foreground "light gray" :weight semi-light :height 1.1)))))
+ '(company-tooltip-selection ((t (:inherit font-lock-function-name-face)))))
