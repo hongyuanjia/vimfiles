@@ -341,9 +341,9 @@ you should place your code here."
         ;; highlights and comments
         monokai-comments       "#75715E"
         monokai-emphasis       "#282C34"
-        monokai-highlight      "#FFB269"
-        monokai-highlight-alt  "#66D9EF"
-        monokai-highlight-line "#2D2E27"
+        monokai-highlight      "#49483E"
+        monokai-highlight-alt  "#3E3D31"
+        monokai-highlight-line "#DCE10A"
         monokai-line-number    "#F8F8F0"
         ;; colours
         monokai-blue           "#61AFEF"
@@ -503,6 +503,26 @@ you should place your code here."
                                   ;; keybinding for inserting code blocks
                                   (local-set-key (kbd "C-c i s")
                                                  'zilongshanren/org-insert-src-block)))
+      (add-to-list 'org-latex-classes '("elsarticle" "\\documentclass{elsarticle}
+                                        [NO-DEFAULT-PACKAGES]
+                                        \\usepackage{amssymb}
+                                        \\usepackage{amsmath}
+                                        \\usepackage{longtable}
+                                        \\usepackage{tabularx}
+                                        \\usepackage[bookmarksopen=true,
+                                                     pdfstartview=FitB,
+                                                     colorlinks=true,
+                                                     linkcolor=blue,
+                                                     anchorcolor=blue,
+                                                     citecolor=blue]{hyperref}
+                                        }
+                                        "
+                                        ("\\section{%s}" . "\\section*{%s}")
+                                        ("\\subsection{%s}" . "\\subsection*{%s}")
+                                        ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+                                        ("\\paragraph{%s}" . "\\paragraph*{%s}")
+                                        ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
+
       (add-to-list 'org-latex-classes '("ctexart" "\\documentclass[11pt]{ctexart}
                                         [NO-DEFAULT-PACKAGES]
                                         \\usepackage[utf8]{inputenc}
