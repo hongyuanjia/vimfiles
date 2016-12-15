@@ -335,7 +335,6 @@ you should place your code here."
   (require 'airline-themes)
   (load-theme 'airline-molokai)
   (setq airline-cursor-colors nil)
-  (setq org-ellipsis "⤵")
   (setq monokai-foreground     "#E8E8E3"
         monokai-background     "#272822"
         ;; highlights and comments
@@ -354,10 +353,6 @@ you should place your code here."
         monokai-red            "#F92772"
         monokai-orange         "#FD9720"
         monokai-yellow         "#E6DB74")
-
-  (setq org-pandoc-options-for-docx '((reference-docx . "~/pandoc_templates/default.docx")))
-  (setq org-pandoc-options-for-latex-pdf '((template . "~/pandoc_templates/default.latex")(latex-engine . "xelatex")))
-  (setq org-pandoc-options-for-beamer-pdf '((template . "~/pandoc_templates/default.beamer")(latex-engine . "xelatex")))
 
   ;;Vim-like key bindings
   (define-key evil-motion-state-map "H" 'evil-first-non-blank)
@@ -403,6 +398,9 @@ you should place your code here."
 
   ;;Org-mode settings----------------------------------------------------------------
   (with-eval-after-load 'org
+
+  (setq org-ellipsis "⤵")
+
   (setq org-confirm-babel-evaluate nil)
   (setq org-edit-src-content-indentation 0
         org-src-tab-acts-natively t
@@ -412,12 +410,15 @@ you should place your code here."
   ;;                             (visual-line-mode)
                               (org-indent-mode)))
 
-  ;; ;;Use Pandoc to export docx files through org files.
-  ;; (require 'ox-pandoc)
+  ;; ;;Use ox-pandoc package to export docx files through org files.
+  (setq org-pandoc-options-for-docx '((reference-docx . "~/pandoc_templates/default.docx")))
+  (setq org-pandoc-options-for-latex-pdf '((template . "~/pandoc_templates/default.latex")(latex-engine . "xelatex")))
+  (setq org-pandoc-options-for-beamer-pdf '((template . "~/pandoc_templates/default.beamer")(latex-engine . "xelatex")))
 
   (defun turn-on-org-show-all-inline-images ()
     (org-display-inline-images t t))
   (add-hook 'org-mode-hook 'turn-on-org-show-all-inline-images)
+
   ;; Org-Ref settings
   (when (and (spacemacs/system-is-mswindows) window-system)
     (setq w32-pass-alt-to-system nil)
@@ -427,7 +428,6 @@ you should place your code here."
           org-ref-pdf-directory "c:/Dropbox/3-Literatures/Dissertation/")
     (setq bibtex-completion-bibliography "c:/Dropbox/3-Literatures/reference.bib"
           bibtex-completion-library-path "c:/Dropbox/3-Literatures/Dissertation/"))
-
   (when (and (spacemacs/system-is-linux) window-system)
   (setq reftex-default-bibliography '("~/Dropbox/3-Literatures/reference.bib"))
   (setq org-ref-bibliography-notes "~/Dropbox/org/literatures_notes.org"
@@ -503,6 +503,7 @@ you should place your code here."
                                   ;; keybinding for inserting code blocks
                                   (local-set-key (kbd "C-c i s")
                                                  'zilongshanren/org-insert-src-block)))
+
       (add-to-list 'org-latex-classes '("elsarticle" "\\documentclass{elsarticle}
                                         [NO-DEFAULT-PACKAGES]
                                         \\usepackage{amssymb}
@@ -575,6 +576,7 @@ you should place your code here."
       ;; To install texlive-xetex:
       ;;    `sudo USE="cjk" emerge texlive-xetex` on Gentoo Linux
       ;; }}
+
       (setq org-latex-default-class "ctexart")
       (when (and (spacemacs/system-is-linux) window-system)
       (setq org-latex-pdf-process
@@ -583,7 +585,7 @@ you should place your code here."
       (when (and (spacemacs/system-is-mswindows) window-system)
         (setq org-latex-pdf-process
               '("latexmk -xelatex -f -interaction=nonstopmode -output-directory=%o -bibtex %f"
-                "del /Q /F %b.out %b.log %b.tex auto")))
+                "del /Q /F %b.out %b.log %b.tex %b.spl auto")))
 
       (setq org-latex-listings t)
 
@@ -609,10 +611,10 @@ you should place your code here."
         (setq org-agenda-files (quote ("c:/Dropbox/Org" )))
         (setq org-default-notes-file "c:/Dropbox/Org/gtd.org"))
 
-      (with-eval-after-load 'org-agenda
-        (spacemacs/set-leader-keys-for-major-mode 'org-agenda-mode
-          "." 'spacemacs/org-agenda-transient-state/body)
-        )
+      ;; (with-eval-after-load 'org-agenda
+      ;;   (spacemacs/set-leader-keys-for-major-mode 'org-agenda-mode
+      ;;     "." 'spacemacs/org-agenda-transient-state/body)
+      ;;   )
       ;; the %i would copy the selected text into the template
       ;;http://www.howardism.org/Technical/Emacs/journaling-org.html
       ;;add multi-file journal
