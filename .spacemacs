@@ -34,10 +34,7 @@ values."
      html
      (auto-completion :variables auto-completion-enable-sort-by-usage t
                                  auto-completion-enable-snippets-in-popup t)
-     ;; (chinese :variables chinese-default-input-method 'wubi)
-              ;;chinese-enable-fcitx t)
      (ess :variables ess-use-auto-complete t)
-     ;; (shell :variables shell-default-shell 'eshell)
      (spacemacs-layouts :variables layouts-enable-autosave nil
                                    layouts-autosave-delay 300)
      (spell-checking :variables enable-flyspell-auto-completion nil
@@ -58,18 +55,17 @@ values."
    dotspacemacs-additional-packages '(
                                       swiper-helm
                                       pangu-spacing
-                                      airline-themes
-                                      monokai-theme
+                                      darkokai-theme
                                       chinese-fonts-setup
                                       )
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
    ;; A list of packages that will not be installed and loaded.
    dotspacemacs-excluded-packages '(
+                                    pandoc-mode
                                     yasnippet
                                     magit-gitflow
                                     org-projectile
-                                    spaceline
                                     holy-mode
                                     highligh-indentation
                                     eyebrowse
@@ -93,7 +89,7 @@ values."
                                     helm-swoop
                                     helm-flx
                                     smeargle
-                                    spaceline
+                                    ;; spaceline
                                     ido-vertical
                                     ;; purpose-mode
                                     ;; window-purpose
@@ -169,9 +165,8 @@ values."
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
    dotspacemacs-themes '(
-                         monokai
+                         darkokai
                          sanityinc-solarized-dark
-                         spacemacs-dark
                          )
    ;; If non nil the cursor color matches the state color in GUI Emacs.
    dotspacemacs-colorize-cursor-according-to-state t
@@ -338,6 +333,7 @@ before packages are loaded. If you are unsure, you should try in setting them in
   ;; (setq org-ref-insert-cite-key "C-c """)
   ;; https://github.com/syl20bnr/spacemacs/issues/2705
   ;; (setq tramp-mode nil)
+  (load-theme 'darkokai t)
   (setq-default
    ispell-program-name "aspell"
    tramp-ssh-controlmaster-options "-o ControlMaster=auto -o ControlPath='tramp.%%C' -o ControlPersist=no"
@@ -350,7 +346,7 @@ before packages are loaded. If you are unsure, you should try in setting them in
    ;; '((newline-mark 10 [172 10])
    ;;   (tab-mark 9 [9655 9]))
   )
-)
+  )
 
 (defun dotspacemacs/user-config ()
   "Configuration function for user code.
@@ -366,28 +362,6 @@ you should place your code here."
   ;;Powerline setup
   (setq ns-use-srgb-colorspace nil)
   (setq powerline-default-separator 'arrow-fade)
-  (require 'airline-themes)
-  (load-theme 'airline-molokai)
-  (setq airline-cursor-colors nil)
-  (setq monokai-foreground     "#E8E8E3"
-        monokai-background     "#272822"
-        ;; highlights and comments
-        monokai-comments       "#75715E"
-        monokai-emphasis       "#282C34"
-        monokai-highlight      "#49483E"
-        monokai-highlight-alt  "#3E3D31"
-        monokai-highlight-line "#DCE10A"
-        monokai-line-number    "#F8F8F0"
-        ;; colours
-        monokai-blue           "#61AFEF"
-        monokai-cyan           "#56B6C2"
-        monokai-green          "#A6E22D"
-        monokai-gray           "#8F908A"
-        monokai-violet         "#F92772"
-        monokai-red            "#F92772"
-        monokai-orange         "#FD9720"
-        monokai-yellow         "#E6DB74")
-
   (global-set-key (kbd "C-s") 'swiper)
 
   (require 'pangu-spacing)
@@ -395,6 +369,7 @@ you should place your code here."
   (add-hook 'org-mode-hook
             '(lambda ()
                (set (make-local-variable 'pangu-spacing-real-insert-separtor) t)))
+
   ;;Vim-like key bindings
   (define-key evil-motion-state-map "H" 'evil-first-non-blank)
   (define-key evil-motion-state-map "L" 'evil-end-of-line)
@@ -405,14 +380,6 @@ you should place your code here."
   (setq ispell-personal-dictionary "C:/Program Files (x86)/Aspell/dict/"))
   ;; (ispell-change-dictionary "american" t)
 
-  ;;Auto-completion popup color
-  (let ((bg (face-attribute 'default :background)))
-    (custom-set-faces
-     `(company-tooltip ((t (:inherit default :background ,(color-lighten-name bg 2)))))
-     `(company-scrollbar-bg ((t (:background ,(color-lighten-name bg 10)))))
-     `(company-scrollbar-fg ((t (:background ,(color-lighten-name bg 5)))))
-     `(company-tooltip-selection ((t (:inherit font-lock-function-name-face))))
-     `(company-tooltip-common ((t (:inherit font-lock-constant-face))))))
   (spacemacs|add-company-hook 'text-mode)
 
   ;;Only toggle relative line number mode when press F8
@@ -769,7 +736,7 @@ you should place your code here."
  '(org-highlight-latex-and-related (quote (latex script entities)))
  '(package-selected-packages
    (quote
-    (swiper-helm airline-themes window-purpose imenu-list tablist dactyl-mode hide-comnt ox-pandoc git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter diff-hl company-auctex auctex-latexmk auctex ivy-purpose helm-swoop helm-purpose helm-projectile helm-mode-manager helm-gitignore helm-flx helm-descbinds helm-css-scss helm-company helm-c-yasnippet helm-ag flyspell-correct-helm org-ref key-chord helm-bibtex biblio parsebib biblio-core web-mode tagedit slim-mode scss-mode sass-mode pug-mode less-css-mode haml-mode emmet-mode company-web web-completion-data ranger youdao-dictionary names chinese-word-at-point rainbow-mode rainbow-identifiers magit-gh-pulls gh marshal logito pcache ht helm-themes fcitx color-identifiers-mode ace-jump-helm-line zotxt request-deferred deferred color-theme-sanityinc-solarized ess-smart-equals ess-R-object-popup ess-R-data-view ctable ess julia-mode xterm-color shell-pop mwim multi-term flycheck-pos-tip flycheck eshell-z eshell-prompt-extras esh-help chinese-wbim molokai-theme pangu-spacing find-by-pinyin-dired chinese-pyim chinese-pyim-basedict pos-tip ace-pinyin pinyinlib ace-jump-mode chinese-fonts-setup smeargle orgit org-projectile org-present org org-pomodoro alert log4e gntp org-download mmm-mode markdown-toc markdown-mode magit-gitflow htmlize gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link gh-md flyspell-correct-ivy flyspell-correct evil-magit magit magit-popup git-commit with-editor company-statistics company auto-yasnippet yasnippet auto-dictionary ac-ispell auto-complete ws-butler window-numbering which-key wgrep volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline smex restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox spinner org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint ivy-hydra info+ indent-guide ido-vertical-mode hydra hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation help-fns+ helm-make helm helm-core google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu highlight elisp-slime-nav dumb-jump popup f s diminish define-word counsel-projectile projectile pkg-info epl counsel swiper ivy column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed dash async aggressive-indent adaptive-wrap ace-window ace-link avy quelpa package-build spacemacs-theme)))
+    (swiper-helm window-purpose imenu-list tablist dactyl-mode hide-comnt ox-pandoc git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter diff-hl company-auctex auctex-latexmk auctex ivy-purpose helm-swoop helm-purpose helm-projectile helm-mode-manager helm-gitignore helm-flx helm-descbinds helm-css-scss helm-company helm-c-yasnippet helm-ag flyspell-correct-helm org-ref key-chord helm-bibtex biblio parsebib biblio-core web-mode tagedit slim-mode scss-mode sass-mode pug-mode less-css-mode haml-mode emmet-mode company-web web-completion-data ranger youdao-dictionary names chinese-word-at-point rainbow-mode rainbow-identifiers magit-gh-pulls gh marshal logito pcache ht helm-themes fcitx color-identifiers-mode ace-jump-helm-line zotxt request-deferred deferred color-theme-sanityinc-solarized ess-smart-equals ess-R-object-popup ess-R-data-view ctable ess julia-mode xterm-color shell-pop mwim multi-term flycheck-pos-tip flycheck eshell-z eshell-prompt-extras esh-help chinese-wbim molokai-theme pangu-spacing find-by-pinyin-dired chinese-pyim chinese-pyim-basedict pos-tip ace-pinyin pinyinlib ace-jump-mode chinese-fonts-setup smeargle orgit org-projectile org-present org org-pomodoro alert log4e gntp org-download mmm-mode markdown-toc markdown-mode magit-gitflow htmlize gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link gh-md flyspell-correct-ivy flyspell-correct evil-magit magit magit-popup git-commit with-editor company-statistics company auto-yasnippet yasnippet auto-dictionary ac-ispell auto-complete ws-butler window-numbering which-key wgrep volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline smex restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox spinner org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint ivy-hydra info+ indent-guide ido-vertical-mode hydra hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation help-fns+ helm-make helm helm-core google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu highlight elisp-slime-nav dumb-jump popup f s diminish define-word counsel-projectile projectile pkg-info epl counsel swiper ivy column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed dash async aggressive-indent adaptive-wrap ace-window ace-link avy quelpa package-build spacemacs-theme)))
  '(pos-tip-background-color "#A6E22E")
  '(pos-tip-foreground-color "#272822")
  '(vc-annotate-background nil)
@@ -820,89 +787,3 @@ you should place your code here."
  '(org-meta-line ((t (:inherit font-lock-comment-face :background "black" :foreground "white" :weight normal))))
  '(org-tag ((t (:background "dark slate gray" :foreground "gray100" :weight bold))))
  '(org-verbatim ((t (:inherit shadow :background "dark slate gray" :foreground "ghost white" :inverse-video nil)))))
-(defun dotspacemacs/emacs-custom-settings ()
-  "Emacs custom settings.
-This is an auto-generated function, do not modify its content directly, use
-Emacs customize menu instead.
-This function is called at the very end of Spacemacs initialization."
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(ansi-color-faces-vector
-   [default bold shadow italic underline bold bold-italic bold])
- '(cfs--current-profile "profile1" t)
- '(cfs--profiles-steps (quote (("profile1" . 4))) t)
- '(compilation-message-face (quote default))
- '(custom-safe-themes
-   (quote
-    ("73a13a70fd111a6cd47f3d4be2260b1e4b717dbf635a9caee6442c949fad41cd" "1dffeecd1565d04cd2059234e872cd80fcbe813488602d5c42b5c9e576924d9f" default)))
- '(evil-want-Y-yank-to-eol nil)
- '(fci-rule-color "#073642" t)
- '(highlight-changes-colors (quote ("#FD5FF0" "#AE81FF")))
- '(highlight-tail-colors
-   (quote
-    (("#3C3D37" . 0)
-     ("#679A01" . 20)
-     ("#4BBEAE" . 30)
-     ("#1DB4D0" . 50)
-     ("#9A8F21" . 60)
-     ("#A75B00" . 70)
-     ("#F309DF" . 85)
-     ("#3C3D37" . 100))))
- '(magit-diff-use-overlays nil)
- '(package-selected-packages
-   (quote
-    (airline-themes window-purpose imenu-list tablist dactyl-mode hide-comnt ox-pandoc git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter diff-hl company-auctex auctex-latexmk auctex ivy-purpose helm-swoop helm-purpose helm-projectile helm-mode-manager helm-gitignore helm-flx helm-descbinds helm-css-scss helm-company helm-c-yasnippet helm-ag flyspell-correct-helm org-ref key-chord helm-bibtex biblio parsebib biblio-core web-mode tagedit slim-mode scss-mode sass-mode pug-mode less-css-mode haml-mode emmet-mode company-web web-completion-data ranger youdao-dictionary names chinese-word-at-point rainbow-mode rainbow-identifiers magit-gh-pulls gh marshal logito pcache ht helm-themes fcitx color-identifiers-mode ace-jump-helm-line zotxt request-deferred deferred color-theme-sanityinc-solarized ess-smart-equals ess-R-object-popup ess-R-data-view ctable ess julia-mode xterm-color shell-pop mwim multi-term flycheck-pos-tip flycheck eshell-z eshell-prompt-extras esh-help chinese-wbim molokai-theme pangu-spacing find-by-pinyin-dired chinese-pyim chinese-pyim-basedict pos-tip ace-pinyin pinyinlib ace-jump-mode chinese-fonts-setup smeargle orgit org-projectile org-present org org-pomodoro alert log4e gntp org-download mmm-mode markdown-toc markdown-mode magit-gitflow htmlize gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link gh-md flyspell-correct-ivy flyspell-correct evil-magit magit magit-popup git-commit with-editor company-statistics company auto-yasnippet yasnippet auto-dictionary ac-ispell auto-complete ws-butler window-numbering which-key wgrep volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline smex restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox spinner org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint ivy-hydra info+ indent-guide ido-vertical-mode hydra hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation help-fns+ helm-make helm helm-core google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu highlight elisp-slime-nav dumb-jump popup f s diminish define-word counsel-projectile projectile pkg-info epl counsel swiper ivy column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed dash async aggressive-indent adaptive-wrap ace-window ace-link avy quelpa package-build spacemacs-theme)))
- '(pos-tip-background-color "#A6E22E")
- '(pos-tip-foreground-color "#272822")
- '(vc-annotate-background nil)
- '(vc-annotate-color-map
-   (quote
-    ((20 . "#dc322f")
-     (40 . "#cb4b16")
-     (60 . "#b58900")
-     (80 . "#859900")
-     (100 . "#2aa198")
-     (120 . "#268bd2")
-     (140 . "#d33682")
-     (160 . "#6c71c4")
-     (180 . "#dc322f")
-     (200 . "#cb4b16")
-     (220 . "#b58900")
-     (240 . "#859900")
-     (260 . "#2aa198")
-     (280 . "#268bd2")
-     (300 . "#d33682")
-     (320 . "#6c71c4")
-     (340 . "#dc322f")
-     (360 . "#cb4b16"))))
- '(vc-annotate-very-old-color nil)
- '(weechat-color-list
-   (unspecified "#272822" "#3C3D37" "#F70057" "#F92672" "#86C30D" "#A6E22E" "#BEB244" "#E6DB74" "#40CAE4" "#66D9EF" "#FB35EA" "#FD5FF0" "#74DBCD" "#A1EFE4" "#F8F8F2" "#F8F8F0")))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(company-scrollbar-bg ((t (:background "#414339"))))
- '(company-scrollbar-fg ((t (:background "#34352d"))))
- '(company-tooltip ((t (:inherit default :background "#2c2d26"))))
- '(company-tooltip-common ((t (:inherit font-lock-constant-face))))
- '(company-tooltip-selection ((t (:inherit font-lock-function-name-face))))
- '(org-block ((t (:background "gray12" :foreground "#F8F8F0"))))
- '(org-block-begin-line ((t (:background "black" :foreground "honeydew" :slant italic :weight bold))))
- '(org-block-end-line ((t (:background "black" :foreground "honeydew" :slant italic :weight bold))))
- '(org-code ((t (:foreground "LemonChiffon1" :weight semi-bold))))
- '(org-document-info-keyword ((t (:inherit shadow :foreground "aquamarine"))))
- '(org-document-title ((t (:foreground "#F8F8F0" :weight bold :height 1.05))))
- '(org-ellipsis ((t (:foreground "light gray"))))
- '(org-level-1 ((t (:inherit default :foreground "#FD971F" :weight bold :height 1.05))))
- '(org-level-2 ((t (:inherit outline-2 :foreground "#A6E22E" :height 1.05))))
- '(org-level-3 ((t (:inherit default :foreground "#66D9EF" :height 1.05))))
- '(org-level-4 ((t (:inherit default :foreground "#E6DB74" :height 1))))
- '(org-meta-line ((t (:inherit font-lock-comment-face :background "black" :foreground "white" :weight normal))))
- '(org-tag ((t (:background "dark slate gray" :foreground "gray100" :weight bold))))
- '(org-verbatim ((t (:inherit shadow :background "dark slate gray" :foreground "ghost white" :inverse-video nil)))))
-)
