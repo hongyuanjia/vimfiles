@@ -63,7 +63,7 @@ values."
    ;; A list of packages that will not be installed and loaded.
    dotspacemacs-excluded-packages '(
                                     pandoc-mode
-                                    yasnippet
+                                    ;; yasnippet
                                     magit-gitflow
                                     org-projectile
                                     holy-mode
@@ -173,7 +173,7 @@ values."
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
    ;; quickly tweak the mode-line size to make separators look not too crappy.
    dotspacemacs-default-font '("DroidSansMonoForPowerline NF"
-                               :size 14
+                               :size 11
                                :weight demibold
                                :width normal
                                :powerline-scale 1.4)
@@ -333,7 +333,6 @@ before packages are loaded. If you are unsure, you should try in setting them in
   ;; (setq org-ref-insert-cite-key "C-c """)
   ;; https://github.com/syl20bnr/spacemacs/issues/2705
   ;; (setq tramp-mode nil)
-  (load-theme 'darkokai t)
   (setq-default
    ispell-program-name "aspell"
    tramp-ssh-controlmaster-options "-o ControlMaster=auto -o ControlPath='tramp.%%C' -o ControlPersist=no"
@@ -355,6 +354,7 @@ layers configuration.
 This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
+  (load-theme 'darkokai t)
   ;;Chinese fonts setup
   (require 'chinese-fonts-setup)
   (chinese-fonts-setup-enable)
@@ -464,6 +464,7 @@ you should place your code here."
     (setq org-latex-create-formula-image-program 'imagemagick))
   (when (and (spacemacs/system-is-mswindows) window-system)
     (setq org-latex-create-formula-image-program 'dvipng))
+    ;; (setq org-latex-create-formula-image-program 'imagemagick))
 
   (defun zilongshanren/org-insert-src-block (src-code-type)
     "Insert a `SRC-CODE-TYPE' type source code block in org-mode."
@@ -517,18 +518,34 @@ you should place your code here."
                                                  'zilongshanren/org-insert-src-block)))
 
       (add-to-list 'org-latex-classes '("elsarticle" "\\documentclass{elsarticle}
+
                                         [NO-DEFAULT-PACKAGES]
                                         \\usepackage{amssymb}
                                         \\usepackage{amsmath}
+                                        \\usepackage{textcomp}
                                         \\usepackage{longtable}
+                                        \\usepackage{booktabs}
                                         \\usepackage{tabularx}
+                                        \\usepackage[numbers,sort&compress]{natbib}
+                                        \\usepackage{siunitx}
+                                        \\usepackage{titlesec}
+                                        \\titlespacing\\subsection{0pt}{12pt plus 2pt minus 2pt}{10pt plus 2pt minus 2pt}
+                                        \\titlespacing\\subsubsection{0pt}{12pt plus 4pt minus 2pt}{2pt plus 2pt minus 2pt}
+                                        \\usepackage[labelfont=bf,font=small]{caption}
+                                        \\captionsetup[table]{format=plain,labelsep=newline,singlelinecheck=false,justification=raggedright,skip=0pt}
+                                        \\captionsetup[figure]{labelsep=period, name=Fig.}
+                                        \\renewcommand{\\figureautorefname}{Fig.}
+                                        \\usepackage[labelformat=simple]{subfig}
+                                        \\renewcommand\\thesubfigure{(\\alph{subfigure})}
+                                        \\newcommand{\\subfigureautorefname}{\\figureautorefname}
+                                        \\usepackage[x11names]{xcolor}
                                         \\usepackage[bookmarksopen=true,
                                                      pdfstartview=FitB,
                                                      colorlinks=true,
-                                                     linkcolor=blue,
-                                                     anchorcolor=blue,
-                                                     citecolor=blue]{hyperref}
-                                        }
+                                                     citecolor=DeepSkyBlue3,
+                                                     linkcolor=DeepSkyBlue3,
+                                                     anchorcolor=DeepSkyBlue3]{hyperref}
+                                        \\AtBeginDocument{\\hypersetup{citecolor=DeepSkyBlue3, linkcolor=DeepSkyBlue3, anchorcolor=DeepSkyBlue3}}
                                         "
                                         ("\\section{%s}" . "\\section*{%s}")
                                         ("\\subsection{%s}" . "\\subsection*{%s}")
@@ -712,10 +729,13 @@ you should place your code here."
  ;; If there is more than one, they won't work right.
  '(ansi-color-faces-vector
    [default bold shadow italic underline bold bold-italic bold])
+ '(cfs--current-profile "profile1" t)
+ '(cfs--profiles-steps (quote (("profile1" . 2))) t)
  '(compilation-message-face (quote default))
  '(custom-safe-themes
    (quote
     ("73a13a70fd111a6cd47f3d4be2260b1e4b717dbf635a9caee6442c949fad41cd" "1dffeecd1565d04cd2059234e872cd80fcbe813488602d5c42b5c9e576924d9f" default)))
+ '(ess-ask-for-ess-directory nil)
  '(evil-want-Y-yank-to-eol nil)
  '(fci-rule-color "#073642" t)
  '(highlight-changes-colors (quote ("#FD5FF0" "#AE81FF")))
@@ -730,6 +750,9 @@ you should place your code here."
      ("#F309DF" . 85)
      ("#3C3D37" . 100))))
  '(magit-diff-use-overlays nil)
+ '(org-agenda-files
+   (quote
+    ("c:/Dropbox/Org/gtd.org" "c:/Dropbox/Org/journal.org" "c:/Dropbox/Org/literatures_notes.org" "c:/Dropbox/Org/notes.org" "c:/Dropbox/papers/validation_radiant_model/verification_radiant_model.org")))
  '(org-bullets-bullet-list (quote ("*" "*" "*" "*" "*")))
  '(org-hide-emphasis-markers nil)
  '(org-hide-leading-stars t)
