@@ -1,5 +1,5 @@
-scriptencoding utf-8
-
+" Author: Hongyuan Jia
+" Email: hongyuanjia@outlook.com
 " INITIALIZATION ==========================================================={{{1
 " Identify platform {{{2
 let g:MAC = has('macunix')
@@ -25,10 +25,6 @@ set termencoding=utf-8
 language messages zh_CN.utf-8
 source $VIMRUNTIME/delmenu.vim
 source $VIMRUNTIME/menu.vim
-augroup ft_vim
-    au!
-au FileType vim setlocal foldmethod=marker
-augroup END
 
 " windows GUI界面乱码设置
 if g:WINDOWS
@@ -202,7 +198,7 @@ hi! link Conceal Operator
 set noerrorbells
 set novisualbell
 set visualbell t_vb=
-" set listchars=eol:¬,tab:>·,trail:~,extends:>,precedes:<
+set listchars=eol:¬,tab:>>,trail:~,extends:>,precedes:<
 set list
 " IME Settings
 if has('multi_byte_ime')
@@ -215,10 +211,6 @@ if has('multi_byte_ime')
     " 插入模式输入法状态未被记录时，默认关闭IME
     "inoremap <silent> <ESC> <ESC>:set iminsert=0<CR>
 endif
-" SpaceEmacs-like Statusline
-silent! set showtabline=1
-" silent! set tabline=%!MyTabLine()
-" set statusline=%!MyStatusLine()
 syntax on                      " Syntax highlighting
 highlight clear SignColumn  " SignColumn should match background
 " highlight clear LineNr      " Current line number row will have same background color in relative mode
@@ -326,6 +318,13 @@ set whichwrap+=<,>,h,l  " Allow backspace and cursor keys to cross line boundari
 " BETTER DEFAULTS (END) =================================================== }}}1
 
 " FILETYPE AU =============================================================={{{1
+" Set folding method for specfic file types {{{2
+augroup ft_vim
+    au!
+au FileType vim setlocal foldmethod=marker
+augroup END
+" }}}2
+
 " Restore cursor position when opening file {{{2
 augroup SPACEVIM_BASIC
     autocmd BufReadPost *
@@ -400,14 +399,12 @@ let g:airline#extensions#hunks#non_zero_only = 1
 let g:airline#extensions#tabline#enabled = 2
 let g:airline#extensions#tabline#fnamemod = ':t'
 let g:airline#extensions#tabline#buffer_min_count = 1
-let g:airline#extensions#tabline#tab_nr_type = 1 " tab number
-let g:airline#extensions#tabline#show_tab_nr = 1
 " rename label for buffers (default: 'buffers') (c)
 let g:airline#extensions#tabline#buffers_label = 'b'
 " rename label for tabs (default: 'tabs') (c)
 let g:airline#extensions#tabline#tabs_label = 't'
 let g:airline#extensions#tabline#buffer_nr_show = 1
-" let g:airline#extensions#tabline#buffer_idx_mode = 1
+let g:airline#extensions#tabline#tab_nr_type = 1
 " }}}2
 
 " NeoComplete {{{2
@@ -544,6 +541,7 @@ let g:unite_split_rule = 'botright'
 let g:unite_source_buffer_time_format = '(%d-%m-%Y %H:%M:%S) '
 let g:unite_source_file_mru_time_format = '(%d-%m-%Y %H:%M:%S) '
 let g:unite_source_directory_mru_time_format = '(%d-%m-%Y %H:%M:%S) '
+call unite#sources#outline#alias( 'rmd', 'markdown')
 " Unite Basics }}}3
 
 " Unite Menu {{{3
