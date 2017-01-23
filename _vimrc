@@ -859,6 +859,7 @@ let g:unite_source_menu_menus.v.command_candidates = [
 " Tagbar {{{2
 let g:tagbar_autofocus = 1
 let g:tagbar_sort = 0
+let g:tagbar_ctags_bin = "c:/ctags/ctags.exe"
 " }}}2
 
 " Citation {{{3
