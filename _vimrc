@@ -133,7 +133,7 @@ Plug 'gregsexton/gitv'
 " Unite {{{2
 Plug 'Shougo/unite.vim'
 Plug 'Shougo/unite-outline'
-Plug 'tsukkee/unite-help'
+Plug 'Shougo/unite-help'
 Plug 'ujihisa/unite-colorscheme'
 Plug 'ujihisa/unite-locate'
 Plug 'thinca/vim-unite-history'
@@ -378,19 +378,34 @@ autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
 autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 " }}}2
+
+" Auto quit R when close Vim {{{2
+autocmd VimLeave * if exists("g:SendCmdToR") && string(g:SendCmdToR) != "function('SendCmdToR_fake')" | call RQuit("nosave") | endif
+" }}}2
 " FILETYPE AU ==============================================================}}}1
 
 " PLUGIN SETUP ============================================================={{{1
 " Airline {{{2
 let g:airline_theme='powerlineish'
 let g:airline_powerline_fonts=1
+let g:airline#extensions#tabline#show_tabs = 1
+let g:airline#extensions#tabline#show_buffers = 1
 let g:airline#extensions#branch#enabled = 1
 let g:airline#extensions#whitespace#enabled = 1
 let g:airline#extensions#hunks#non_zero_only = 1
 let g:airline#extensions#tabline#enabled = 2
 let g:airline#extensions#tabline#fnamemod = ':t'
 let g:airline#extensions#tabline#buffer_min_count = 1
+let g:airline#extensions#tabline#tab_nr_type = 1 " tab number
+let g:airline#extensions#tabline#show_tab_nr = 1
+" rename label for buffers (default: 'buffers') (c)
+let g:airline#extensions#tabline#buffers_label = 'b'
+" rename label for tabs (default: 'tabs') (c)
+let g:airline#extensions#tabline#tabs_label = 't'
+let g:airline#extensions#tabline#buffer_nr_show = 1
+" let g:airline#extensions#tabline#buffer_idx_mode = 1
 " }}}2
+
 " NeoComplete {{{2
 " Note: This option must be set in .vimrc(_vimrc).  NOT IN .gvimrc(_gvimrc)!
 " Disable AutoComplPop.
@@ -862,11 +877,17 @@ let g:tagbar_sort = 0
 let g:tagbar_ctags_bin = "c:/ctags/ctags.exe"
 " }}}2
 
-" Citation {{{3
+" Citation {{{2
 let g:citation_vim_mode="zotero"
 let g:citation_vim_zotero_path="c:/Dropbox/3-Literatures/Zotero/"
 let g:citation_vim_cache_path='~/.cache/citation'
-" }}}3
+" }}}2
+
+" Nvim-R {{{2
+let rmd_syn_hl_chunk = 1
+let R_openpdf = 1
+let R_commented_lines = 1
+" }}}2
 " PLUGIN SETUP (END) =======================================================}}}1
 
 " KEY BINDINGS ============================================================={{{1
@@ -928,7 +949,7 @@ vmap <Leader>a! :Tabularize /!-><CR>
 " }}}2
 " <Leader>b {{{2
 nnoremap <silent><Leader>bh :Startify<CR>
-nnoremap <silent><Leader>bb :Unite -silent -start-insert buffers<CR>
+nnoremap <silent><Leader>bb :Unite -silent -start-insert buffer<CR>
 nnoremap <silent><Leader>bp :bprevious<CR>
 nnoremap <silent><Leader>bn :bnext<CR>
 nnoremap <silent><Leader>bf :bfirst<CR>
@@ -955,6 +976,7 @@ noremap <silent> <Leader>dq :Gdiffoff<CR>
 " }}}2
 " <Leader>f {{{2
 nnoremap <silent><Leader>ff :UniteWithBufferDir -silent -start-insert file file_mru<CR>
+nnoremap <silent><Leader>fr :Unite -silent -start-insert file_mru directory_mru<CR>
 nnoremap <silent><Leader>fF :UniteWithBufferDir -silent -start-insert file_rec/async<CR>
 nnoremap <silent><Leader>fn :UniteWithBufferDir -silent -start-insert file/new<CR>
 nnoremap <silent><Leader>fd :UniteWithBufferDir -silent -start-insert directory directory_mru<CR>
@@ -981,7 +1003,7 @@ nnoremap <silent> <Leader>gs :Gstatus<CR>
 nnoremap <silent> <Leader>gd :Gdiff<CR>
 nnoremap <silent> <Leader>gc :Gcommit<CR>
 nnoremap <silent> <Leader>gb :Gblame<CR>
-nnoremap <silent> <Leader>gl :Glog<CR>
+" nnoremap <silent> <Leader>gl :Glog<CR>
 nnoremap <silent> <Leader>gp :Git! push<CR>
 nnoremap <silent> <Leader>gP :Git! pull<CR>
 nnoremap <silent> <Leader>gr :Gread<CR>
