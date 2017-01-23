@@ -170,6 +170,7 @@ Plug 'jalvesaq/Nvim-R'
 Plug 'rafaqz/citation.vim'
 Plug 'vim-pandoc/vim-pandoc'
 Plug 'vim-pandoc/vim-pandoc-syntax'
+Plug 'hotoo/pangu.vim'
 " R Markdown (END) }}}2
 
 " Initialize plugin system
@@ -384,6 +385,10 @@ autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 
 " Auto quit R when close Vim {{{2
 autocmd VimLeave * if exists("g:SendCmdToR") && string(g:SendCmdToR) != "function('SendCmdToR_fake')" | call RQuit("nosave") | endif
+" }}}2
+
+" Add spaces between Chinese and English characters {{{2
+autocmd BufWritePre *.rmd,*.markdown,*.md,*.text,*.txt,*.wiki call PanGuSpacing()
 " }}}2
 " FILETYPE AU ==============================================================}}}1
 
@@ -1111,7 +1116,7 @@ nnoremap <silent><Leader>sL :Unite -silent -start-insert locate<CR>
 nnoremap <silent><Leader>sw :Unite -silent -auto-preview -start-insert line<CR>
 nnoremap <silent><Leader>so :Unite -vertical -winwidth=40 -direction=topleft -toggle outline<CR>
 nnoremap <silent><Leader>sb :Unite -auto-preview mark<CR>
-nnoremap <silent><Leader>sb :Unite -vertical -winwidth=30 -auto-highlight fold<CR>
+nnoremap <silent><Leader>sf :Unite -vertical -winwidth=30 -auto-highlight fold<CR>
 nnoremap <silent><Leader>sj :Unite jump<CR>
 nnoremap <silent><Leader>su :Unite undo<CR>
 " nnoremap <silent><Leader>st :Unite -toggle grep:%::FIXME|TODO|NOTE|XXX|COMBAK|@todo<CR>
