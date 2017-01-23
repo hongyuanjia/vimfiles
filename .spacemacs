@@ -31,10 +31,12 @@ values."
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
    '(
+     markdown
      html
      (auto-completion :variables auto-completion-enable-sort-by-usage t
                                  auto-completion-enable-snippets-in-popup t)
-     (ess :variables ess-use-auto-complete t)
+     (ess :variables ess-use-auto-complete t
+          ess-enable-smart-equals nil)
      (spacemacs-layouts :variables layouts-enable-autosave nil
                                    layouts-autosave-delay 300)
      (spell-checking :variables enable-flyspell-auto-completion nil
@@ -47,6 +49,7 @@ values."
      bibtex
      org
      pandoc
+     polymode
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -86,7 +89,7 @@ values."
                                     ace-jump-helm-line
                                     helm-make
                                     helm-themes
-                                    helm-swoop
+                                    ;; helm-swoop
                                     helm-flx
                                     smeargle
                                     ;; spaceline
@@ -380,6 +383,10 @@ you should place your code here."
   (setq ispell-personal-dictionary "C:/Program Files (x86)/Aspell/dict/"))
   ;; (ispell-change-dictionary "american" t)
 
+  ;;Turn off the automatic replacement of underscores by <- in ESS mode.
+  (add-hook 'ess-mode-hook
+            (lambda ()
+              (ess-toggle-underscore nil)))
   (spacemacs|add-company-hook 'text-mode)
 
   ;;Only toggle relative line number mode when press F8
@@ -735,6 +742,20 @@ you should place your code here."
  '(custom-safe-themes
    (quote
     ("73a13a70fd111a6cd47f3d4be2260b1e4b717dbf635a9caee6442c949fad41cd" "1dffeecd1565d04cd2059234e872cd80fcbe813488602d5c42b5c9e576924d9f" default)))
+ '(ess-R-font-lock-keywords
+   (quote
+    ((ess-R-fl-keyword:modifiers . t)
+     (ess-R-fl-keyword:fun-defs . t)
+     (ess-R-fl-keyword:keywords . t)
+     (ess-R-fl-keyword:assign-ops . t)
+     (ess-R-fl-keyword:constants . t)
+     (ess-fl-keyword:fun-calls . t)
+     (ess-fl-keyword:numbers . t)
+     (ess-fl-keyword:operators . t)
+     (ess-fl-keyword:delimiters . t)
+     (ess-fl-keyword:= . t)
+     (ess-R-fl-keyword:F&T . t)
+     (ess-R-fl-keyword:%op% . t))))
  '(ess-ask-for-ess-directory nil)
  '(evil-want-Y-yank-to-eol nil)
  '(fci-rule-color "#073642" t)
@@ -759,7 +780,7 @@ you should place your code here."
  '(org-highlight-latex-and-related (quote (latex script entities)))
  '(package-selected-packages
    (quote
-    (swiper-helm window-purpose imenu-list tablist dactyl-mode hide-comnt ox-pandoc git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter diff-hl company-auctex auctex-latexmk auctex ivy-purpose helm-swoop helm-purpose helm-projectile helm-mode-manager helm-gitignore helm-flx helm-descbinds helm-css-scss helm-company helm-c-yasnippet helm-ag flyspell-correct-helm org-ref key-chord helm-bibtex biblio parsebib biblio-core web-mode tagedit slim-mode scss-mode sass-mode pug-mode less-css-mode haml-mode emmet-mode company-web web-completion-data ranger youdao-dictionary names chinese-word-at-point rainbow-mode rainbow-identifiers magit-gh-pulls gh marshal logito pcache ht helm-themes fcitx color-identifiers-mode ace-jump-helm-line zotxt request-deferred deferred color-theme-sanityinc-solarized ess-smart-equals ess-R-object-popup ess-R-data-view ctable ess julia-mode xterm-color shell-pop mwim multi-term flycheck-pos-tip flycheck eshell-z eshell-prompt-extras esh-help chinese-wbim molokai-theme pangu-spacing find-by-pinyin-dired chinese-pyim chinese-pyim-basedict pos-tip ace-pinyin pinyinlib ace-jump-mode chinese-fonts-setup smeargle orgit org-projectile org-present org org-pomodoro alert log4e gntp org-download mmm-mode markdown-toc markdown-mode magit-gitflow htmlize gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link gh-md flyspell-correct-ivy flyspell-correct evil-magit magit magit-popup git-commit with-editor company-statistics company auto-yasnippet yasnippet auto-dictionary ac-ispell auto-complete ws-butler window-numbering which-key wgrep volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline smex restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox spinner org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint ivy-hydra info+ indent-guide ido-vertical-mode hydra hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation help-fns+ helm-make helm helm-core google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu highlight elisp-slime-nav dumb-jump popup f s diminish define-word counsel-projectile projectile pkg-info epl counsel swiper ivy column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed dash async aggressive-indent adaptive-wrap ace-window ace-link avy quelpa package-build spacemacs-theme)))
+    (polymode swiper-helm window-purpose imenu-list tablist dactyl-mode hide-comnt ox-pandoc git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter diff-hl company-auctex auctex-latexmk auctex ivy-purpose helm-swoop helm-purpose helm-projectile helm-mode-manager helm-gitignore helm-flx helm-descbinds helm-css-scss helm-company helm-c-yasnippet helm-ag flyspell-correct-helm org-ref key-chord helm-bibtex biblio parsebib biblio-core web-mode tagedit slim-mode scss-mode sass-mode pug-mode less-css-mode haml-mode emmet-mode company-web web-completion-data ranger youdao-dictionary names chinese-word-at-point rainbow-mode rainbow-identifiers magit-gh-pulls gh marshal logito pcache ht helm-themes fcitx color-identifiers-mode ace-jump-helm-line zotxt request-deferred deferred color-theme-sanityinc-solarized ess-smart-equals ess-R-object-popup ess-R-data-view ctable ess julia-mode xterm-color shell-pop mwim multi-term flycheck-pos-tip flycheck eshell-z eshell-prompt-extras esh-help chinese-wbim molokai-theme pangu-spacing find-by-pinyin-dired chinese-pyim chinese-pyim-basedict pos-tip ace-pinyin pinyinlib ace-jump-mode chinese-fonts-setup smeargle orgit org-projectile org-present org org-pomodoro alert log4e gntp org-download mmm-mode markdown-toc markdown-mode magit-gitflow htmlize gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link gh-md flyspell-correct-ivy flyspell-correct evil-magit magit magit-popup git-commit with-editor company-statistics company auto-yasnippet yasnippet auto-dictionary ac-ispell auto-complete ws-butler window-numbering which-key wgrep volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline smex restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox spinner org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint ivy-hydra info+ indent-guide ido-vertical-mode hydra hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation help-fns+ helm-make helm helm-core google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu highlight elisp-slime-nav dumb-jump popup f s diminish define-word counsel-projectile projectile pkg-info epl counsel swiper ivy column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed dash async aggressive-indent adaptive-wrap ace-window ace-link avy quelpa package-build spacemacs-theme)))
  '(pos-tip-background-color "#A6E22E")
  '(pos-tip-foreground-color "#272822")
  '(vc-annotate-background nil)
