@@ -45,11 +45,11 @@ endif
 " PLUGINS =================================================================={{{1
 " Auto installing Vim-Plug {{{2
 let iCanHazDein=1
-let dein_readme = expand($HOME. '/.vim/dein/repos/github.com/Shougo/dein.vim/README.md')
-if !filereadable(dein_readme)
-    echo "Installing Dein..."
+let vimplug = expand($HOME. '/vimfiles/autoload/plug.vim')
+if !filereadable(vimplug)
+    echo "Installing Vim-Plug..."
     echo ""
-    silent !git clone https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim c:/Users/hongy/vimfiles/autoloa/plug.vim
+    silent !git clone https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim c:/Users/hongy/vimfiles/autoload/plug.vim
     let iCanHazDein=0
 endif
 " }}}2
@@ -133,7 +133,7 @@ Plug 'gregsexton/gitv'
 " Unite {{{2
 Plug 'Shougo/unite.vim'
 Plug 'Shougo/unite-outline'
-Plug 'Shougo/unite-help'
+Plug 'tsukkee/unite-help'
 Plug 'ujihisa/unite-colorscheme'
 Plug 'ujihisa/unite-locate'
 Plug 'thinca/vim-unite-history'
@@ -172,6 +172,8 @@ Plug 'kshenoy/vim-signature'
 " R Markdown {{{2
 Plug 'jalvesaq/Nvim-R'
 Plug 'rafaqz/citation.vim'
+Plug 'vim-pandoc/vim-pandoc'
+Plug 'vim-pandoc/vim-pandoc-syntax'
 " R Markdown (END) }}}2
 
 " Initialize plugin system
@@ -194,6 +196,8 @@ set guioptions-=L        " Hide the left scrollbar
 set guioptions-=T
 set guioptions-=e
 set shortmess+=c
+" Fix monokai pandoc header color problem
+hi! link Conceal Operator
 " No annoying sound on errors
 set noerrorbells
 set novisualbell
