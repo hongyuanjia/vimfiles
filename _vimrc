@@ -79,16 +79,7 @@ Plug 'mhinz/vim-startify'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 Plug 'terryma/vim-multiple-cursors'
-Plug 'easymotion/vim-easymotion',           { 'on': [
-    \   '<Plug>(easymotion-prefix)',
-    \   '<Plug>(easymotion-bd-f)',
-    \   '<Plug>(easymotion-overwin-f)',
-    \   '<Plug>(easymotion-overwin-f2)',
-    \   '<Plug>(easymotion-bd-jk)',
-    \   '<Plug>(easymotion-overwin-line)',
-    \   '<Plug>(easymotion-bd-w)',
-    \   '<Plug>(easymotion-overwin-w)',
-    \   ] }
+Plug 'easymotion/vim-easymotion'
 Plug 'danro/rename.vim',               { 'on' : 'Rename' }
 Plug 'ntpeters/vim-better-whitespace', { 'on': 'StripWhitespace' }
 " Better Defaults (END) }}}2
@@ -163,14 +154,12 @@ Plug 'kshenoy/vim-signature'
 " Plug 'kana/vim-textobj-underscore'
 " Plug 'kana/vim-textobj-function'
 " Plug 'kana/vim-textobj-user'
-Plug 'kshenoy/vim-signature'
 " Easy Text Manipulation (END) }}}2
 
 " R Markdown {{{2
 Plug 'jalvesaq/Nvim-R'
 Plug 'rafaqz/citation.vim'
-Plug 'vim-pandoc/vim-pandoc'
-Plug 'vim-pandoc/vim-pandoc-syntax'
+" Plug 'vim-pandoc/vim-pandoc'
 Plug 'hotoo/pangu.vim'
 " R Markdown (END) }}}2
 
@@ -324,6 +313,7 @@ set whichwrap+=<,>,h,l  " Allow backspace and cursor keys to cross line boundari
 augroup ft_vim
     au!
 au FileType vim setlocal foldmethod=marker
+au FileType r setlocal foldmethod=marker
 augroup END
 " }}}2
 
@@ -462,31 +452,22 @@ let g:multi_cursor_quit_key='<Esc>'
 " Vim-Multiple-Cursors (END) }}}2
 
 " UltiSnips {{{2
-if has_key(g:plugs, 'ultisnips')
-    " UltiSnips will be loaded only when tab is first pressed in insert mode
-    if !exists(':UltiSnipsEdit')
-        inoremap <silent> <Plug>(tab) <c-r>=plug#load('ultisnips')?UltiSnips#ExpandSnippet():''<cr>
-        imap <tab> <Plug>(tab)
-    endif
-endif
-
-" Set ultisnips triggers
-let g:UltiSnipsSnippetDirectories=['UltiSnips']
-let g:UltiSnipsSnippetsDir = [$HOME . 'vimfiles/plugged/plugged/vim-snippets/UltiSnips/']
-let g:UltiSnipsListSnippets = '<C-Tab>'
-let g:UltiSnipsJumpForwardTrigger = '<Tab>'
-let g:UltiSnipsJumpBackwardTrigger = '<S-Tab>'
-" Fix tab conflict with YCM
-let g:UltiSnipsExpandTrigger = '<nop>'
-let g:ulti_expand_or_jump_res = 0
-function! ExpandSnippetOrCarriageReturn()
-    let l:snippet = UltiSnips#ExpandSnippetOrJump()
-    if g:ulti_expand_or_jump_res > 0
-        return l:snippet
-    else
-        return "\<CR>"
-    endif
-endfunction
+" if has_key(g:plugs, 'ultisnips')
+"     " UltiSnips will be loaded only when tab is first pressed in insert mode
+"     if !exists(':UltiSnipsEdit')
+"         inoremap <silent> <Plug>(tab) <c-r>=plug#load('ultisnips')?UltiSnips#ExpandSnippet():''<cr>
+"         imap <tab> <Plug>(tab)
+"     endif
+" endif
+let g:UltiSnipsUsePythonVersion = 3
+let g:UltiSnipsEditSplit="vertical"
+" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsListSnippets="<s-tab>"
+let g:UltiSnipsJumpForwardTrigger="<c-k>"
+let g:UltiSnipsJumpBackwardTrigger="<c-j>"
+let g:UltiSnipsSnippetDirectories=['~/vimfiles/ultisnips', 'UltiSnips']
+let g:UltiSnipsSnippetDir=['UltiSnips']
 " UltiSnips (END) }}}2
 
 " Gitv {{{2
