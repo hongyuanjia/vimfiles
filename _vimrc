@@ -11,7 +11,7 @@ let g:WINDOWS = has('win32') || has('win64')
 " On Windows, also use '.vim' instead of 'vimfiles'; this makes synchronization
 " across (heterogeneous) systems easier.
 if g:WINDOWS
-    set runtimepath=$VIM/vimfiles,$VIMRUNTIME,$VIM/vimfiles/after,$HOME/.vim,$HOME/.vim/after
+    set runtimepath=$HOME/vimfiles,$VIM/vimfiles,$VIMRUNTIME,$VIM/vimfiles/after,$HOME/.vim,$HOME/.vim/after
 endif
 " }}}2
 
@@ -108,10 +108,11 @@ Plug 'matze/vim-move', { 'on': [
     \   '<Plug>MoveLineUp',
     \   ]}
 Plug 'junegunn/rainbow_parentheses.vim', { 'for': ['R', 'lisp', 'clojure', 'scheme'] }
-Plug 'Raimondi/delimitMate', { 'on': [] }
+Plug 'Raimondi/delimitMate'
 " Refer to https://github.com/junegunn/vim-plug/wiki/faq
 " Load on nothing
-Plug 'SirVer/ultisnips', { 'on': [] } | Plug 'honza/vim-snippets', { 'on': [] }
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
 Plug 'majutsushi/tagbar'
 " Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' }
 Plug 'Chiel92/vim-autoformat',          { 'on': 'Autoformat'}
@@ -356,7 +357,9 @@ augroup END
 " RainbowParentheses only enable for R {{{2
 augroup rainbow_r
     autocmd!
-    autocmd FileType r RainbowParentheses
+    autocmd FileType *.r,*.markdown,*.md,*.rmd RainbowParenthesesToggle
+    autocmd FileType *.r,*.markdown,*.md,*.rmd let b:loaded_delimitMate = 0
+    autocmd FileType *.r,*.markdown,*.md,*.rmd let b:delimitMate_autoclose = 1
 augroup END
 " }}}2
 
@@ -425,8 +428,10 @@ let g:neocomplete#sources#syntax#min_keyword_length = 3
 " Define dictionary.
 let g:neocomplete#sources#dictionary#dictionaries = {
             \ 'default' : '',
-            \ 'vimshell' : expand($HOME.'/vimfiles/tmp/neocomplete/.vimshell_hist'),
-            \ 'scheme' : expand($HOME.'/vimfiles/tmp/neocomplete/.gosh_completions')
+            \ 'vimshell' : $HOME.'/vimfiles/tmp/neocomplete/.vimshell_hist',
+            \ 'markdown' : $HOME.'/vimfiles/spell/en.dict',
+            \ 'rmarkdown' : $HOME.'/vimfiles/spell/en.dict',
+            \ 'rmd' : $HOME.'/vimfiles/spell/en.dict'
             \ }
 " Define keyword.
 if !exists('g:neocomplete#keyword_patterns')
@@ -520,7 +525,7 @@ let g:indent_guides_auto_colors = 0
 " }}}2
 
 " DelimitMate {{{2
-    let g:delimitMate_expand_cr=1
+let g:delimitMate_expand_cr=1
 " }}}}2
 
 " NeoMRU {{{
