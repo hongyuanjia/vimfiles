@@ -551,7 +551,9 @@ if executable('pt')
     let g:unite_source_grep_command='pt'
     let g:unite_source_grep_default_opts='--nocolor --nogroup --smart-case'
     let g:unite_source_grep_recursive_opt=''
+    let g:unite_source_grep_encoding='utf-8'
     let g:unite_source_grep_search_word_highlight = 1
+    let g:unite_source_rec_async_command= 'pt --nocolor --nogroup -g .'
 endif
 " Junk
 let g:junkfile#directory=expand($HOME."/vimfiles/tmp/junk")
