@@ -119,6 +119,8 @@ Plug 'gregsexton/gitv'
 " Git (END) }}}2
 
 " Unite {{{2
+Plug 'Shougo/vimproc.vim'
+Plug 'thinca/vim-qfreplace'
 Plug 'Shougo/unite.vim'
 Plug 'Shougo/unite-outline'
 Plug 'tsukkee/unite-help'
