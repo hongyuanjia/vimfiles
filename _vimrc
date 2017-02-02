@@ -1110,9 +1110,9 @@ nnoremap <silent><Leader>sp :Unite -no-quit grep<CR>
 nnoremap <silent><Leader>sl :Unite -silent -start-insert line<CR>
 nnoremap <silent><Leader>sL :Unite -silent -start-insert locate<CR>
 nnoremap <silent><Leader>sw :Unite -silent -auto-preview -start-insert line<CR>
-nnoremap <silent><Leader>so :Unite -vertical -winwidth=40 -direction=topleft -toggle outline<CR>
+nnoremap <silent><Leader>so :Unite -vertical -winwidth=40 -direction=topleft -toggle -start-insert outline<CR>
 nnoremap <silent><Leader>sb :Unite -auto-preview mark<CR>
-nnoremap <silent><Leader>sf :Unite -vertical -winwidth=30 -auto-highlight fold<CR>
+nnoremap <silent><Leader>sf :Unite -vertical -winwidth=30 -auto-highlight -start-insert fold<CR>
 nnoremap <silent><Leader>sj :Unite jump<CR>
 nnoremap <silent><Leader>su :Unite undo<CR>
 " nnoremap <silent><Leader>st :Unite -toggle grep:%::FIXME|TODO|NOTE|XXX|COMBAK|@todo<CR>
