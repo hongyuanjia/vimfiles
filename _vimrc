@@ -159,7 +159,9 @@ Plug 'kshenoy/vim-signature'
 " R Markdown {{{2
 Plug 'jalvesaq/Nvim-R'
 Plug 'rafaqz/citation.vim'
-" Plug 'vim-pandoc/vim-pandoc'
+Plug 'vim-pandoc/vim-pandoc'
+Plug 'vim-pandoc/vim-pandoc-syntax'
+Plug 'vim-pandoc/vim-rmarkdown'
 Plug 'hotoo/pangu.vim'
 " R Markdown (END) }}}2
 
@@ -881,6 +883,10 @@ let rmd_syn_hl_chunk = 1
 let R_openpdf = 1
 let R_commented_lines = 1
 " }}}2
+
+" Pandoc {{{2
+let g:pandoc#keyboard#use_default_mappings = 0
+"}}}2
 " PLUGIN SETUP (END) =======================================================}}}1
 
 " KEY BINDINGS ============================================================={{{1
