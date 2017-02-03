@@ -886,6 +886,7 @@ let g:citation_vim_cache_path='~/.cache/citation'
 let rmd_syn_hl_chunk = 1
 let R_openpdf = 1
 let R_commented_lines = 1
+let R_assign_map = "<M-->"
 " }}}2
 
 " Pandoc {{{2
