@@ -979,6 +979,8 @@ noremap <silent> <Leader>du :diffupdate<CR>
 noremap <silent> <Leader>dq :Gdiffoff<CR>
 noremap <silent> <Leader>dt :diffthis <CR>
 noremap <silent> <Leader>do :diffoff <CR>
+noremap <silent> <Leader>dp :diffput <CR>
+noremap <silent> <Leader>dg :diffget <CR>
 " }}}2
 " <Leader>f {{{2
 nnoremap <silent><Leader>ff :UniteWithBufferDir -silent -start-insert file file_mru<CR>
