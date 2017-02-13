@@ -977,6 +977,8 @@ endfor
 " for the diffmode
 noremap <silent> <Leader>du :diffupdate<CR>
 noremap <silent> <Leader>dq :Gdiffoff<CR>
+noremap <silent> <Leader>dt :diffthis <CR>
+noremap <silent> <Leader>do :diffoff <CR>
 " }}}2
 " <Leader>f {{{2
 nnoremap <silent><Leader>ff :UniteWithBufferDir -silent -start-insert file file_mru<CR>
