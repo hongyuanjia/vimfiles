@@ -176,6 +176,9 @@ call plug#end()
 set t_Co=256       " Use 256 colors
 colorscheme molokai
 highlight ColorColumn guibg=SlateGray
+autocmd ColorScheme * highlight Folded guifg=SlateGray
+" Fix monokai pandoc header color problem
+autocmd ColorScheme * highlight link Conceal Operator
 " Color Scheme (END) }}}2
 
 " Gui Options {{{2
@@ -187,8 +190,6 @@ set guioptions-=L        " Hide the left scrollbar
 set guioptions-=T
 set guioptions-=e
 set shortmess+=c
-" Fix monokai pandoc header color problem
-hi! link Conceal Operator
 " No annoying sound on errors
 set noerrorbells
 set novisualbell
@@ -255,8 +256,8 @@ set number                  " Line numbers on
 set nocompatible
 set winaltkeys=no
 set foldenable
-set foldlevel=0
-set foldlevelstart=99
+" set foldlevel=0
+" set foldlevelstart=99
 set wrap
 set nobackup
 set noswapfile
