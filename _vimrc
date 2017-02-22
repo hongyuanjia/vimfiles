@@ -363,6 +363,7 @@ augroup ft_idf
     au!
     au BufRead,BufNewFile *.idf set filetype=idf
     au BufRead,BufNewFile *.imf set filetype=idf
+    au BufRead,BufNewFile *.ddy set filetype=idf
 augroup END
 " }}}2
 
@@ -521,7 +522,7 @@ let g:delimitMate_expand_cr=1
 
 " Unite {{{2
 " Unite Basics {{{3
-let g:unite_data_directory = expand($HOME.'/vimfiles/tmp/unite')
+" let g:unite_data_directory = expand($HOME.'/vimfiles/tmp/unite')
 let g:unite_source_history_yank_enable = 1
 let g:unite_enable_start_insert = 0
 let g:unite_enable_short_source_mes = 0
