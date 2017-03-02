@@ -78,10 +78,6 @@ Plug 'tpope/vim-rsi'
 Plug 'mhinz/vim-startify'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
-Plug 'terryma/vim-multiple-cursors'
-Plug 'easymotion/vim-easymotion'
-Plug 'danro/rename.vim',               { 'on' : 'Rename' }
-Plug 'ntpeters/vim-better-whitespace', { 'on': 'StripWhitespace' }
 " Better Defaults (END) }}}2
 
 " Text-Align {{{2
@@ -90,24 +86,15 @@ Plug 'junegunn/vim-easy-align',  { 'on': [ '<Plug>(EasyAlign)', 'EasyAlign' ] }
 " Text-Align (END) }}}2
 
 " Programming {{{2
+Plug 'danro/rename.vim'
 Plug 'luochen1990/rainbow'
-Plug 'editorconfig/editorconfig-vim', { 'on': 'EditorConfigReload' }
-Plug 'matze/vim-move', { 'on': [ 
-    \   '<Plug>MoveBlockDown',
-    \   '<Plug>MoveBlockUp',
-    \   '<Plug>MoveLineDown',
-    \   '<Plug>MoveLineUp',
-    \   ]}
-Plug 'junegunn/rainbow_parentheses.vim', { 'for': ['R', 'lisp', 'clojure', 'scheme'] }
+" Plug 'editorconfig/editorconfig-vim', { 'on': 'EditorConfigReload' }
+" Plug 'junegunn/rainbow_parentheses.vim'
 Plug 'Raimondi/delimitMate'
-" Refer to https://github.com/junegunn/vim-plug/wiki/faq
-" Load on nothing
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'majutsushi/tagbar'
-" Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' }
-Plug 'Chiel92/vim-autoformat',          { 'on': 'Autoformat'}
-Plug 'nathanaelkane/vim-indent-guides', { 'on': 'IndentGuidesToggle'}
+Plug 'nathanaelkane/vim-indent-guides'
 Plug 'skywind3000/asyncrun.vim',        { 'on': ['AsyncRun!', 'AsyncRun'] }
 Plug 'tpope/vim-commentary'
 " Programming (END) }}}2
@@ -143,19 +130,20 @@ Plug 'Shougo/neocomplete.vim'
 " Auto-completion (END) }}}2
 
 " Easy Text Manipulation {{{2
-" Plug 'Shougo/neomru.vim'
-Plug 'vim-scripts/utl.vim'
+" Plug 'vim-scripts/utl.vim'
 Plug 'tpope/vim-speeddating'
 Plug 'sjl/gundo.vim'
-Plug 'salsifis/vim-transpose'
+Plug 'matze/vim-move'
+" Plug 'salsifis/vim-transpose'
 Plug 'kshenoy/vim-signature'
-" Plug 'kana/vim-textobj-entire'
-" Plug 'kana/vim-textobj-indent'
-" Plug 'kana/vim-textobj-lastpat'
-" Plug 'kana/vim-textobj-line'
-" Plug 'kana/vim-textobj-underscore'
-" Plug 'kana/vim-textobj-function'
-" Plug 'kana/vim-textobj-user'
+Plug 'easymotion/vim-easymotion'
+Plug 'aykamko/vim-easymotion-segments'
+Plug 'terryma/vim-multiple-cursors'
+Plug 'ntpeters/vim-better-whitespace'
+Plug 'kana/vim-textobj-user'
+Plug 'Julian/vim-textobj-variable-segment'
+Plug 'beloglazov/vim-textobj-quotes'
+Plug 'sgur/vim-textobj-parameter'
 " Easy Text Manipulation (END) }}}2
 
 " R Markdown {{{2
@@ -1010,7 +998,7 @@ nnoremap <silent><Leader>fV :VimFiler<CR>
 nnoremap <silent><Leader>fv :e $MYVIMRC<CR>
 nnoremap <Leader>fR :source $MYVIMRC<CR>
 nnoremap <Leader>fs :update<CR>
-" Fold 
+" Fold
 nnoremap <Leader>f0 :set foldlevel=0<CR>
 nnoremap <Leader>f1 :set foldlevel=1<CR>
 nnoremap <Leader>f2 :set foldlevel=2<CR>
@@ -1112,6 +1100,10 @@ nmap <Leader>jl <Plug>(easymotion-overwin-line)
 " Jump to word
 map  <Leader>jw <Plug>(easymotion-bd-w)
 nmap <Leader>jw <Plug>(easymotion-overwin-w)
+map <Leader>jv <Plug>(easymotion-segments-LF)
+map <Leader>jV <Plug>(easymotion-segments-LB)
+map <Leader>jgv <Plug>(easymotion-segments-RF)
+map <Leader>jgV <Plug>(easymotion-segments-RB)
 " }}}2
 " <Leader>p {{{2
 nnoremap <Leader>p "*p
@@ -1164,7 +1156,6 @@ nnoremap <Leader>ti :IndentGuidesToggle<CR>
 nnoremap <Leader>tt :TagbarToggle<CR>
 nnoremap <Leader>tq :ToggleQuickfix<CR>
 nnoremap <Leader>tg :GitGutterToggle<CR>
-nnoremap <Leader>tL :IndentLinesToggle<CR>
 " Toggle pastemode
 nnoremap <Leader>tp :setlocal paste!<CR>
 " }}}2
