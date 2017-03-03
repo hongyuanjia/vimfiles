@@ -973,7 +973,7 @@ endfor
 " }}}3
 " }}}2
 " <Leader>c {{{2
-
+noremap <Leader>cd :cd %:h<CR>
 " nmap <Leader>c <Plug>CommentaryLine
 " xmap <Leader>c <Plug>Commentary
 " }}}2
@@ -1090,15 +1090,15 @@ nnoremap N Nzz
 " }}}2
 " <Leader>j {{{2
 " Move to {char}
-map  <Leader>jj <Plug>(easymotion-bd-f)
+" map  <Leader>jj <Plug>(easymotion-bd-f)
 nmap <Leader>jj <Plug>(easymotion-overwin-f)
 " Move to {char}{char}
 nmap <Leader>jJ <Plug>(easymotion-overwin-f2)
 " Jump to line
-map <Leader>jl <Plug>(easymotion-bd-jk)
+" map <Leader>jl <Plug>(easymotion-bd-jk)
 nmap <Leader>jl <Plug>(easymotion-overwin-line)
 " Jump to word
-map  <Leader>jw <Plug>(easymotion-bd-w)
+" map  <Leader>jw <Plug>(easymotion-bd-w)
 nmap <Leader>jw <Plug>(easymotion-overwin-w)
 map <Leader>jv <Plug>(easymotion-segments-LF)
 map <Leader>jV <Plug>(easymotion-segments-LB)
