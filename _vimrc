@@ -144,6 +144,7 @@ Plug 'kana/vim-textobj-user'
 Plug 'Julian/vim-textobj-variable-segment'
 Plug 'beloglazov/vim-textobj-quotes'
 Plug 'sgur/vim-textobj-parameter'
+Plug 'terryma/vim-expand-region'
 " Easy Text Manipulation (END) }}}2
 
 " R Markdown {{{2
