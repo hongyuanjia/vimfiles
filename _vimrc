@@ -375,6 +375,14 @@ autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 autocmd VimLeave * if exists("g:SendCmdToR") && string(g:SendCmdToR) != "function('SendCmdToR_fake')" | call RQuit("nosave") | endif
 " }}}2
 
+" Insert '%>%' pipe operator in R {{{2
+augroup r_pipe
+    autocmd!
+    autocmd FileType R inoremap <buffer> ½ %>%
+    autocmd FileType R inoremap <buffer> <M-=> %>%
+augroup END
+" }}}2
+
 " Add spaces between Chinese and English characters {{{2
 augroup pangu
     autocmd!
