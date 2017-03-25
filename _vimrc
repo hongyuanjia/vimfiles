@@ -1129,6 +1129,7 @@ nnoremap <Leader>Q  :qa<CR>
 " }}}2
 " <Leader>r {{{2
 nnoremap <Leader>rl :call NumberToggle()<cr>
+noremap <Leader>r<BSlash> :ToggleSlash<CR>
 " }}}2
 " <Leader>s {{{2
 " Search result highlight countermand
@@ -1331,6 +1332,24 @@ function! s:my_cr_function()
     " For no inserting <CR> key.
     "return pumvisible() ? "\<C-y>" : "\<CR>"
 endfunction
+" }}}2
+
+" ToggleSlash {{{2
+function! ToggleSlash(independent) range
+  let from = ''
+  for lnum in range(a:firstline, a:lastline)
+    let line = getline(lnum)
+    let first = matchstr(line, '[/\\]')
+    if !empty(first)
+      if a:independent || empty(from)
+        let from = first
+      endif
+      let opposite = (from == '/' ? '\' : '/')
+      call setline(lnum, substitute(line, from, opposite, 'g'))
+    endif
+  endfor
+endfunction
+command! -bang -range ToggleSlash <line1>,<line2>call ToggleSlash(<bang>1)
 " }}}2
 
 " " SpaceEmacs-like Statusline {{{2
