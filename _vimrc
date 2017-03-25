@@ -376,7 +376,10 @@ autocmd VimLeave * if exists("g:SendCmdToR") && string(g:SendCmdToR) != "functio
 " }}}2
 
 " Add spaces between Chinese and English characters {{{2
-autocmd BufWritePre *.rmd,*.markdown,*.md,*.text,*.txt,*.wiki call PanGuSpacing()
+augroup pangu
+    autocmd!
+    autocmd BufWritePre *.r,*.R,*.rmd,*.markdown,*.md,*.text,*.txt,*.wiki call PanGuSpacing()
+augroup END
 " }}}2
 " FILETYPE AU ==============================================================}}}1
 
