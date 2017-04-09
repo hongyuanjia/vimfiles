@@ -903,6 +903,7 @@ let rmd_syn_hl_chunk = 1
 let R_openpdf = 1
 let R_commented_lines = 1
 let R_assign_map = "<M-->"
+let R_source_args = "print.eval = TRUE, max.deparse.length = 300, encoding = 'UTF-8'"
 " }}}2
 
 " Pandoc {{{2
