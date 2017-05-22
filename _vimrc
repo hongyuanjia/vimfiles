@@ -904,6 +904,7 @@ let rmd_syn_hl_chunk = 1
 let R_openpdf = 1
 let R_commented_lines = 1
 let R_assign_map = "<M-->"
+let R_clear_line = 1
 " }}}2
 
 " Pandoc {{{2
@@ -1135,7 +1136,7 @@ noremap <Leader>r<BSlash> :ToggleSlash<CR>
 " <Leader>s {{{2
 " Search result highlight countermand
 nnoremap <Leader>sc :nohlsearch<CR>
-nnoremap <silent><Leader>sp :Unite -no-quit grep<CR>
+nnoremap <silent><Leader>sp :UniteWithBufferDir -no-quit grep<CR>
 nnoremap <silent><Leader>sl :Unite -silent -start-insert line<CR>
 nnoremap <silent><Leader>sL :Unite -silent -start-insert locate<CR>
 nnoremap <silent><Leader>sw :Unite -silent -auto-preview -start-insert line<CR>
@@ -1197,6 +1198,7 @@ nnoremap <Leader>wv <C-W>v
 nnoremap <Leader>w\| <C-W>v
 nnoremap <Leader>w2 <C-W>v
 nnoremap <Leader>w/ <C-W>v
+nnoremap <Leader>wm :only<CR>
 " }}}2
 " <Leader>x {{{2
 nnoremap <Leader>xd :StripWhitespace<CR>
