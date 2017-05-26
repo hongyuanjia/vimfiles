@@ -141,6 +141,7 @@ Plug 'aykamko/vim-easymotion-segments'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'ntpeters/vim-better-whitespace'
 Plug 'kana/vim-textobj-user'
+Plug 'kana/vim-textobj-fold'
 Plug 'Julian/vim-textobj-variable-segment'
 Plug 'beloglazov/vim-textobj-quotes'
 Plug 'sgur/vim-textobj-parameter'
@@ -903,7 +904,8 @@ let rmd_syn_hl_chunk = 1
 let R_openpdf = 1
 let R_commented_lines = 1
 let R_assign_map = "<M-->"
-let R_source_args = "print.eval = TRUE, max.deparse.length = 300, encoding = 'UTF-8'"
+let R_clear_line = 1
+let R_source_args = "print.eval = TRUE, max.deparse.length = 1000, echo = TRUE, encoding = 'UTF-8'"
 " }}}2
 
 " Pandoc {{{2
@@ -1029,10 +1031,11 @@ nnoremap <silent> <Leader>gn :Unite output:echo\ system("git\ init")<CR>
 nnoremap <silent> <Leader>gs :Gstatus<CR>
 nnoremap <silent> <Leader>gd :Gdiff<CR>
 nnoremap <silent> <Leader>gc :Gcommit<CR>
+nnoremap <silent> <Leader>ga :Gcommit --amend<CR>
 nnoremap <silent> <Leader>gb :Gblame<CR>
 " nnoremap <silent> <Leader>gl :Glog<CR>
-nnoremap <silent> <Leader>gp :Git! push<CR>
-nnoremap <silent> <Leader>gP :Git! pull<CR>
+nnoremap <silent> <Leader>gp :Gpush<CR>
+nnoremap <silent> <Leader>gP :Gpull<CR>
 nnoremap <silent> <Leader>gr :Gread<CR>
 nnoremap <silent> <Leader>gw :Gwrite<CR>
 nnoremap <silent> <Leader>ge :Gedit<CR>
@@ -1135,7 +1138,7 @@ noremap <Leader>r<BSlash> :ToggleSlash<CR>
 " <Leader>s {{{2
 " Search result highlight countermand
 nnoremap <Leader>sc :nohlsearch<CR>
-nnoremap <silent><Leader>sp :Unite -no-quit grep<CR>
+nnoremap <silent><Leader>sp :UniteWithBufferDir -no-quit grep<CR>
 nnoremap <silent><Leader>sl :Unite -silent -start-insert line<CR>
 nnoremap <silent><Leader>sL :Unite -silent -start-insert locate<CR>
 nnoremap <silent><Leader>sw :Unite -silent -auto-preview -start-insert line<CR>
@@ -1197,6 +1200,7 @@ nnoremap <Leader>wv <C-W>v
 nnoremap <Leader>w\| <C-W>v
 nnoremap <Leader>w2 <C-W>v
 nnoremap <Leader>w/ <C-W>v
+nnoremap <Leader>wm :only<CR>
 " }}}2
 " <Leader>x {{{2
 nnoremap <Leader>xd :StripWhitespace<CR>
