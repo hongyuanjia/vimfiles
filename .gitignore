@@ -1,0 +1,6 @@
+plugged/*
+!ftplugin/*
+!autoload/*
+!UltiSnips/*
+!spell/*
+!syntax/*

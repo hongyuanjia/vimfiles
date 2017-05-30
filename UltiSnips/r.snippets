@@ -1,0 +1,29 @@
+snippet blk "add a foldable code block" b
+# $1{{{${2}
+${VISUAL}$0
+# }}}$2
+endsnippet
+
+snippet roxygen "a templete of inserting R function documentation." b
+#' ${1:Summary}
+#'
+#' \code{${2:fun}} returns $3
+#'
+#' @param ${4:param} ${5:desription}
+#' @return $6
+#' @export
+#' @examples
+#' $7
+endsnippet
+
+snippet param "" b
+#' @param ${1:param} ${2:desription}
+endsnippet
+
+snippet impf "import from" b
+#' @importFrom ${1:pkg} ${2:fun}
+endsnippet
+
+snippet \c "\code{}"
+\code{$1}
+endsnippet
