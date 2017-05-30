@@ -19,7 +19,7 @@ endfunction
 " Outline Info
 
 let s:outline_info = {
-      \ 'heading'  : '^\(! \)*\(\(!- \{3}=\{11} \{2}ALL OBJECTS IN CLASS: .* =\{11}\)\|\(\s*\w.*,\)\|\(##\w.*\)\)$',
+      \ 'heading'  : '^\(! \)*\(\(!- \{3}=\{11} \{2}ALL OBJECTS IN CLASS: .* =\{11}\)\|\(\s*\w.*,\)\|\(##\w.*\)\|\(\s*\w.*\s*,\s*.*;\)\)$',
       \ }
 
 function! s:outline_info.create_heading(which, heading_line, matched_line, context) abort
@@ -35,6 +35,8 @@ function! s:outline_info.create_heading(which, heading_line, matched_line, conte
     let regex_object = '^\(\! \)*\s*\([A-Z].*\),$'
     let regex_blank_or_ending = '^\(\(\s*\)\|\(\(! \)*\s*\(\S.*\);\s*!\s*-\s*.*\)\)$'
     let regex_field = '^\(! \)*\s*\(\S.*\)[,;]\s*!\s*-\s*.*$'
+    let regex_special = '^\(! \)*\s*\([A-Z].\{-}\)\s*,\s*\(.\{-}\)\s*\(,.*\s*\)*;$'
+    let regex_output_variable = '^\(! \)*\s*\(Output:Variable\)\s*,\s*\(.\{-}\)\s*,\(.\{-}\)\s*\(,.*\s*\)*;$'
 
     " Get all lines in the current buffer.
     let lines = a:context.lines
@@ -44,12 +46,20 @@ function! s:outline_info.create_heading(which, heading_line, matched_line, conte
         let h_lnum = a:context.heading_lnum
         if line =~ regex_class
             let heading.level = 1
-            let heading.word = substitute(heading.word, regex_class, '\1\L\u\2','g')
+            let heading.word = substitute(heading.word, regex_class, '\1\2','g')
             return heading
         " Check if the current line is a macro statement.
         elseif line =~ regex_macro
             let heading.level = 1
             let heading.word = 'EpMacro: '. substitute(heading.word, '^\(\! \)*#\(#\)*\(.*\)', '\3', 'g')
+            return heading
+        elseif line =~ regex_special
+            let heading.level = 2
+            if line =~# regex_output_variable
+                let heading.word = substitute(line, regex_output_variable, '\1\2: \3:\4', 'g')
+            else
+                let heading.word = substitute(line, regex_special, '\1\2: \3', 'g')
+            endif
             return heading
         elseif line =~ regex_object
             " Check if the line before is an empty line or an ending of an object.
