@@ -1169,13 +1169,18 @@ nnoremap <Leader>Sc ]s :Unite spell_suggest<CR>
 nnoremap <Leader>Sa zg
 " }}}2
 " <Leader>t {{{2
+" Tabs
+nnoremap <silent><Leader>td :tabclose<CR>
+nnoremap <silent><Leader>tm :tabonly<CR>
+nnoremap <silent><Leader>tn :tabnext<CR>
+nnoremap <silent><Leader>tp :tabprev<CR>
 " Vim-Indent-Guides
 nnoremap <Leader>ti :IndentGuidesToggle<CR>
 nnoremap <Leader>tt :TagbarToggle<CR>
 nnoremap <Leader>tq :ToggleQuickfix<CR>
 nnoremap <Leader>tg :GitGutterToggle<CR>
 " Toggle pastemode
-nnoremap <Leader>tp :setlocal paste!<CR>
+nnoremap <Leader>tP :setlocal paste!<CR>
 " }}}2
 " <Leader>u {{{2
 nnoremap <Leader>u :GundoToggle<CR>
