@@ -101,7 +101,7 @@ function! IDFFoldText()
     if s:sort_ordered == 0
         if level == 1
             if linenext =~ '^\(! \)*\s*\(\S.*\),.*!\s*-\s*Key Value$'
-                let class = substitute(line, s:regex_object, '\1\2: ', 'g'). substitute(linenext, s:regex_field, '\2', 'g'). '_' . substitute(lineoutput, s:regex_field, '\2', 'g')
+                let class = substitute(line, s:regex_object, '\1\2: ', 'g'). substitute(linenext, s:regex_field, '\2', 'g'). ': ' . substitute(lineoutput, s:regex_field, '\2', 'g')
             else
                 let class = substitute(line, s:regex_object, '\1\2: ', 'g'). substitute(linenext, s:regex_field, '\2', 'g')
             endif
@@ -112,7 +112,7 @@ function! IDFFoldText()
             let class = substitute(line, s:regex_class, '\1\L\u\2','g')
         elseif level == 2
             if linenext =~ '^\(! \)*\s*\(\S.*\),.*!\s*-\s*Key Value$'
-                let class = substitute(line, s:regex_object, '\1\2: ', 'g'). substitute(linenext, s:regex_field, '\2', 'g'). '_' . substitute(lineoutput, s:regex_field, '\2', 'g')
+                let class = substitute(line, s:regex_object, '\1\2: ', 'g'). substitute(linenext, s:regex_field, '\2', 'g'). ': ' . substitute(lineoutput, s:regex_field, '\2', 'g')
             else
                 let class = substitute(line, s:regex_object, '\1\2: ', 'g'). substitute(linenext, s:regex_field, '\2', 'g')
             endif

@@ -56,7 +56,7 @@ function! s:outline_info.create_heading(which, heading_line, matched_line, conte
         elseif line =~ regex_special
             let heading.level = 2
             if line =~# regex_output_variable
-                let heading.word = substitute(line, regex_output_variable, '\1\2: \3:\4', 'g')
+                let heading.word = substitute(line, regex_output_variable, '\1\2: \3: \4', 'g')
             else
                 let heading.word = substitute(line, regex_special, '\1\2: \3', 'g')
             endif
@@ -71,10 +71,10 @@ function! s:outline_info.create_heading(which, heading_line, matched_line, conte
                 if line_after =~ '^\(! \)*\s*\(\S.*\),.*!\s*-\s*Key Value$'
                     let line_after2 = lines[h_lnum + 2]
                     " Let the heading word be 'Object: Key Value'.
-                    let heading.word = substitute(line, ',$', ': ', 'g'). substitute(line_after2, regex_field, '\2', 'g')
+                    let heading.word = substitute(line, ',$', ': ', 'g'). substitute(line_after, regex_field, '\2', 'g') . ': '. substitute(line_after2, regex_field, '\2', 'g')
                 else
                     " Let the heading word be 'Object: Name'.
-                    let heading.word = substitute(line, ',$', ': ', 'g'). substitute(line_after, regex_field, '\1\2', 'g')
+                    let heading.word = substitute(line, ',$', ': ', 'g'). substitute(line_after, regex_field, '\2', 'g')
                 endif
                 return heading
             else

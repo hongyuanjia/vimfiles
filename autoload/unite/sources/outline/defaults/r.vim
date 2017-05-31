@@ -39,7 +39,11 @@ function! s:outline_info.create_heading(which, heading_line, matched_line, conte
         let line = a:heading_line
         let h_lnum = a:context.heading_lnum
         let fold_level = substitute(line, regex_fold, '\2', 'g')
+<<<<<<< HEAD
         let heading.level = str2nr(fold_level)
+=======
+        let heading.level = strlen(fold_level)
+>>>>>>> 56bee0f3ac2aa3c25c8a4566d47495d897924a33
         if heading.level == 0
             let heading.level = 1
         endif
