@@ -332,10 +332,8 @@ augroup END
 augroup plugin_commentary
     au!
     au FileType python setlocal commentstring=#%s
-    au FileType htmldjango setlocal commentstring={#\ %s\ #}
-    au FileType puppet setlocal commentstring=#\ %s
-    au FileType xquery setlocal commentstring=(:\ %s\ :)
     au FileType idf setlocal commentstring=!\ %s
+    au FileType osm setlocal commentstring=!\ %s
 augroup END
 " }}}2
 
@@ -354,6 +352,7 @@ augroup ft_idf
     au BufRead,BufNewFile *.idf set filetype=idf
     au BufRead,BufNewFile *.imf set filetype=idf
     au BufRead,BufNewFile *.ddy set filetype=idf
+    au BufRead,BufNewFile *.osm set filetype=osm
 augroup END
 " }}}2
 
@@ -1143,7 +1142,10 @@ nnoremap <silent><Leader>sl :Unite -silent -start-insert line<CR>
 nnoremap <silent><Leader>sL :Unite -silent -start-insert locate<CR>
 nnoremap <silent><Leader>sw :Unite -silent -auto-preview -start-insert line<CR>
 nnoremap <silent><Leader>so :Unite -vertical -winwidth=40 -direction=topleft -toggle -start-insert outline<CR>
-nnoremap <silent><Leader>sb :Unite -auto-preview mark<CR>
+nnoremap <silent><Leader>sO :Unite -auto-preview -vertical -winwidth=40 -direction=topleft -toggle -start-insert outline<CR>
+autocmd Filetype idf,osm nnoremap <buffer><silent><Leader>so :Unite -vertical -winwidth=90 -direction=topleft -toggle -start-insert outline<CR>
+autocmd Filetype idf,osm nnoremap <buffer><silent><Leader>sO :Unite -auto-preview -vertical -winwidth=90 -direction=topleft -toggle -start-insert outline<CR>
+nnoremap <silent><Leader>sm :Unite -auto-preview mark<CR>
 nnoremap <silent><Leader>sf :Unite -vertical -winwidth=30 -auto-highlight -start-insert fold<CR>
 nnoremap <silent><Leader>sj :Unite jump<CR>
 nnoremap <silent><Leader>su :Unite undo<CR>
