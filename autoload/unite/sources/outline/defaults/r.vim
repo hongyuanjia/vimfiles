@@ -30,8 +30,8 @@ function! s:outline_info.create_heading(which, heading_line, matched_line, conte
                  \ }
 
     " RegEx for all headings
-    let regex_fold = '#\s*\(.*\){{{\(\d\+\)*'
-    let regex_comment = '^#\s*\(.\{-}\)\(\({{{\d\+\)\|\({{{\)\|\(}}}\)\|\(}}}\d\+\)\)\@<!$'
+    let regex_fold = '^\s*#\s*\(.*\){{{\(\d\+\)*'
+    let regex_comment = '^\s*#\s*\(.\{-}\)\(\({{{\d\+\)\|\({{{\)\|\(}}}\)\|\(}}}\d\+\)\)\@<!$'
     " Get all lines in the current buffer.
     let lines = a:context.lines
 
