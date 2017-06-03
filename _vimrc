@@ -168,7 +168,7 @@ colorscheme molokai
 highlight ColorColumn guibg=SlateGray
 autocmd ColorScheme * highlight Folded guifg=SlateGray
 " Fix monokai pandoc header color problem
-autocmd ColorScheme * highlight link Conceal Operator
+autocmd ColorScheme * highlight! link Conceal Operator
 " Color Scheme (END) }}}2
 
 " Gui Options {{{2
