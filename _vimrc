@@ -1144,8 +1144,8 @@ nnoremap <silent><Leader>sL :Unite -silent -start-insert locate<CR>
 nnoremap <silent><Leader>sw :Unite -silent -auto-preview -start-insert line<CR>
 nnoremap <silent><Leader>so :Unite -vertical -winwidth=40 -direction=topleft -toggle -start-insert outline<CR>
 nnoremap <silent><Leader>sO :Unite -auto-preview -vertical -winwidth=40 -direction=topleft -toggle -start-insert outline<CR>
-autocmd Filetype idf,osm nnoremap <buffer><silent><Leader>so :Unite -vertical -winwidth=90 -direction=topleft -toggle -start-insert outline<CR>
-autocmd Filetype idf,osm nnoremap <buffer><silent><Leader>sO :Unite -auto-preview -vertical -winwidth=90 -direction=topleft -toggle -start-insert outline<CR>
+autocmd Filetype idf,osm nnoremap <buffer><silent><Leader>so :Unite -vertical -winwidth=60 -direction=topleft -toggle -start-insert outline<CR>
+autocmd Filetype idf,osm nnoremap <buffer><silent><Leader>sO :Unite -auto-preview -vertical -winwidth=60 -direction=topleft -toggle -start-insert outline<CR>
 nnoremap <silent><Leader>sm :Unite -auto-preview mark<CR>
 nnoremap <silent><Leader>sf :Unite -vertical -winwidth=30 -auto-highlight -start-insert fold<CR>
 nnoremap <silent><Leader>sj :Unite jump<CR>
