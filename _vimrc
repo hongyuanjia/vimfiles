@@ -155,6 +155,7 @@ Plug 'vim-pandoc/vim-pandoc'
 Plug 'vim-pandoc/vim-pandoc-syntax'
 Plug 'vim-pandoc/vim-rmarkdown'
 Plug 'hotoo/pangu.vim'
+Plug 'dhruvasagar/vim-table-mode'
 " R Markdown (END) }}}2
 
 " Initialize plugin system
