@@ -896,7 +896,7 @@ let g:tagbar_ctags_bin = "c:/ctags/ctags.exe"
 " Citation {{{2
 let g:citation_vim_mode="zotero"
 let g:citation_vim_zotero_path="c:/Dropbox/3-Literatures/Zotero/"
-let g:citation_vim_cache_path='~/.cache/citation'
+let g:citation_vim_cache_path="~/.cache/citation"
 " }}}2
 
 " Nvim-R {{{2
@@ -910,6 +910,7 @@ let R_source_args = "print.eval = TRUE, max.deparse.length = 1000, echo = TRUE, 
 
 " Pandoc {{{2
 let g:pandoc#keyboard#use_default_mappings = 0
+let g:table_mode_map_prefix = '<LocalLeader>t'
 "}}}2
 " PLUGIN SETUP (END) =======================================================}}}1
 
