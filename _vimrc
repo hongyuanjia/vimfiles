@@ -1016,6 +1016,7 @@ nnoremap <Leader>fR :source $MYVIMRC<CR>
 nnoremap <Leader>fs :update<CR>
 " Fold
 nnoremap <Leader>fM :set foldmethod=marker<CR>
+nnoremap <Leader>fE :set foldmethod=expr<CR>
 nnoremap <Leader>f0 :set foldlevel=0<CR>
 nnoremap <Leader>f1 :set foldlevel=1<CR>
 nnoremap <Leader>f2 :set foldlevel=2<CR>
