@@ -1177,7 +1177,7 @@ nnoremap <Leader>Sa zg
 " <Leader>t {{{2
 " Tabs
 nnoremap <silent><Leader>td :tabclose<CR>
-nnoremap <silent><Leader>to :tabonly<CR>
+nnoremap <silent><Leader>tm :tabonly<CR>
 nnoremap <silent><Leader>tn :tabnext<CR>
 nnoremap <silent><Leader>tp :tabprev<CR>
 " Vim-Indent-Guides
