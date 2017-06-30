@@ -19,7 +19,7 @@ endfunction
 " Outline Info
 
 let s:outline_info = {
-      \ 'heading'  : '^\(! \)*\(\(!- \{3}=\{11} \{2}ALL OBJECTS IN CLASS: .* =\{11}\)\|\(\s*\w.*,\)\|\(##\w.*\)\|\(\s*\w.*\s*,\s*.*;\)\)$',
+      \ 'heading'  : '\(^\(\(! \)*\(\(!- \{3}=\{11} \{2}ALL OBJECTS IN CLASS: .* =\{11}\)\|\(\s*\w.*,\)\|\(##\w.*\)\|\(\s*\w.*\s*,\s*.*;\)\)\)$\)\|\(^!\s\+\S\+.*\s\+!$\)',
       \ }
 
 function! s:outline_info.create_heading(which, heading_line, matched_line, context) abort
@@ -37,6 +37,7 @@ function! s:outline_info.create_heading(which, heading_line, matched_line, conte
     let regex_field = '^\(! \)*\s*\(\S.*\)[,;]\s*!\s*-\s*.*$'
     let regex_special = '^\(! \)*\s*\([A-Z].\{-}\)\s*,\s*\(.\{-}\)\s*\(,.*\s*\)*;$'
     let regex_output_variable = '^\(! \)*\s*\(Output:Variable\)\s*,\s*\(.\{-}\)\s*,\(.\{-}\)\s*\(,.*\s*\)*;$'
+    let regex_box = '^!\s\+\(\S\+.*\)\s\+!$'
 
     " Get all lines in the current buffer.
     let lines = a:context.lines
@@ -77,6 +78,21 @@ function! s:outline_info.create_heading(which, heading_line, matched_line, conte
                     let heading.word = substitute(line, ',$', ': ', 'g'). substitute(line_after, regex_field, '\2', 'g')
                 endif
                 return heading
+            else
+                return {}
+            endif
+        elseif line =~ regex_box
+            " Check if the line before and after are both lines of comment marks
+            let line_before = lines[h_lnum - 1]
+            let line_after = lines[h_lnum + 1]
+            if line_before =~ '^!\{80}$'
+                if line_after =~ '^!\{80}$'
+                    let heading.level = 1
+                    let heading.word = substitute(line, regex_box, '[*GROUP*]: \1', 'g')
+                    return heading
+                else
+                    return {}
+                endif
             else
                 return {}
             endif
