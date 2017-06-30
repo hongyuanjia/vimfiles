@@ -32,21 +32,21 @@ function! IDFFolds()
     let thisline = getline(v:lnum)
     " If not sort_ordered formated
     if s:sort_ordered == 0
-        if thisline =~ s:regex_object
+        if thisline =~ s:regex_macro
+            return "-1"
+        elseif thisline =~ s:regex_blank
+            return "-1"
+        elseif thisline =~ s:regex_special
+            return "0"
+        elseif thisline =~ s:regex_object
             let nextline = getline(v:lnum + 1)
             if nextline =~ s:regex_field
                 return ">1"
             else
                 return "-1"
             endif
-        elseif thisline =~ s:regex_special
-            return "0"
         elseif thisline =~ s:regex_field
             return "1"
-        elseif thisline =~ s:regex_blank
-            return "-1"
-        elseif thisline =~ s:regex_macro
-            return "-1"
         elseif thisline =~ s:regex_comment
             let nextline = getline(v:lnum + 1)
             " Only comment above a class will be unfolded.
@@ -59,23 +59,24 @@ function! IDFFolds()
             return "="
         endif
     else
-        if thisline =~ s:regex_class
-            return ">1"
-        elseif thisline =~ s:regex_object
-            let nextline = getline(v:lnum + 1)
-            if nextline =~ s:regex_field
-                return ">2"
-            else
-                return "-1"
-            endif
-        elseif thisline =~ s:regex_special
-            return "0"
-        elseif thisline =~ s:regex_field
-            return "2"
+        if thisline =~ s:regex_macro
+            return "-1"
         elseif thisline =~ s:regex_blank
             return "-1"
-        elseif thisline =~ s:regex_macro
-            return "-1"
+        elseif thisline =~ s:regex_special
+            return "0"
+        elseif thisline =~ s:regex_class
+            return ">1"
+        elseif thisline =~ s:regex_object
+            return ">2"
+            " let nextline = getline(v:lnum + 1)
+            " if nextline =~ s:regex_field
+            "     return ">2"
+            " else
+            "     return "-1"
+            " endif
+        elseif thisline =~ s:regex_field
+            return "2"
         elseif thisline =~ s:regex_comment
             let nextline = getline(v:lnum + 1)
             " Only comment above a class will be unfolded.
