@@ -32,7 +32,7 @@ if g:WINDOWS
   " Computer-dependent font settings
   " https://superuser.com/questions/194715/how-to-make-vim-settings-computer-dependent-in-vimrc
   let hostname = substitute(system('hostname'), '\n', '', '')
-  if hsotname == "Dell-Win10"
+  if hostname == "Dell-Win10"
       set guifont=DroidSansMonoForPowerline\ NF:h11
       set guifontwide=SimHei:h12
   elseif hostname == "Jiahony-Surface"
