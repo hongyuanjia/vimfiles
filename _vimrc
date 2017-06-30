@@ -297,6 +297,7 @@ set wildmode=list:longest,full
 set wildignore+=*swp,*.class,*.pyc,*.png,*.jpg,*.gif,*.zip
 set wildignore+=*/tmp/*,*.o,*.obj,*.so     " Unix
 set wildignore+=*\\tmp\\*,*.exe            " Windows
+set formatoptions+=m "Multibyte line breaking
 
 set ttymouse=xterm2
 " Resize the divisions if the Vim window size changes
@@ -1176,7 +1177,7 @@ nnoremap <Leader>Sa zg
 " <Leader>t {{{2
 " Tabs
 nnoremap <silent><Leader>td :tabclose<CR>
-nnoremap <silent><Leader>tm :tabonly<CR>
+nnoremap <silent><Leader>to :tabonly<CR>
 nnoremap <silent><Leader>tn :tabnext<CR>
 nnoremap <silent><Leader>tp :tabprev<CR>
 " Vim-Indent-Guides
