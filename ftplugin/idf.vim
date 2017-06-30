@@ -33,9 +33,11 @@ function! IDFFolds()
     " If not sort_ordered formated
     if s:sort_ordered == 0
         if thisline =~ s:regex_macro
-            return "-1"
+            return "0"
+            " return "-1"
         elseif thisline =~ s:regex_blank
-            return "-1"
+            return "0"
+            " return "-1"
         elseif thisline =~ s:regex_special
             return "0"
         elseif thisline =~ s:regex_object
@@ -60,7 +62,7 @@ function! IDFFolds()
         endif
     else
         if thisline =~ s:regex_macro
-            return "-1"
+            return "0"
         elseif thisline =~ s:regex_blank
             return "-1"
         elseif thisline =~ s:regex_special
