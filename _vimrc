@@ -29,8 +29,19 @@ source $VIMRUNTIME/menu.vim
 " windows GUI界面乱码设置
 if g:WINDOWS
   " Set extra options when running in GUI mode
-  set guifont=DroidSansMonoForPowerline\ NF:h12
-  set guifontwide=SimHei:h14
+  " Computer-dependent font settings
+  " https://superuser.com/questions/194715/how-to-make-vim-settings-computer-dependent-in-vimrc
+  let hostname = substitute(system('hostname'), '\n', '', '')
+  if hsotname == "Dell-Win10"
+      set guifont=DroidSansMonoForPowerline\ NF:h11
+      set guifontwide=SimHei:h12
+  elseif hostname == "Jiahony-Surface"
+      set guifont=DroidSansMonoForPowerline\ NF:h10
+      set guifontwide=SimHei:h12
+  else
+      set guifont=DroidSansMonoForPowerline\ NF:h12
+      set guifontwide=SimHei:h14
+  endif
   set guitablabel=%M\ %t
   set linespace=2
   set noimdisable
