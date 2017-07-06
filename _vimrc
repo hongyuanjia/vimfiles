@@ -1191,6 +1191,8 @@ nnoremap <silent><Leader>td :tabclose<CR>
 nnoremap <silent><Leader>tm :tabonly<CR>
 nnoremap <silent><Leader>tn :tabnext<CR>
 nnoremap <silent><Leader>tp :tabprev<CR>
+" Cursorline Toggle
+nnoremap <Leader>tc :call CursorLineToggle()<CR>
 " Vim-Indent-Guides
 nnoremap <Leader>ti :IndentGuidesToggle<CR>
 nnoremap <Leader>tt :TagbarToggle<CR>
@@ -1321,6 +1323,15 @@ let g:spacevim_core_dir = '/core'
 let g:spacevim_version = '0.5.0'
 " call Source(g:spacevim_dir . g:spacevim_core_dir . '/core_config.vim')
 " }}}2
+
+" CursorLineToggle {{{2
+function! CursorLineToggle()
+    if(&cursorline == 1)
+        set nocursorline
+    else
+        set cursorline
+    endif
+endfunc
 
 " NumberToggle {{{2
 function! NumberToggle()
