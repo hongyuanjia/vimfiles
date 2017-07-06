@@ -363,6 +363,7 @@ augroup END
 augroup ft_idf
     au!
     au BufRead,BufNewFile *.idf set filetype=idf
+    au BufRead,BufNewFile *.epmidf set filetype=idf
     au BufRead,BufNewFile *.imf set filetype=idf
     au BufRead,BufNewFile *.ddy set filetype=idf
     au BufRead,BufNewFile *.osm set filetype=osm
