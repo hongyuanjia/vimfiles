@@ -28,6 +28,14 @@ snippet \c "\code{}"
 \code{$1}
 endsnippet
 
-snippet help "help for R package"
-help(package = "$1$0")
+snippet help "help for R package" b
+help(package = "$1${VISUAL}")
+endsnippet
+
+snippet exp "export package function" b
+#' @export
+endsnippet
+
+snippet inst "install package" b
+install.packages("$1${VISUAL}")
 endsnippet
