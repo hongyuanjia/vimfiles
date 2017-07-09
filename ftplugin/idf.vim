@@ -78,7 +78,7 @@ function! IDFFolds()
             "     return "-1"
             " endif
         elseif thisline =~ s:regex_field
-            return "2"
+            return "=2"
         elseif thisline =~ s:regex_comment
             let nextline = getline(v:lnum + 1)
             " Only comment above a class will be unfolded.
