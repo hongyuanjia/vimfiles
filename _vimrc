@@ -982,6 +982,8 @@ nmap <Leader>a<Bar> :Tabularize /<Bar><CR>
 vmap <Leader>a<Bar> :Tabularize /<Bar><CR>
 nmap <Leader>a! :Tabularize /!-<CR>
 vmap <Leader>a! :Tabularize /!-<CR>
+nmap <Leader>at :Tabularize /\t<CR>
+vmap <Leader>at :Tabularize /\t<CR>
 " }}}3
 " }}}2
 " <Leader>b {{{2
