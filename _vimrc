@@ -36,7 +36,7 @@ if g:WINDOWS
       set guifont=DroidSansMonoForPowerline\ NF:h11
       set guifontwide=SimHei:h12
   elseif hostname == "Jiahony-Surface"
-      set guifont=DroidSansMonoForPowerline\ NF:h10
+      set guifont=DroidSansMonoForPowerline\ NF:h11
       set guifontwide=SimHei:h12
   else
       set guifont=DroidSansMonoForPowerline\ NF:h12
