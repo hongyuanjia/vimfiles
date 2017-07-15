@@ -393,8 +393,8 @@ autocmd VimLeave * if exists("g:SendCmdToR") && string(g:SendCmdToR) != "functio
 " Insert '%>%' pipe operator in R {{{2
 augroup r_pipe
     autocmd!
-    autocmd FileType R inoremap <buffer> ½ %>%
-    autocmd FileType R inoremap <buffer> <M-=> %>%
+    autocmd FileType R inoremap <buffer> ½ <c-v><Space>%>%
+    autocmd FileType R inoremap <buffer> <M-=> <c-v><Space>%>%
 augroup END
 " }}}2
 
