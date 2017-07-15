@@ -165,7 +165,6 @@ Plug 'rafaqz/citation.vim'
 Plug 'vim-pandoc/vim-pandoc'
 Plug 'vim-pandoc/vim-pandoc-syntax'
 Plug 'vim-pandoc/vim-rmarkdown'
-Plug 'hotoo/pangu.vim'
 Plug 'dhruvasagar/vim-table-mode'
 Plug 'chrisbra/csv.vim'
 " R Markdown (END) }}}2
@@ -390,18 +389,13 @@ autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 autocmd VimLeave * if exists("g:SendCmdToR") && string(g:SendCmdToR) != "function('SendCmdToR_fake')" | call RQuit("nosave") | endif
 " }}}2
 
-" Insert '%>%' pipe operator in R {{{2
+" Insert '%>%' pipe '.[]' operator in R {{{2
 augroup r_pipe
     autocmd!
-    autocmd FileType R inoremap <buffer> ½ <c-v><Space>%>%
-    autocmd FileType R inoremap <buffer> <M-=> <c-v><Space>%>%
-augroup END
-" }}}2
-
-" Add spaces between Chinese and English characters {{{2
-augroup pangu
-    autocmd!
-    autocmd BufWritePre *.r,*.R,*.rmd,*.markdown,*.md,*.text,*.txt,*.wiki call PanGuSpacing()
+    autocmd FileType R inoremap <buffer> ½ <c-v><Space>%>%<c-v><Space>
+    autocmd FileType R inoremap <buffer> <M-=> <c-v><Space>%>%<c-v><Space>
+    autocmd FileType R inoremap <buffer> ® .[]
+    autocmd FileType R inoremap <buffer> <M-.> .[]
 augroup END
 " }}}2
 " FILETYPE AU ==============================================================}}}1
