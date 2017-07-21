@@ -114,6 +114,7 @@ Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 Plug 'gregsexton/gitv'
+Plug 'idanarye/vim-merginal'
 " Git (END) }}}2
 
 " Unite {{{2
@@ -398,6 +399,10 @@ augroup r_pipe
     autocmd FileType R inoremap <buffer> <M-.> .[]
 augroup END
 " }}}2
+
+" Auto delete trailing spaces when saving R files {{{"
+autocmd FileType r autocmd BufWritePre <buffer> %s/\s\+$//e
+" }}} Auto delete trailing spaces when saving R files "
 " FILETYPE AU ==============================================================}}}1
 
 " PLUGIN SETUP ============================================================={{{1
