@@ -114,7 +114,6 @@ Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 Plug 'gregsexton/gitv'
-Plug 'idanarye/vim-merginal'
 " Git (END) }}}2
 
 " Unite {{{2
