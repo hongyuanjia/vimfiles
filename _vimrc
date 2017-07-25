@@ -399,8 +399,8 @@ augroup r_pipe
 augroup END
 " }}}2
 
-" Auto delete trailing spaces when saving R files {{{"
-autocmd FileType r autocmd BufWritePre <buffer> call TrimTrailingSpace()
+" Auto delete trailing spaces when saving R, vim files {{{"
+autocmd FileType r,vim autocmd BufWritePre <buffer> call TrimTrailingSpace()
 " }}} Auto delete trailing spaces when saving R files "
 " FILETYPE AU ==============================================================}}}1
 
