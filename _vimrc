@@ -113,6 +113,7 @@ Plug 'scrooloose/nerdcommenter'
 
 " Git {{{2
 Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-dispatch'
 Plug 'airblade/vim-gitgutter'
 Plug 'gregsexton/gitv'
 Plug 'jreybert/vimagit'
