@@ -99,15 +99,12 @@ Plug 'junegunn/vim-easy-align',  { 'on': [ '<Plug>(EasyAlign)', 'EasyAlign' ] }
 " Programming {{{2
 Plug 'danro/rename.vim'
 Plug 'luochen1990/rainbow'
-" Plug 'editorconfig/editorconfig-vim', { 'on': 'EditorConfigReload' }
-" Plug 'junegunn/rainbow_parentheses.vim'
 Plug 'Raimondi/delimitMate'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'majutsushi/tagbar'
-Plug 'nathanaelkane/vim-indent-guides'
+Plug 'Yggdroot/indentLine'
 Plug 'skywind3000/asyncrun.vim',        { 'on': ['AsyncRun!', 'AsyncRun'] }
-" Plug 'tpope/vim-commentary'
 Plug 'scrooloose/nerdcommenter'
 " Programming (END) }}}2
 
@@ -523,20 +520,12 @@ let g:gundo_preview_bottom = 1
 " Gundo (END) }}}2
 
 " IndentLine {{{2
-let g:indentLine_enabled = 0
-let g:indentLine_enabled=1
+let g:indentLine_enabled = 1
 let g:indentLine_char = '┊'
 let g:indentLine_color_term = 239
 let g:indentLine_concealcursor='vc'      " default 'inc'
 let g:indentLine_fileTypeExclude = ['help', 'startify', 'vimfiler']
 " IndentLine (END) }}}2
-
-" Vim-Indent-Guides {{{2
-let g:indent_guides_start_level = 2
-let g:indent_guides_guide_size = 1
-let g:indent_guides_enable_on_vim_startup = 1
-let g:indent_guides_auto_colors = 0
-" }}}2
 
 " NERDCommenter {{{2
 " Add spaces after comment delimiters by default
