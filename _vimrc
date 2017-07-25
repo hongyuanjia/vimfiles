@@ -97,7 +97,7 @@ Plug 'godlygeek/tabular'
 
 " Programming {{{2
 Plug 'danro/rename.vim'
-Plug 'luochen1990/rainbow'
+Plug 'kien/rainbow_parentheses.vim'
 Plug 'Raimondi/delimitMate'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
@@ -345,9 +345,9 @@ augroup END
 " RainbowParentheses only enable for R {{{2
 augroup rainbow_r
     autocmd!
-    autocmd FileType *.r,*.markdown,*.md,*.rmd RainbowParenthesesToggle
-    autocmd FileType *.r,*.markdown,*.md,*.rmd let b:loaded_delimitMate = 0
-    autocmd FileType *.r,*.markdown,*.md,*.rmd let b:delimitMate_autoclose = 1
+    autocmd FileType r,rmd,md RainbowParenthesesToggle
+    autocmd FileType r,rmd,md let b:loaded_delimitMate = 0
+    autocmd FileType r,rmd,md let b:delimitMate_autoclose = 1
 augroup END
 " }}}2
 
