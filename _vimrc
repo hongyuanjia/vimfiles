@@ -537,6 +537,15 @@ let g:indent_guides_enable_on_vim_startup = 1
 let g:indent_guides_auto_colors = 0
 " }}}2
 
+" NERDCommenter {{{2
+" Add spaces after comment delimiters by default
+let g:NERDSpaceDelims = 1
+" Allow commenting and inverting empty lines (useful when commenting a region)
+let g:NERDCommentEmptyLines = 1
+" Enable trimming of trailing whitespace when uncommenting
+let g:NERDTrimTrailingWhitespace = 1
+" }}}2
+
 " DelimitMate {{{2
 let g:delimitMate_expand_cr=1
 " }}}}2
