@@ -108,6 +108,7 @@ Plug 'majutsushi/tagbar'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'skywind3000/asyncrun.vim',        { 'on': ['AsyncRun!', 'AsyncRun'] }
 Plug 'tpope/vim-commentary'
+Plug 'scrooloose/nerdcommenter'
 " Programming (END) }}}2
 
 " Git {{{2
@@ -142,11 +143,8 @@ Plug 'Shougo/neocomplete.vim'
 " Auto-completion (END) }}}2
 
 " Easy Text Manipulation {{{2
-" Plug 'vim-scripts/utl.vim'
-" Plug 'tpope/vim-speeddating'
 Plug 'sjl/gundo.vim'
 Plug 'matze/vim-move'
-" Plug 'salsifis/vim-transpose'
 Plug 'kshenoy/vim-signature'
 Plug 'easymotion/vim-easymotion'
 Plug 'aykamko/vim-easymotion-segments'
@@ -1075,11 +1073,11 @@ nnoremap <silent> <leader>gv :Gitv --all<CR>
 nnoremap <silent> <leader>gV :Gitv! --all<CR>
 vnoremap <silent> <leader>gV :Gitv! --all<CR>
 " For GitGutter
-nnoremap <silent>  <Leader>ggn :GitGutterNextHunk<CR>
-nnoremap <silent>  <Leader>ggp :GitGutterPrevHunk<CR>
-nnoremap <silent>  <Leader>ggs :GitGutterStageHunk<CR>
-nnoremap <silent>  <Leader>ggu :GitGutterUndoHunk<CR>
-nnoremap <silent>  <Leader>ggP :GitGutterPreviewHunk<CR>
+nnoremap <silent> <Leader>ggn :GitGutterNextHunk<CR>
+nnoremap <silent> <Leader>ggp :GitGutterPrevHunk<CR>
+nnoremap <silent> <Leader>ggs :GitGutterStageHunk<CR>
+nnoremap <silent> <Leader>ggu :GitGutterUndoHunk<CR>
+nnoremap <silent> <Leader>ggP :GitGutterPreviewHunk<CR>
 " }}}2
 " <Leader>m {{{2
 " nnoremap [menu] <Nop>
