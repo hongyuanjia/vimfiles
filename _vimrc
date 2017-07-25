@@ -93,7 +93,6 @@ Plug 'tpope/vim-repeat'
 
 " Text-Align {{{2
 Plug 'godlygeek/tabular'
-Plug 'junegunn/vim-easy-align',  { 'on': [ '<Plug>(EasyAlign)', 'EasyAlign' ] }
 " Text-Align (END) }}}2
 
 " Programming {{{2
@@ -1193,10 +1192,6 @@ nnoremap <Leader>wm :only<CR>
 " }}}2
 " <Leader>x {{{2
 nnoremap <Leader>xd :StripWhitespace<CR>
-" Start interactive EasyAlign in visual mode (e.g. vipxa)
-xmap <Leader>xa <Plug>(EasyAlign)
-" Start interactive EasyAlign for a motion/text object (e.g. xaip)
-nmap <Leader>xa <Plug>(EasyAlign)
 " }}}2
 " <Leader>y {{{2
 nnoremap <Leader>y "*y
