@@ -107,7 +107,7 @@ Plug 'honza/vim-snippets'
 Plug 'majutsushi/tagbar'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'skywind3000/asyncrun.vim',        { 'on': ['AsyncRun!', 'AsyncRun'] }
-Plug 'tpope/vim-commentary'
+" Plug 'tpope/vim-commentary'
 Plug 'scrooloose/nerdcommenter'
 " Programming (END) }}}2
 
@@ -1042,37 +1042,30 @@ nnoremap <Leader>f8 :set foldlevel=8<CR>
 nnoremap <Leader>f9 :set foldlevel=9<CR>
 " }}}2
 " <Leader>g {{{2
-nnoremap <silent> <Leader>gn :Unite output:echo\ system("git\ init")<CR>
-nnoremap <silent> <Leader>gs :Gstatus<CR>
-nnoremap <silent> <Leader>gd :Gdiff<CR>
-nnoremap <silent> <Leader>gc :Gcommit<CR>
-nnoremap <silent> <Leader>ga :Gcommit --amend<CR>
-nnoremap <silent> <Leader>gb :Gblame<CR>
-" nnoremap <silent> <Leader>gl :Glog<CR>
-nnoremap <silent> <Leader>gp :Gpush<CR>
-nnoremap <silent> <Leader>gP :Gpull<CR>
-nnoremap <silent> <Leader>gr :Gread<CR>
-nnoremap <silent> <Leader>gw :Gwrite<CR>
-nnoremap <silent> <Leader>ge :Gedit<CR>
-nnoremap <silent> <Leader>gR :Gremove<CR>
-nnoremap <silent> <Leader>gm :Gmove<Space>
 nnoremap <silent> <Leader>gB :Gbrowse<CR>
-nnoremap <silent> <Leader>gi :Git!<Space>
 nnoremap <silent> <Leader>gE :Gedit<Space>
-" Mnemonic _i_nteractive
-nnoremap <silent> <Leader>gi :Git add -p %<CR>
-nnoremap <silent> <Leader>gg :SignifyToggle<CR>
-nnoremap <silent> <Leader>gl :exe "silent Glog <Bar> Unite -no-quit
-            \ quickfix"<CR>:redraw!<CR>
-nnoremap <silent> <Leader>gL :exe "silent Glog -- <Bar> Unite -no-quit
-            \ quickfix"<CR>:redraw!<CR>
-nnoremap <silent> <Leader>gt :!tig<CR>:redraw!<CR>
-nnoremap <silent> <Leader>ggm :exe 'silent Glog --grep='.input("Pattern: ").' <Bar>
-            \Unite -no-quit quickfix'<CR>
-nnoremap <silent> <leader>gv :Gitv --all<CR>
+nnoremap <silent> <Leader>gL :exe "silent Glog -- <Bar> Unite -no-quit quickfix"<CR>:redraw!<CR>
+nnoremap <silent> <Leader>gP :Gpull<CR>
+nnoremap <silent> <Leader>gR :Gremove<CR>
 nnoremap <silent> <leader>gV :Gitv! --all<CR>
 vnoremap <silent> <leader>gV :Gitv! --all<CR>
-" For GitGutter
+nnoremap <silent> <Leader>ga :Gcommit --amend<CR>
+nnoremap <silent> <Leader>gb :Gblame<CR>
+nnoremap <silent> <Leader>gc :Gcommit<CR>
+nnoremap <silent> <Leader>gd :Gdiff<CR>
+nnoremap <silent> <Leader>ge :Gedit<CR>
+nnoremap <silent> <Leader>gi :Git add -p %<CR>
+nnoremap <silent> <Leader>gl :exe "silent Glog <Bar> Unite -no-quit quickfix"<CR>:redraw!<CR>
+nnoremap <silent> <Leader>gm :Gmove<Space>
+nnoremap <silent> <Leader>gn :Unite output:echo\ system("git\ init")<CR>
+nnoremap <silent> <Leader>gp :Gpush<CR>
+nnoremap <silent> <Leader>gr :Gread<CR>
+nnoremap <silent> <Leader>gs :Gstatus<CR>
+nnoremap <silent> <Leader>gt :!tig<CR>:redraw!<CR>
+nnoremap <silent> <leader>gv :Gitv --all<CR>
+nnoremap <silent> <Leader>gw :Gwrite<CR>
+nnoremap <silent> <Leader>ggm :exe 'silent Glog --grep='.input("Pattern: ").' <Bar>
+            \Unite -no-quit quickfix'<CR>
 nnoremap <silent> <Leader>ggn :GitGutterNextHunk<CR>
 nnoremap <silent> <Leader>ggp :GitGutterPrevHunk<CR>
 nnoremap <silent> <Leader>ggs :GitGutterStageHunk<CR>
