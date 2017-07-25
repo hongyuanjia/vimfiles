@@ -143,7 +143,7 @@ Plug 'Shougo/neocomplete.vim'
 
 " Easy Text Manipulation {{{2
 " Plug 'vim-scripts/utl.vim'
-Plug 'tpope/vim-speeddating'
+" Plug 'tpope/vim-speeddating'
 Plug 'sjl/gundo.vim'
 Plug 'matze/vim-move'
 " Plug 'salsifis/vim-transpose'
@@ -1069,17 +1069,17 @@ nnoremap <silent> <Leader>gl :exe "silent Glog <Bar> Unite -no-quit
 nnoremap <silent> <Leader>gL :exe "silent Glog -- <Bar> Unite -no-quit
             \ quickfix"<CR>:redraw!<CR>
 nnoremap <silent> <Leader>gt :!tig<CR>:redraw!<CR>
-nnoremap <silent> <Leader>gS :exe "silent !shipit"<CR>:redraw!<CR>
-nnoremap <silent> <Leader>gg :exe 'silent Ggrep -i '.input("Pattern: ")<Bar>Unite
-            \ quickfix -no-quit<CR>
 nnoremap <silent> <Leader>ggm :exe 'silent Glog --grep='.input("Pattern: ").' <Bar>
             \Unite -no-quit quickfix'<CR>
-nnoremap <silent> <Leader>ggt :exe 'silent Glog -S='.input("Pattern: ").' <Bar>
-            \Unite -no-quit quickfix'<CR>
-nnoremap <silent> <Leader>ggc :silent! Ggrep -i<Space>
 nnoremap <silent> <leader>gv :Gitv --all<CR>
 nnoremap <silent> <leader>gV :Gitv! --all<CR>
 vnoremap <silent> <leader>gV :Gitv! --all<CR>
+" For GitGutter
+nnoremap <silent>  <Leader>ggn :GitGutterNextHunk<CR>
+nnoremap <silent>  <Leader>ggp :GitGutterPrevHunk<CR>
+nnoremap <silent>  <Leader>ggs :GitGutterStageHunk<CR>
+nnoremap <silent>  <Leader>ggu :GitGutterUndoHunk<CR>
+nnoremap <silent>  <Leader>ggP :GitGutterPreviewHunk<CR>
 " }}}2
 " <Leader>m {{{2
 " nnoremap [menu] <Nop>
@@ -1200,7 +1200,8 @@ nnoremap <Leader>tc :call CursorLineToggle()<CR>
 nnoremap <Leader>ti :IndentGuidesToggle<CR>
 nnoremap <Leader>tt :TagbarToggle<CR>
 nnoremap <Leader>tq :ToggleQuickfix<CR>
-nnoremap <Leader>tg :GitGutterToggle<CR>
+nnoremap <Leader>tgg :GitGutterToggle<CR>
+nnoremap <Leader>tgl :GitGutterLineHighlightsToggle<CR>
 " Toggle pastemode
 nnoremap <Leader>tP :setlocal paste!<CR>
 " }}}2
