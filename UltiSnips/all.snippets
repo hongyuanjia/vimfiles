@@ -7,38 +7,13 @@
 #  Folds  #
 ###########
 
-snippet myfold "Fold" b
-" ${1:Title} {{{
+snippet fold "Fold" b
 
-${2:Text}
-
-" }}}
+" ${1:Title} {{{$2
+${VISUAL}$0
+" }}}$2
 
 endsnippet
-
-
-
-
-####################
-#  Author's Stuff  #
-####################
-
-snippet joe "joedicastro.com" 
-http://joedicastro.com/$0
-endsnippet
-
-snippet joep "joedicastro.com" i
-http://joedicastro.com/static/pictures/$0.png
-endsnippet
-
-snippet joeg "joedicastro.com" i
-http://joedicastro.com/static/pictures/$0.gif
-endsnippet
-
-snippet gh "GitHub repository" 
-http://github.com/joedicastro/$0
-endsnippet
-
 
 ###########
 #  Dates  #
