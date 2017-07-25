@@ -102,11 +102,11 @@ Plug 'luochen1990/rainbow'
 Plug 'Raimondi/delimitMate'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
-Plug 'majutsushi/tagbar'
 Plug 'Yggdroot/indentLine'
 Plug 'skywind3000/asyncrun.vim',        { 'on': ['AsyncRun!', 'AsyncRun'] }
 Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree'
+Plug 'Xuyuanp/nerdtree-git-plugin'
 " Programming (END) }}}2
 
 " Git {{{2
@@ -760,8 +760,6 @@ let g:unite_source_menu_menus.t = {
             \ 'description' : ' toggle           ⌘  [menu]t',
             \}
 let g:unite_source_menu_menus.t.command_candidates = [
-            \['▷  tagbar                                                         <F6>',
-            \'TagbarToggle'],
             \['▷  indent-line                                                    ',
             \'IndentGuidesToggle'],
             \['▷  syntastic                                                      ',
@@ -876,12 +874,6 @@ let g:unite_source_menu_menus.v.command_candidates = [
 " }}}4
 " }}}3
 " Unite (END) }}}2
-
-" Tagbar {{{2
-let g:tagbar_autofocus = 1
-let g:tagbar_sort = 0
-let g:tagbar_ctags_bin = "c:/ctags/ctags.exe"
-" }}}2
 
 " Citation {{{2
 let g:citation_vim_mode="zotero"
@@ -1168,7 +1160,6 @@ nnoremap <silent><Leader>tp :tabprev<CR>
 nnoremap <Leader>tc :call CursorLineToggle()<CR>
 " Vim-Indent-Guides
 nnoremap <Leader>ti :IndentGuidesToggle<CR>
-nnoremap <Leader>tt :TagbarToggle<CR>
 nnoremap <Leader>tq :ToggleQuickfix<CR>
 nnoremap <Leader>tgg :GitGutterToggle<CR>
 nnoremap <Leader>tgl :GitGutterLineHighlightsToggle<CR>
@@ -1224,8 +1215,6 @@ map <Leader>' :shell<CR>
 " F[n] Key {{{2
 " Asyncrun
 nnoremap <F5> :call <SID>compile_and_run()<CR>
-nnoremap <F6> :TagbarToggle<CR>
-inoremap <F6> <ESC>:TagbarToggle<CR>
 " }}}2
 " Special Key {{{2
 " Use Ctrl-Tab to switch tab {{{3
