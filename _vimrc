@@ -106,6 +106,7 @@ Plug 'majutsushi/tagbar'
 Plug 'Yggdroot/indentLine'
 Plug 'skywind3000/asyncrun.vim',        { 'on': ['AsyncRun!', 'AsyncRun'] }
 Plug 'scrooloose/nerdcommenter'
+Plug 'scrooloose/nerdtree'
 " Programming (END) }}}2
 
 " Git {{{2
@@ -121,17 +122,12 @@ Plug 'Shougo/vimproc.vim'
 Plug 'thinca/vim-qfreplace'
 Plug 'Shougo/unite.vim'
 Plug 'Shougo/unite-outline'
-Plug 'tsukkee/unite-help'
-Plug 'ujihisa/unite-colorscheme'
 Plug 'ujihisa/unite-locate'
 Plug 'thinca/vim-unite-history'
 Plug 'osyo-manga/unite-filetype'
 Plug 'osyo-manga/unite-quickfix'
 Plug 'osyo-manga/unite-fold'
 Plug 'tacroe/unite-mark'
-Plug 'Shougo/vimfiler'
-Plug 'Shougo/junkfile.vim'
-Plug 'joedicastro/unite-cmdmatch'
 Plug 'kopischke/unite-spell-suggest'
 Plug 'Shougo/neomru.vim'
 " Unite (END) }}}2
