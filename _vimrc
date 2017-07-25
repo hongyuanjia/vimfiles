@@ -106,6 +106,7 @@ Plug 'majutsushi/tagbar'
 Plug 'Yggdroot/indentLine'
 Plug 'skywind3000/asyncrun.vim',        { 'on': ['AsyncRun!', 'AsyncRun'] }
 Plug 'scrooloose/nerdcommenter'
+Plug 'scrooloose/nerdtree'
 " Programming (END) }}}2
 
 " Git {{{2
@@ -121,17 +122,12 @@ Plug 'Shougo/vimproc.vim'
 Plug 'thinca/vim-qfreplace'
 Plug 'Shougo/unite.vim'
 Plug 'Shougo/unite-outline'
-Plug 'tsukkee/unite-help'
-Plug 'ujihisa/unite-colorscheme'
 Plug 'ujihisa/unite-locate'
 Plug 'thinca/vim-unite-history'
 Plug 'osyo-manga/unite-filetype'
 Plug 'osyo-manga/unite-quickfix'
 Plug 'osyo-manga/unite-fold'
 Plug 'tacroe/unite-mark'
-Plug 'Shougo/vimfiler'
-Plug 'Shougo/junkfile.vim'
-Plug 'joedicastro/unite-cmdmatch'
 Plug 'kopischke/unite-spell-suggest'
 Plug 'Shougo/neomru.vim'
 " Unite (END) }}}2
@@ -524,7 +520,7 @@ let g:indentLine_enabled = 1
 let g:indentLine_char = '┊'
 let g:indentLine_color_term = 239
 let g:indentLine_concealcursor='vc'      " default 'inc'
-let g:indentLine_fileTypeExclude = ['help', 'startify', 'vimfiler']
+let g:indentLine_fileTypeExclude = ['help', 'startify', 'NERDTree']
 " IndentLine (END) }}}2
 
 " NERDCommenter {{{2
@@ -579,22 +575,8 @@ if executable('pt')
     let g:unite_source_grep_default_opts='--nocolor --nogroup --smart-case'
     let g:unite_source_grep_recursive_opt=''
     let g:unite_source_grep_encoding='utf-8'
-    let g:unite_source_grep_search_word_highlight = 1
     let g:unite_source_rec_async_command= 'pt --nocolor --nogroup -g .'
 endif
-" Junk
-let g:junkfile#directory=expand($HOME."/vimfiles/tmp/junk")
-" VimFiler
-let g:vimfiler_as_default_explorer = 1
-let g:vimfiler_tree_leaf_icon = '├'
-let g:vimfiler_tree_opened_icon = '┐'
-let g:vimfiler_tree_closed_icon = '─'
-let g:vimfiler_file_icon = '┄'
-let g:vimfiler_marked_file_icon = '✓'
-let g:vimfiler_readonly_file_icon = '✗'
-let g:vimfiler_force_overwrite_statusline = 0
-let g:vimfiler_time_format = '%d-%m-%Y %H:%M:%S'
-let g:vimfiler_data_directory = expand($HOME.'/vimfiles/tmp/vimfiler')
 " }}}4
 
 " [menu]x : menu.edition {{{4
@@ -648,8 +630,6 @@ let g:unite_source_menu_menus.f.command_candidates = [
             \'exe "write !sudo tee % >/dev/null"'],
             \['▷ quick save                                                 ⌘    SPC f s',
             \'update'],
-            \['▷ open vimfiler                                              ⌘    SPC f V',
-            \'VimFiler'],
             \]
 " }}}4
 
@@ -1022,7 +1002,7 @@ nnoremap <silent><Leader>fn :UniteWithBufferDir -silent -start-insert file/new<C
 nnoremap <silent><Leader>fd :UniteWithBufferDir -silent -start-insert directory directory_mru<CR>
 nnoremap <silent><Leader>fD :UniteWithBufferDir -silent -start-insert directory_rec/async<CR>
 nnoremap <silent><Leader>fp :e <C-R><C-R>+<CR>
-nnoremap <silent><Leader>fV :VimFiler<CR>
+nnoremap <silent><Leader>fN :NERDTree<CR>
 nnoremap <silent><Leader>fv :e $MYVIMRC<CR>
 nnoremap <Leader>fR :source $MYVIMRC<CR>
 nnoremap <Leader>fs :update<CR>
