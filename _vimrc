@@ -401,7 +401,7 @@ augroup END
 " }}}2
 
 " Auto delete trailing spaces when saving R, vim files {{{"
-autocmd FileType r,vim autocmd BufWritePre <buffer> call TrimTrailingSpace()
+autocmd FileType r,vim autocmd BufEnter <buffer> EnableStripWhitespaceOnSave
 " }}} Auto delete trailing spaces when saving R files "
 " FILETYPE AU ==============================================================}}}1
 
@@ -1346,17 +1346,6 @@ function! NumberToggle()
         set relativenumber
     endif
 endfunc
-" }}}2
-
-" TrimTrailingSpace {{{2
-function! TrimTrailingSpace()
-    if &ft != "diff"
-        let b:curcol = col(".")
-        let b:curline = line(".")
-        silent! %s/\s\+$//
-        call cursor(b:curline, b:curcol)
-    endif
-endfunction
 " }}}2
 
 " QuickfixToggle {{{2
