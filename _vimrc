@@ -1205,19 +1205,17 @@ nnoremap <Leader>Sa zg
 " }}}2
 " <Leader>t {{{2
 " Tabs
+nnoremap <Leader>tP :setlocal paste!<CR>
+nnoremap <Leader>tc :call CursorLineToggle()<CR>
+nnoremap <Leader>tgg :GitGutterToggle<CR>
+nnoremap <Leader>tgl :GitGutterLineHighlightsToggle<CR>
+nnoremap <Leader>ti :IndentGuidesToggle<CR>
+nnoremap <Leader>tq :ToggleQuickfix<CR>
+nnoremap <Leader>tr :RainbowToggle<CR>
 nnoremap <silent><Leader>td :tabclose<CR>
 nnoremap <silent><Leader>tm :tabonly<CR>
 nnoremap <silent><Leader>tn :tabnext<CR>
 nnoremap <silent><Leader>tp :tabprev<CR>
-" Cursorline Toggle
-nnoremap <Leader>tc :call CursorLineToggle()<CR>
-" Vim-Indent-Guides
-nnoremap <Leader>ti :IndentGuidesToggle<CR>
-nnoremap <Leader>tq :ToggleQuickfix<CR>
-nnoremap <Leader>tgg :GitGutterToggle<CR>
-nnoremap <Leader>tgl :GitGutterLineHighlightsToggle<CR>
-" Toggle pastemode
-nnoremap <Leader>tP :setlocal paste!<CR>
 " }}}2
 " <Leader>u {{{2
 nnoremap <Leader>u :GundoToggle<CR>
