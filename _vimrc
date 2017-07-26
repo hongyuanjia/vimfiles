@@ -523,6 +523,7 @@ let g:choosewin_overlay_enable = 1
 " }}}2
 
 " vim-bookmarks {{{2
+highlight link BookmarkSign Boolean
 let g:bookmark_sign = '★'
 let g:bookmark_annotation_sign = '〓'
 let g:bookmark_highlight_lines = 1
