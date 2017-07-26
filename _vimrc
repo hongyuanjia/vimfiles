@@ -527,8 +527,12 @@ let g:choosewin_overlay_enable = 1
 
 " vim-bookmarks {{{2
 highlight link BookmarkSign Boolean
+highlight link BookmarkAnnotationSign Conditional
+highlight link BookmarkLine DiffAdd
+highlight link BookmarkAnnotationLine Error
+
 let g:bookmark_sign = '★'
-let g:bookmark_annotation_sign = '〓'
+let g:bookmark_annotation_sign = '☰'
 let g:bookmark_highlight_lines = 1
 " }}}2
 
