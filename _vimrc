@@ -311,7 +311,7 @@ set wildignore+=*\\tmp\\*,*.exe            " Windows
 set formatoptions+=m "Multibyte line breaking
 
 set ttymouse=xterm2
-set digraph
+set nodigraph
 set dictionary+=$HOME/vimfiles/dict/english.dic
 set complete+=k
 " Resize the divisions if the Vim window size changes
