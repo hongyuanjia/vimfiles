@@ -249,6 +249,8 @@ let g:startify_list_order = [
         \ ['   Commands:'],
         \ 'commands',
         \ ]
+
+let g:startify_session_dir = '$HOME\vimfiles\sessions'
 " Vim-Startify (END) }}}2
 " GUI (END) ================================================================}}}1
 
