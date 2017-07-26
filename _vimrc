@@ -110,6 +110,7 @@ Plug 'skywind3000/asyncrun.vim',        { 'on': ['AsyncRun!', 'AsyncRun'] }
 Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'vim-syntastic/syntastic'
 Plug 'MattesGroeger/vim-bookmarks'
 " Programming (END) }}}2
 
@@ -897,6 +898,13 @@ let g:unite_source_menu_menus.v.command_candidates = [
 " }}}4
 " }}}3
 " Unite (END) }}}2
+
+" Syntastic {{{
+let g:syntastic_enable_r_lintr_checker=1
+let g:syntastic_r_checkers=['lintr']
+let g:syntastic_debug=0
+let g:enable_r_lintr_checker=1
+" }}}
 
 " Citation {{{2
 let g:citation_vim_mode="zotero"
