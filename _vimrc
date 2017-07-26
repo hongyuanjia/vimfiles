@@ -564,6 +564,10 @@ let g:rainbow_conf = {
 \}
 " }}}
 
+" auto-pairs {{{
+let g:AutoPairsMapCh = 0
+" }}}
+
 " Gundo {{{2
 let g:gundo_preview_bottom = 1
 " Gundo (END) }}}2
