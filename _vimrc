@@ -98,7 +98,7 @@ Plug 'godlygeek/tabular'
 " Programming {{{2
 Plug 'danro/rename.vim'
 Plug 'luochen1990/rainbow'
-Plug 'Raimondi/delimitMate'
+Plug 'jiangmiao/auto-pairs'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'Yggdroot/indentLine'
@@ -533,10 +533,6 @@ let g:NERDCommentEmptyLines = 1
 " Enable trimming of trailing whitespace when uncommenting
 let g:NERDTrimTrailingWhitespace = 1
 " }}}2
-
-" DelimitMate {{{2
-let g:delimitMate_expand_cr=1
-" }}}}2
 
 " NeoMRU {{{
 " let g:neomru#file_mru_path = expand($HOME.'vimfiles/tmp/neomru/file')
