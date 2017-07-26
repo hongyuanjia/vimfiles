@@ -97,7 +97,7 @@ Plug 'godlygeek/tabular'
 
 " Programming {{{2
 Plug 'danro/rename.vim'
-Plug 'kien/rainbow_parentheses.vim'
+Plug 'luochen1990/rainbow'
 Plug 'Raimondi/delimitMate'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
@@ -345,9 +345,8 @@ augroup END
 " RainbowParentheses only enable for R {{{2
 augroup rainbow_r
     autocmd!
-    autocmd FileType r,rmd,md RainbowParenthesesToggle
-    autocmd FileType r,rmd,md let b:loaded_delimitMate = 0
-    autocmd FileType r,rmd,md let b:delimitMate_autoclose = 1
+    autocmd FileType r,rmd,md RainbowToggle
+    " au syntax * cal rainbow#activate()
 augroup END
 " }}}2
 
@@ -509,6 +508,10 @@ let g:gitgutter_sign_removed_first_line = '^^'
 let g:gitgutter_sign_modified_removed = 'ww'
 let g:gitgutter_override_sign_column_highlight = 0
 " Vim-GitGutter (END) }}}2
+
+" rainbow {{{
+let g:rainbow_active = 1
+" }}}
 
 " Gundo {{{2
 let g:gundo_preview_bottom = 1
