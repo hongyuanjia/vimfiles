@@ -93,6 +93,8 @@ Plug 'szw/vim-maximizer'
 Plug 'MattesGroeger/vim-bookmarks'
 Plug 't9md/vim-choosewin'
 Plug 'rhysd/clever-f.vim'
+Plug 'xolox/vim-misc'
+Plug 'xolox/vim-shell'
 " Better Defaults (END) }}}2
 
 " Text-Align {{{2
@@ -112,6 +114,7 @@ Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'vim-syntastic/syntastic'
 Plug 'MattesGroeger/vim-bookmarks'
+Plug 'xolox/vim-session'
 " Programming (END) }}}2
 
 " Git {{{2
@@ -537,6 +540,14 @@ let g:gitgutter_sign_removed_first_line = '^^'
 let g:gitgutter_sign_modified_removed = 'ww'
 let g:gitgutter_override_sign_column_highlight = 0
 " Vim-GitGutter (END) }}}2
+
+" vim-session {{{
+set sessionoptions-=tabpages
+set sessionoptions-=help
+set sessionoptions-=buffers
+set sessionoptions-=options
+let g:session_autosave = 'no'
+" }}}
 
 " rainbow {{{
 let g:rainbow_active = 1
