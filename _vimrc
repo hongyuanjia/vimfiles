@@ -89,6 +89,10 @@ Plug 'tpope/vim-rsi'
 Plug 'mhinz/vim-startify'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
+Plug 'szw/vim-maximizer'
+Plug 'MattesGroeger/vim-bookmarks'
+Plug 't9md/vim-choosewin'
+Plug 'rhysd/clever-f.vim'
 " Better Defaults (END) }}}2
 
 " Text-Align {{{2
@@ -106,6 +110,7 @@ Plug 'skywind3000/asyncrun.vim',        { 'on': ['AsyncRun!', 'AsyncRun'] }
 Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'MattesGroeger/vim-bookmarks'
 " Programming (END) }}}2
 
 " Git {{{2
@@ -160,6 +165,7 @@ Plug 'dhruvasagar/vim-table-mode'
 Plug 'chrisbra/csv.vim'
 " R Markdown (END) }}}2
 
+Plug 'ryanoasis/vim-devicons'
 " Initialize plugin system
 call plug#end()
 " END PLUGINS ==============================================================}}}1
@@ -202,6 +208,8 @@ if has('multi_byte_ime')
 endif
 syntax on                      " Syntax highlighting
 highlight clear SignColumn  " SignColumn should match background
+" highlight BookmarkSign ctermbg=NONE ctermfg=160
+" highlight BookmarkLine ctermbg=194 ctermfg=NONE
 " highlight clear LineNr      " Current line number row will have same background color in relative mode
 " }}}2
 
@@ -302,6 +310,7 @@ set wildignore+=*\\tmp\\*,*.exe            " Windows
 set formatoptions+=m "Multibyte line breaking
 
 set ttymouse=xterm2
+set digraph
 " Resize the divisions if the Vim window size changes
 au VimResized * exe "normal! \<c-w>="
 set whichwrap+=<,>,h,l  " Allow backspace and cursor keys to cross line boundaries
@@ -498,6 +507,23 @@ let g:Gitv_OpenHorizontal = 'auto'
 let g:Gitv_WipeAllOnClose = 1
 let g:Gitv_DoNotMapCtrlKey = 1
 " Gitv (END) }}}2
+
+" vim-maximizer {{{2
+let g:maximizer_set_default_mapping = 0
+" }}}2
+
+" wim-choosewim {{{2
+" invoke with '-'
+nmap  -  <Plug>(choosewin)
+" use overlay feature
+let g:choosewin_overlay_enable = 1
+" }}}2
+
+" vim-bookmarks {{{2
+let g:bookmark_sign = '★'
+let g:bookmark_annotation_sign = '〓'
+let g:bookmark_highlight_lines = 1
+" }}}2
 
 " Vim-GitGutter {{{2
 let g:gitgutter_sign_added = '+'
@@ -1186,7 +1212,9 @@ nnoremap <Leader>wv <C-W>v
 nnoremap <Leader>w\| <C-W>v
 nnoremap <Leader>w2 <C-W>v
 nnoremap <Leader>w/ <C-W>v
-nnoremap <Leader>wm :only<CR>
+nnoremap <silent><Leader>wm :MaximizerToggle<CR>
+vnoremap <silent><Leader>wm :MaximizerToggle<CR>gv
+inoremap <silent><Leader>wm <C-o>:MaximizerToggle<CR>
 " }}}2
 " <Leader>x {{{2
 nnoremap <Leader>xd :StripWhitespace<CR>
