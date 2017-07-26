@@ -312,6 +312,8 @@ set formatoptions+=m "Multibyte line breaking
 
 set ttymouse=xterm2
 set digraph
+set dictionary+=$HOME/vimfiles/dict/english.dic
+set complete+=k
 " Resize the divisions if the Vim window size changes
 au VimResized * exe "normal! \<c-w>="
 set whichwrap+=<,>,h,l  " Allow backspace and cursor keys to cross line boundaries
