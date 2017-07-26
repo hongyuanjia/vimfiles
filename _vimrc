@@ -138,7 +138,6 @@ Plug 'Shougo/neocomplete.vim'
 " Easy Text Manipulation {{{2
 Plug 'sjl/gundo.vim'
 Plug 'matze/vim-move'
-Plug 'kshenoy/vim-signature'
 Plug 'easymotion/vim-easymotion'
 Plug 'aykamko/vim-easymotion-segments'
 Plug 'terryma/vim-multiple-cursors'
