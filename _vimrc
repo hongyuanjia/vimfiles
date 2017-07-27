@@ -376,12 +376,12 @@ augroup ft_idf
 augroup END
 " }}}2
 
-" Call compile function when Asyncrun starts {{{2
-augroup SPACEVIM_ASYNCRUN
-    autocmd!
-    autocmd User AsyncRunStart call asyncrun#quickfix_toggle(15, 1)
-augroup END
-" }}}2
+" " Call compile function when Asyncrun starts {{{2
+" augroup SPACEVIM_ASYNCRUN
+    " autocmd!
+    " autocmd User AsyncRunStart call asyncrun#quickfix_toggle(15, 1)
+" augroup END
+" " }}}2
 
 " Enable omni completion {{{2
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
