@@ -1375,6 +1375,22 @@ function! CursorLineToggle()
 endfunc
 " }}}2
 
+" CycleNumbering {{{
+" Borrowed from Greg Hurrell: https://www.youtube.com/watch?v=0aEv1Nj0IPg
+function! CycleNumbering() abort
+  if exists('+relativenumber')
+    execute {
+          \ '00': 'set relativenumber   | set number',
+          \ '01': 'set norelativenumber | set number',
+          \ '10': 'set norelativenumber | set nonumber',
+          \ '11': 'set norelativenumber | set number' }[&number . &relativenumber]
+  else
+    " No relative numbering, just toggle numbers on and off.
+    set number!<CR>
+  endif
+endfunction
+" }}}
+
 " NumberToggle {{{2
 function! NumberToggle()
     if(&relativenumber == 1)
