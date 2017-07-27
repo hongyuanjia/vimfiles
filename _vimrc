@@ -112,7 +112,7 @@ Plug 'skywind3000/asyncrun.vim',        { 'on': ['AsyncRun!', 'AsyncRun'] }
 Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
-Plug 'vim-syntastic/syntastic'
+Plug 'w0rp/ale'
 Plug 'MattesGroeger/vim-bookmarks'
 Plug 'xolox/vim-session'
 " Programming (END) }}}2
@@ -950,11 +950,19 @@ let g:unite_source_menu_menus.v.command_candidates = [
 " }}}3
 " Unite (END) }}}2
 
-" Syntastic {{{
-let g:syntastic_enable_r_lintr_checker=1
-let g:syntastic_r_checkers=['lintr']
-let g:syntastic_debug=0
-let g:enable_r_lintr_checker=1
+" ale {{{
+highlight link ALEErrorSign Conditional
+highlight link ALEWarningSign Boolean
+
+let g:airline#extensions#ale#enabled = 1
+let g:ale_set_loclist = 0
+let g:ale_set_quickfix = 1
+let g:ale_sign_error = ''
+let g:ale_sign_warning = ''
+let g:ale_echo_msg_error_str = 'E'
+let g:ale_echo_msg_warning_str = 'W'
+let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+let g:ale_r_lintr_linters = "with_defaults(line_length_linter = NULL, commented_code_linter = NULL, object_length_linter)"
 " }}}
 
 " Citation {{{2
@@ -1125,6 +1133,10 @@ nnoremap <silent> <Leader>ggs :GitGutterStageHunk<CR>
 nnoremap <silent> <Leader>ggu :GitGutterUndoHunk<CR>
 nnoremap <silent> <Leader>ggP :GitGutterPreviewHunk<CR>
 " }}}2
+" <Leader>l {{{
+nmap <silent><Leader>lp <Plug>(ale_previous_wrap)
+nmap <silent><Leader>ln <Plug>(ale_next_wrap)
+" }}}
 " <Leader>m {{{2
 " nnoremap [menu] <Nop>
 " nmap <Leader>m [menu]
