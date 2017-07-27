@@ -1235,12 +1235,13 @@ nnoremap <Leader>Sa zg
 " <Leader>t {{{2
 " Tabs
 nnoremap <Leader>tP :setlocal paste!<CR>
-nnoremap <Leader>tc :call CursorLineToggle()<CR>
+nnoremap <Leader>tcl :call CursorLineToggle()<CR>
+nnoremap <Leader>tln :call CycleNumbering()<CR>
 nnoremap <Leader>tgg :GitGutterToggle<CR>
 nnoremap <Leader>tgl :GitGutterLineHighlightsToggle<CR>
-nnoremap <Leader>ti :IndentGuidesToggle<CR>
-nnoremap <Leader>tq :ToggleQuickfix<CR>
-nnoremap <Leader>tr :RainbowToggle<CR>
+nnoremap <Leader>tig :IndentLinesToggle<CR>
+nnoremap <Leader>tqf :ToggleQuickfix<CR>
+nnoremap <Leader>trb :RainbowToggle<CR>
 nnoremap <silent><Leader>td :tabclose<CR>
 nnoremap <silent><Leader>tm :tabonly<CR>
 nnoremap <silent><Leader>tn :tabnext<CR>
