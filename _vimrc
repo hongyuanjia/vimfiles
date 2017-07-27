@@ -378,13 +378,6 @@ augroup ft_idf
 augroup END
 " }}}2
 
-" " Call compile function when Asyncrun starts {{{2
-" augroup SPACEVIM_ASYNCRUN
-    " autocmd!
-    " autocmd User AsyncRunStart call asyncrun#quickfix_toggle(15, 1)
-" augroup END
-" " }}}2
-
 " Enable omni completion {{{2
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
 autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
@@ -1254,7 +1247,7 @@ nnoremap <Leader>tln :call CycleNumbering()<CR>
 nnoremap <Leader>tgg :GitGutterToggle<CR>
 nnoremap <Leader>tgl :GitGutterLineHighlightsToggle<CR>
 nnoremap <Leader>tig :IndentLinesToggle<CR>
-nnoremap <Leader>tqf :ToggleQuickfix<CR>
+nnoremap <Leader>tqf :call asyncrun#quickfix_toggle(8)CR>
 nnoremap <Leader>trb :RainbowToggle<CR>
 nnoremap <Leader>tal :ALEToggle<CR>
 nnoremap <silent><Leader>td :tabclose<CR>
@@ -1415,21 +1408,6 @@ function! NumberToggle()
         set relativenumber
     endif
 endfunc
-" }}}2
-
-" QuickfixToggle {{{2
-function! s:QuickfixToggle()
-    for i in range(1, winnr('$'))
-        let bnum = winbufnr(i)
-        if getbufvar(bnum, '&buftype') == 'quickfix'
-            cclose
-            lclose
-            return
-        endif
-    endfor
-    copen
-endfunction
-command! ToggleQuickfix call <SID>QuickfixToggle()
 " }}}2
 
 " Fugitive: Gdiffoff Refined {{{2
