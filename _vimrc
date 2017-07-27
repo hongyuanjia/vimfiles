@@ -1207,7 +1207,8 @@ nnoremap <Leader>q  :q<CR>
 nnoremap <Leader>Q  :qa<CR>
 " }}}2
 " <Leader>r {{{2
-noremap <Leader>r<BSlash> :ToggleSlash<CR>
+nnoremap <Leader>r<BSlash> :ToggleSlash<CR>
+nnoremap <Leader>rr :AsyncRun<Space>
 " }}}2
 " <Leader>s {{{2
 " Search result highlight countermand
