@@ -315,6 +315,7 @@ set wildignore+=*/tmp/*,*.o,*.obj,*.so     " Unix
 set wildignore+=*\\tmp\\*,*.exe            " Windows
 set formatoptions+=m "Multibyte line breaking
 
+set lazyredraw
 set ttymouse=xterm2
 set nodigraph
 set dictionary+=$HOME/vimfiles/dict/english.dic
@@ -1206,7 +1207,6 @@ nnoremap <Leader>q  :q<CR>
 nnoremap <Leader>Q  :qa<CR>
 " }}}2
 " <Leader>r {{{2
-nnoremap <Leader>rl :call NumberToggle()<cr>
 noremap <Leader>r<BSlash> :ToggleSlash<CR>
 " }}}2
 " <Leader>s {{{2
