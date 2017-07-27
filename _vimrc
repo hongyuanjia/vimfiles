@@ -73,7 +73,7 @@ call plug#begin(expand($HOME.'/vimfiles/plugged'))
 
 " Airline {{{2
 Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
+Plug 'vim-airline/vim-airline-themes',  {'on': 'AirlineTheme'}
 " }}}2
 
 " Dark themes {{{2
