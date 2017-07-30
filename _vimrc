@@ -1247,7 +1247,7 @@ nnoremap <Leader>tln :call CycleNumbering()<CR>
 nnoremap <Leader>tgg :GitGutterToggle<CR>
 nnoremap <Leader>tgl :GitGutterLineHighlightsToggle<CR>
 nnoremap <Leader>tig :IndentLinesToggle<CR>
-nnoremap <Leader>tqf :call asyncrun#quickfix_toggle(8)CR>
+nnoremap <Leader>tqf :call asyncrun#quickfix_toggle(8)<CR>
 nnoremap <Leader>trb :RainbowToggle<CR>
 nnoremap <Leader>tal :ALEToggle<CR>
 nnoremap <silent><Leader>td :tabclose<CR>
