@@ -73,7 +73,7 @@ call plug#begin(expand($HOME.'/vimfiles/plugged'))
 
 " Airline {{{2
 Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes',  {'on': 'AirlineTheme'}
+Plug 'vim-airline/vim-airline-themes' ",  {'on': 'AirlineTheme'}
 " }}}2
 
 " Dark themes {{{2
@@ -108,7 +108,7 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'Yggdroot/indentLine'
-Plug 'skywind3000/asyncrun.vim',        { 'on': ['AsyncRun!', 'AsyncRun'] }
+Plug 'skywind3000/asyncrun.vim'
 Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
