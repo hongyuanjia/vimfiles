@@ -6,13 +6,15 @@
 ###########
 #  Folds  #
 ###########
+# In order to get the comment format.
+global !p
+from vimsnippets import get_comment_format
+endglobal
 
 snippet fold "Fold" b
-
-" ${1:Title} {{{$2
+`!p snip.rv = get_comment_format()[0]`${1:Title} {{{$2
 ${VISUAL}$0
-" }}}$2
-
+`!p snip.rv = get_comment_format()[0]`}}}$2
 endsnippet
 
 ###########
