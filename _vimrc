@@ -979,6 +979,11 @@ let R_source_args = "print.eval = TRUE, max.deparse.length = 1000, echo = TRUE, 
 let g:pandoc#keyboard#use_default_mappings = 0
 let g:table_mode_map_prefix = '<LocalLeader>t'
 "}}}2
+
+"vim-shell {{{2
+let g:shell_fullscreen_items="mT"
+"}}}2
+
 " PLUGIN SETUP (END) =======================================================}}}1
 
 " KEY BINDINGS ============================================================={{{1
