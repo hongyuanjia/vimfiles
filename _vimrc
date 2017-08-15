@@ -957,7 +957,8 @@ let g:ale_sign_warning = ''
 let g:ale_echo_msg_error_str = 'E'
 let g:ale_echo_msg_warning_str = 'W'
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
-let g:ale_r_lintr_linters = "with_defaults(line_length_linter = NULL, commented_code_linter = NULL, object_length_linter = NULL, trailing_whitespace_linter = NULL)"
+" let g:ale_r_lintr_linters = "with_defaults(line_length_linter = NULL, commented_code_linter = NULL, object_length_linter = NULL, trailing_whitespace_linter = NULL, object_name_linter = NULL)"
+let g:ale_r_lintr_linters = "trailing_blank_lines_linter"
 " }}}
 
 " Citation {{{2
