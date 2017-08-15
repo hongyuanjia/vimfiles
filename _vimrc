@@ -314,6 +314,8 @@ set wildignore+=*swp,*.class,*.pyc,*.png,*.jpg,*.gif,*.zip
 set wildignore+=*/tmp/*,*.o,*.obj,*.so     " Unix
 set wildignore+=*\\tmp\\*,*.exe            " Windows
 set formatoptions+=m "Multibyte line breaking
+set formatoptions+=j "Remove a comment leader when joining
+set signcolumn=yes
 
 set lazyredraw
 set ttymouse=xterm2
