@@ -1211,7 +1211,7 @@ nnoremap <silent><Leader>sl :Unite -silent -start-insert line<CR>
 nnoremap <silent><Leader>sL :Unite -silent -start-insert locate<CR>
 nnoremap <silent><Leader>sw :Unite -silent -auto-preview -start-insert line<CR>
 nnoremap <silent><Leader>so :Unite -vertical -winwidth=40 -direction=topleft -toggle -start-insert outline<CR>
-nnoremap <silent><Leader>sO :Unite -auto-preview -vertical -winwidth=40 -direction=topleft -toggle -start-insert outline<CR>
+nnoremap <silent><Leader>sO :Unite -no-quit -vertical -winwidth=40 -direction=topleft -toggle outline<CR>
 autocmd Filetype idf,osm nnoremap <buffer><silent><Leader>so :Unite -vertical -winwidth=60 -direction=topleft -toggle -start-insert outline<CR>
 autocmd Filetype idf,osm nnoremap <buffer><silent><Leader>sO :Unite -auto-preview -vertical -winwidth=60 -direction=topleft -toggle -start-insert outline<CR>
 nnoremap <silent><Leader>sm :Unite -auto-preview mark<CR>
