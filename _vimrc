@@ -102,7 +102,9 @@ Plug 'godlygeek/tabular'
 " Text-Align (END) }}}2
 
 " Programming {{{2
-Plug 'danro/rename.vim'
+Plug 'wincent/ferret'
+Plug 'haya14busa/incsearch.vim'
+Plug 'tpope/vim-eunuch'
 Plug 'luochen1990/rainbow'
 Plug 'jiangmiao/auto-pairs'
 Plug 'SirVer/ultisnips'
@@ -377,6 +379,7 @@ augroup ft_idf
     au BufRead,BufNewFile *.imf set filetype=idf
     au BufRead,BufNewFile *.ddy set filetype=idf
     au BufRead,BufNewFile *.osm set filetype=osm
+    au FileType idf,osm NeoCompleteLock
 augroup END
 " }}}2
 
@@ -987,6 +990,16 @@ let g:table_mode_map_prefix = '<LocalLeader>t'
 let g:shell_fullscreen_items="mT"
 "}}}2
 
+" incsearch.vim{{{2
+map /  <Plug>(incsearch-forward)
+map ?  <Plug>(incsearch-backward)
+map g/ <Plug>(incsearch-stay)
+"}}}2
+
+" Ferret {{{2
+let g:FerretExecutable='rg'
+let g:FerretMap=0
+"}}}2
 " PLUGIN SETUP (END) =======================================================}}}1
 
 " KEY BINDINGS ============================================================={{{1
@@ -1469,4 +1482,79 @@ function! SynGroup()
 endfun
 " }}}
 
+" FormatModelRange {{{2
+function! FormatModelRange( line1, line2 )
+    let pos = getpos('.')
+    " let l = line(a:line1)
+    " let c = col(a:line1)
+    let line_range = range(a:line1, a:line2)
+    for line in line_range
+        execute FormatModelLine(line)
+    endfor
+    " call cursor(l, c)
+    call setpos('.', pos)
+endfunction
+"}}}2
+
+" FormatModelLine {{{2
+function! FormatModelLine( line )
+    " Regex to find objecs and fields in the model
+    let regex_object = '^\(\! \)*\s*\([A-Z].*\),$'
+    let regex_field = '^\(! \)*\s*\(.*\)\([,;]\)\s*!\s*-\s*\(.*\)$'
+    " Save the current search and cursor position
+    let _ori = @*
+    " let l = line(a:line)
+    " let c = col(a:line)
+
+    " Get the content of the line
+    let thisline = getline(a:line)
+    " If this line is a model object header
+    if thisline =~ regex_object
+        " Delte leading spaces
+        let fmt_line = substitute(thisline, regex_object, '\1\2,', 'g')
+        " let @* = fmt_line
+    " It this line is a model object field
+    elseif thisline =~ regex_field
+        " Get the value of this field
+        let value = substitute(thisline, regex_field, '\1    \2', 'g')
+        " Get the seperator of this field, e.g. ',' or ';'
+        let sep = substitute(thisline, regex_field, '\3', 'g')
+        " Get the key of this field
+        let key = substitute(thisline, regex_field, '\4', 'g')
+        " Delete leading spaces in the key
+        let key = substitute(key, '\s*$', '', 'g')
+        " Combine the value and seprator
+        let len_value = strlen(value)
+        if len_value == 4
+            let value_sep = value . sep
+        else
+            let value_sep = substitute(value, '\s*$', '', 'g') . sep
+        endif
+        " Get the length of combined value and seperator
+        let len_value_sep = strlen(value_sep)
+        " If current field is commented, the target length should be 31, else 29
+        if value_sep =~ '^!'
+            let num_std = 31
+        else
+            let num_std = 29
+        endif
+        " Get the number of spaces that should be inserted
+        let num_sp = num_std - len_value_sep
+        if num_sp <= 0
+            let num_sp = 2
+        endif
+        let value_sep = value_sep . repeat(' ', num_sp)
+        let fmt_line = value_sep . '!- '. key
+        " let @* = fmt_line
+    endif
+    " format
+    silent! execute ':' . a:line . 's/^.*$/' . fmt_line . '/'
+    " let @* = _ori
+    " call cursor(l, c)
+endfunction
+"}}}2
+
+command! -range=% FormatModelRange call FormatModelRange( <line1>, <line2> )
+autocmd Filetype idf,osm vnoremap <silent><Leader>fm :FormatModelRange<CR>
+autocmd Filetype idf,osm nnoremap <Leader>fm :call FormatModelLine('.')<CR>
 " FUNCTIONS (END) ==========================================================}}}1
