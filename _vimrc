@@ -1499,12 +1499,8 @@ endfunction
 " FormatModelLine {{{2
 function! FormatModelLine( line )
     " Regex to find objecs and fields in the model
-    let regex_object = '^\(\! \)*\s*\([A-Z].*\),$'
-    let regex_field = '^\(! \)*\s*\(.*\)\([,;]\)\s*!\s*-\s*\(.*\)$'
-    " Save the current search and cursor position
-    let _ori = @*
-    " let l = line(a:line)
-    " let c = col(a:line)
+    let regex_object = '^\s*\(\! \)*\s*\([A-Z].*\),$'
+    let regex_field = '^\s*\(! \)*\s*\(.*\)\([,;]\)\s*!\s*-\s*\(.*\)$'
 
     " Get the content of the line
     let thisline = getline(a:line)
@@ -1512,11 +1508,14 @@ function! FormatModelLine( line )
     if thisline =~ regex_object
         " Delte leading spaces
         let fmt_line = substitute(thisline, regex_object, '\1\2,', 'g')
-        " let @* = fmt_line
+        " Write the line to register '*'
+        call setline(a:line, fmt_line)
     " It this line is a model object field
     elseif thisline =~ regex_field
+        " Get the comment of this field
+        let comment = substitute(thisline, regex_field, '\1', 'g')
         " Get the value of this field
-        let value = substitute(thisline, regex_field, '\1    \2', 'g')
+        let value = substitute(thisline, regex_field, '    \2', 'g')
         " Get the seperator of this field, e.g. ',' or ';'
         let sep = substitute(thisline, regex_field, '\3', 'g')
         " Get the key of this field
@@ -1532,25 +1531,19 @@ function! FormatModelLine( line )
         endif
         " Get the length of combined value and seperator
         let len_value_sep = strlen(value_sep)
-        " If current field is commented, the target length should be 31, else 29
-        if value_sep =~ '^!'
-            let num_std = 31
-        else
-            let num_std = 29
-        endif
+        " Target length
+        let num_std = 29
         " Get the number of spaces that should be inserted
         let num_sp = num_std - len_value_sep
         if num_sp <= 0
             let num_sp = 2
         endif
         let value_sep = value_sep . repeat(' ', num_sp)
-        let fmt_line = value_sep . '!- '. key
-        " let @* = fmt_line
+        let fmt_line = comment . value_sep . '!- '. key
+        call setline(a:line, fmt_line)
+    else
+        return
     endif
-    " format
-    silent! execute ':' . a:line . 's/^.*$/' . fmt_line . '/'
-    " let @* = _ori
-    " call cursor(l, c)
 endfunction
 "}}}2
 
