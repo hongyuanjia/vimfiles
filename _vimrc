@@ -1548,6 +1548,7 @@ endfunction
 "}}}2
 
 command! -range=% FormatModelRange call FormatModelRange( <line1>, <line2> )
+autocmd InsertLeave *.idf,*.imf :call FormatModelLine('.')
 autocmd Filetype idf,osm vnoremap <silent><Leader>fm :FormatModelRange<CR>
 autocmd Filetype idf,osm nnoremap <Leader>fm :call FormatModelLine('.')<CR>
 " FUNCTIONS (END) ==========================================================}}}1
