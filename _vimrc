@@ -1462,7 +1462,7 @@ function! ToggleSlash(independent) range
 endfunction
 command! -bang -range ToggleSlash <line1>,<line2>call ToggleSlash(<bang>1)
 " }}}2
-"
+
 " MyLastWindow {{{2
 function! MyLastWindow()
     " if the window is quickfix/locationlist go on
@@ -1485,13 +1485,10 @@ endfun
 " FormatModelRange {{{2
 function! FormatModelRange( line1, line2 )
     let pos = getpos('.')
-    " let l = line(a:line1)
-    " let c = col(a:line1)
     let line_range = range(a:line1, a:line2)
     for line in line_range
         execute FormatModelLine(line)
     endfor
-    " call cursor(l, c)
     call setpos('.', pos)
 endfunction
 "}}}2
@@ -1510,6 +1507,7 @@ function! FormatModelLine( line )
         let fmt_line = substitute(thisline, regex_object, '\1\2,', 'g')
         " Write the line to register '*'
         call setline(a:line, fmt_line)
+        return 1
     " It this line is a model object field
     elseif thisline =~ regex_field
         " Get the comment of this field
@@ -1541,14 +1539,87 @@ function! FormatModelLine( line )
         let value_sep = value_sep . repeat(' ', num_sp)
         let fmt_line = comment . value_sep . '!- '. key
         call setline(a:line, fmt_line)
+        return 1
     else
-        return
+        return 0
     endif
 endfunction
 "}}}2
 
+" SelectCurrentModelField {{{2
+function! SelectCurrentModelField( line )
+    " Regex to find fields in the model
+    let regex_field = '^\s*\(! \)*\s*\(.*\)\([,;]\)\s*!\s*-\s*\(.*\)$'
+
+    " Get the content of the line
+    let thisline = getline(a:line)
+    " If this line is a model object header
+    if thisline =~ regex_field
+        " Get the value of this field
+        let value = substitute(thisline, regex_field, '\2', 'g')
+        let len_move = strlen(value) - 1
+        " If empty value
+        if len_move == -1
+            execute "normal! ^v"
+        " If only one length value
+        elseif len_move == 0
+            execute "normal! ^v"
+        " Others
+        else
+            execute "normal! ^v" . len_move . "l"
+        endif
+        return 1
+    else
+        return 0
+    endif
+endfunction
+"}}}2
+
+"SelectNextModelField {{{
+function! SelectNextModelField( line )
+    execute "normal! \<Esc>gv\<Esc>"
+    let lnum = line(a:line) + 1
+    call cursor(lnum, 1)
+    execute "normal! zo"
+    let returned = SelectCurrentModelField(lnum)
+    while returned == 0
+        execute "normal! \<Esc>gv\<Esc>"
+        let lnum = lnum + 1
+        call cursor(lnum, 1)
+        execute "normal! zo"
+        if lnum <= line('$')
+            let returned = SelectCurrentModelField(lnum)
+        else
+            break
+        endif
+    endwhile
+endfunction
+"}}}
+
+"SelectPreviewModelField {{{
+function! SelectPreviewModelField( line )
+    execute "normal! \<Esc>gv\<Esc>"
+    let lnum = line(a:line) - 1
+    call cursor(lnum, 1)
+    let returned = SelectCurrentModelField(lnum)
+    while returned == 0
+        execute "normal! \<Esc>gv\<Esc>"
+        let lnum = lnum - 1
+        call cursor(lnum, 1)
+        if lnum >= line(0)
+            let returned = SelectCurrentModelField(lnum)
+        else
+            break
+        endif
+    endwhile
+endfunction
+"}}}
+
 command! -range=% FormatModelRange call FormatModelRange( <line1>, <line2> )
 autocmd InsertLeave *.idf,*.imf :call FormatModelLine('.')
-autocmd Filetype idf,osm vnoremap <silent><Leader>fm :FormatModelRange<CR>
-autocmd Filetype idf,osm nnoremap <Leader>fm :call FormatModelLine('.')<CR>
+autocmd Filetype idf vnoremap <silent><Leader>fm :FormatModelRange<CR>
+autocmd Filetype idf nnoremap <silent><Leader>fm :call FormatModelLine('.')<CR>
+autocmd Filetype idf nnoremap vv :call SelectCurrentModelField('.')<CR>
+autocmd Filetype idf vnoremap <C-j> :call SelectNextModelField('.')<CR>
+autocmd Filetype idf vnoremap <C-k> :call SelectPreviewModelField('.')<CR>
 " FUNCTIONS (END) ==========================================================}}}1
