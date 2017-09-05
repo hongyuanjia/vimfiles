@@ -1,5 +1,5 @@
 " Define all regex used.
-let s:regex_class = '^\(! \)*!- \{3}=\{11} \{2}ALL OBJECTS IN CLASS: \(.*\) =\{11}' 
+let s:regex_class = '^\(! \)*!- \{3}=\{11} \{2}ALL OBJECTS IN CLASS: \(.*\) =\{11}'
 let s:regex_macro = '^\(! \)*#\(#\(include\|fileprefix\|includesilent\|nosilent\|if\|ifdef\|ifndef\|elseif\|else\|endif\|def\|enddef\|def1\|set1\|list\|nolist\|show\|noshow\|showdetail\|noshowdetail\|expandcomment\|traceback\|notraceback\|write\|nowrite\|symboltable\|clear\|reverse\|!\)\|eval\|[\)'
 let s:regex_object = '^\(\! \)*\s*\([A-Z].*\),$'
 let s:regex_blank = '^\s*$'
