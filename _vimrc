@@ -1531,8 +1531,8 @@ function! FormatModelLine( line )
 endfunction
 "}}}2
 
-" SelectCurrentModelField {{{2
-function! SelectCurrentModelField( line )
+" SelectCurrentModelFieldValue {{{2
+function! SelectCurrentModelFieldValue( line )
     " Regex to find fields in the model
     let regex_field = '^\s*\(! \)*\s*\(.*\)\([,;]\)\s*!\s*-\s*\(.*\)$'
 
@@ -1540,71 +1540,235 @@ function! SelectCurrentModelField( line )
     let thisline = getline(a:line)
     " If this line is a model object header
     if thisline =~ regex_field
+        let comment = substitute(thisline, regex_field, '\1', 'g')
         " Get the value of this field
         let value = substitute(thisline, regex_field, '\2', 'g')
-        let len_move = strlen(value) - 1
+        let len_comment = strlen(comment)
+        let len_value = strlen(value) - 1
+        let first_char = strpart(value, 0, 1)
         " If empty value
-        if len_move == -1
-            execute "normal! ^v"
+        if len_value == -1
+            " If commented line
+            if len_comment > 0
+                execute "normal! ^lf," . "v"
+            else
+                execute "normal! ^v"
+            endif
         " If only one length value
-        elseif len_move == 0
-            execute "normal! ^v"
+        elseif len_value == 0
+            if len_comment > 0
+                execute "normal! ^lf," . "v"
+            else
+                execute "normal! ^v"
+            endif
         " Others
         else
-            execute "normal! ^v" . len_move . "l"
+            if len_comment > 0
+                execute "normal! ^lf" . first_char ."v" . len_value ."l"
+            else
+                execute "normal! ^v" . len_value . "l"
+            endif
         endif
-        return 1
+        return value
     else
-        return 0
+        return ""
     endif
 endfunction
 "}}}2
 
-"SelectNextModelField {{{
-function! SelectNextModelField( line )
+"SelectNextModelFieldValue {{{
+function! SelectNextModelFieldValue( line )
     execute "normal! \<Esc>gv\<Esc>"
     let lnum = line(a:line) + 1
     call cursor(lnum, 1)
     execute "normal! zo"
-    let returned = SelectCurrentModelField(lnum)
-    while returned == 0
+    let returned = SelectCurrentModelFieldValue(lnum)
+    while returned == ""
         execute "normal! \<Esc>gv\<Esc>"
         let lnum = lnum + 1
         call cursor(lnum, 1)
         execute "normal! zo"
         if lnum <= line('$')
-            let returned = SelectCurrentModelField(lnum)
+            let returned = SelectCurrentModelFieldValue(lnum)
         else
             break
         endif
     endwhile
+    return
 endfunction
 "}}}
 
-"SelectPreviewModelField {{{
-function! SelectPreviewModelField( line )
+"SelectPreviewModelFieldValue {{{
+function! SelectPreviewModelFieldValue( line )
     execute "normal! \<Esc>gv\<Esc>"
     let lnum = line(a:line) - 1
     call cursor(lnum, 1)
-    let returned = SelectCurrentModelField(lnum)
-    while returned == 0
+    let returned = SelectCurrentModelFieldValue(lnum)
+    while returned == ""
         execute "normal! \<Esc>gv\<Esc>"
         let lnum = lnum - 1
         call cursor(lnum, 1)
         if lnum >= line(0)
-            let returned = SelectCurrentModelField(lnum)
+            let returned = SelectCurrentModelFieldValue(lnum)
         else
             break
         endif
     endwhile
+    return
+endfunction
+"}}}
+
+" " SearchCurrentFieldValueAndReplace {{{
+" function! SearchCurrentFieldValueAndReplace()
+    " let value = SelectCurrentModelFieldValue('.')
+    " if value != ""
+        " execute ":%s/\v".value.""
+    " endif
+    " execute "normal! \"*yy"
+   " execute ":%s/^R*"
+" endfunction
+" "}}}
+
+" " JumpToNextObject {{{2
+" function! JumpToNextObject()
+    " let regex_object = '^\s*\(\! \)*\s*\([A-Z].*\),$'
+    " let cur_line = getline('.')
+    " let lnum = line('.') + 1
+    " let value = getline(lnum)
+    " " call cursor(lnum, 1)
+    " let flag = value =~ regex_object
+    " while flag == 0
+        " " execute "normal! \<Esc>gv\<Esc>"
+        " let lnum = lnum + 1
+        " let value = getline(lnum)
+        " let flag = value =~ regex_object
+        " if lnum > line('$')
+            " break
+        " endif
+    " endwhile
+    " if flag == 1
+        " call cursor(lnum, 1)
+        " execute "normal! ^"
+        " return 1
+    " else
+        " echom "No object exists below current line."
+        " return 0
+    " endif
+" endfunction
+" "}}}2
+
+" " JumpToPreviewObject {{{2
+" function! JumpToPreviewObject()
+    " let regex_object = '^\s*\(\! \)*\s*\([A-Z].*\),$'
+    " let cur_line = getline('.')
+    " let lnum = line('.') - 1
+    " let value = getline(lnum)
+    " let flag = value =~ regex_object
+    " while flag == 0
+        " execute "normal! \<Esc>gv\<Esc>"
+        " let lnum = lnum - 1
+        " let value = getline(lnum)
+        " let flag = value =~ regex_object
+        " if lnum <= 0
+            " break
+        " endif
+    " endwhile
+    " if flag == 1
+        " call cursor(lnum, 1)
+        " execute "normal! ^"
+        " return 1
+    " else
+        " echom "No object exists below current line."
+        " return 0
+    " endif
+" endfunction
+" "}}}2
+
+" CenterBoxMidLine {{{
+function! CenterBoxMidLine()
+    let lnum = line('.')
+    let pos = getpos('.')
+    let str = getline(lnum)
+    let full_w = &textwidth
+    let comment_regex = '^!\s*\(\S.*\S\)\s*!$'
+    if str !~ comment_regex
+        return
+    endif
+    let str_trim = substitute(str, comment_regex, '\1', 'e')
+    let len_str_trim = strlen(str_trim)
+    if len_str_trim >= full_w
+        return
+    endif
+    call setline(lnum, str_trim)
+    execute ":center"
+    let new_str = getline(lnum)
+    let new_str = substitute(new_str, '\s*$', '', 'e')
+    let new_str = substitute(new_str, '^\s', '!', 'e')
+    let len_new_str = strlen(new_str)
+    let sp_len = full_w - len_new_str - 1
+    let sps = repeat(' ', sp_len)
+    let cen_str = new_str . sps . '!'
+    call setline(lnum, cen_str)
+    call setpos('.', pos)
+endfunction
+"}}}
+
+" ReplaceCommentSpace {{{
+function! ReplaceCommentSpace()
+    let lnum = line('.')
+    let pos = getpos('.')
+    let str = getline(lnum)
+    let full_w = &textwidth
+    let comment_regex = '^!\s*<*\s*\(\S.*\S\)\s*>*\s*!$'
+    if str !~ comment_regex
+        return
+    endif
+    if str =~ '^!\+$'
+        return
+    endif
+    let str_trim = substitute(str, comment_regex, '\1', 'e')
+    " Delete trailing '>'
+    let str_trim = substitute(str_trim, '>*$', '', 'e')
+    " Delete trainling spaces
+    let str_trim = substitute(str_trim, '\s*$', '', 'e')
+    let len_str_trim = strlen(str_trim)
+    if len_str_trim >= full_w
+        return
+    endif
+    call setline(lnum, str_trim)
+    execute ":center"
+    " Get the length of centered string
+    let new_str = getline(lnum)
+    " Remove trailing spaces
+    let new_str = substitute(new_str, '\s*>*\s*$', '', 'e')
+    " Get the length of new string
+    let len_new_str = strlen(new_str)
+    " Get the number of leading spaces
+    let n_lead_sp = len_new_str - len_str_trim - 2
+    " Get the number of trailing spaces
+    let n_trail_sp = full_w - len_new_str - 2
+    " Replace leading spaces
+    let smallers = repeat('<', n_lead_sp)
+    let biggers = repeat('>', n_trail_sp)
+    let rep_str = '!' . smallers . ' ' . str_trim . ' ' . biggers . '!'
+    call setline(lnum, rep_str)
+    call setpos('.', pos)
 endfunction
 "}}}
 
 command! -range=% FormatModelRange call FormatModelRange( <line1>, <line2> )
 autocmd InsertLeave *.idf,*.imf :call FormatModelLine('.')
-autocmd Filetype idf vnoremap <silent><Leader>fm :FormatModelRange<CR>
-autocmd Filetype idf nnoremap <silent><Leader>fm :call FormatModelLine('.')<CR>
-autocmd Filetype idf nnoremap vv :call SelectCurrentModelField('.')<CR>
-autocmd Filetype idf vnoremap <C-j> :call SelectNextModelField('.')<CR>
-autocmd Filetype idf vnoremap <C-k> :call SelectPreviewModelField('.')<CR>
+" autocmd InsertLeave *.idf,*.imf :call CenterBoxMidLine()
+autocmd FileType idf NeoCompleteLock
+autocmd Filetype idf vnoremap <silent><LocalLeader>fm :FormatModelRange<CR>
+autocmd Filetype idf nnoremap <silent><LocalLeader>fm :call FormatModelLine('.')<CR>
+autocmd Filetype idf nnoremap <silent><LocalLeader>vv :call SelectCurrentModelFieldValue('.')<CR>
+autocmd Filetype idf vnoremap <silent><LocalLeader>vn :call SelectNextModelFieldValue('.')<CR>
+autocmd Filetype idf vnoremap <silent><LocalLeader>vp :call SelectPreviewModelFieldValue('.')<CR>
+autocmd Filetype idf vnoremap <silent><LocalLeader>cc :call CenterBoxMidLine()<CR>
+autocmd Filetype idf nnoremap <silent><LocalLeader>cc :call CenterBoxMidLine()<CR>
+autocmd Filetype idf vnoremap <silent><LocalLeader>cr :call ReplaceCommentSpace()<CR>
+autocmd Filetype idf nnoremap <silent><LocalLeader>cr :call ReplaceCommentSpace()<CR>
+" autocmd Filetype idf nnoremap bj :call JumpToNextObject()<CR>
+" autocmd Filetype idf nnoremap bk :call JumpToPreviewObject()<CR>
 " FUNCTIONS (END) ==========================================================}}}1
