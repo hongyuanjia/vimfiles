@@ -33,3 +33,35 @@ endsnippet
 snippet inst "install package" b
 install.packages("$1${VISUAL}")
 endsnippet
+
+snippet tb "traceback"
+traceback()
+endsnippet
+
+snippet ffold "function with folds"
+# ${1:name} {{{$2
+$1 <- function ($3) {
+    ${VISUAL}$0
+
+	return()
+}
+# }}}$2
+endsnippet
+
+snippet shiny "text shiny ui component"
+shinyApp(
+    ui = shinyUI(
+        fluidPage(
+			${VISUAL}$0
+        )
+    ),
+
+    server = shinyServer(
+        function (input, output, session) {
+
+            # Stop shiny app when closing the web brower.
+            session$onSessionEnded(stopApp)
+        }
+    )
+)
+endsnippet
