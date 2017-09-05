@@ -90,7 +90,6 @@ Plug 'mhinz/vim-startify'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 Plug 'szw/vim-maximizer'
-" Plug 'MattesGroeger/vim-bookmarks'
 Plug 't9md/vim-choosewin'
 Plug 'rhysd/clever-f.vim'
 Plug 'xolox/vim-misc'
@@ -102,7 +101,7 @@ Plug 'godlygeek/tabular'
 " Text-Align (END) }}}2
 
 " Programming {{{2
-Plug 'wincent/ferret'
+" Plug 'wincent/ferret'
 Plug 'haya14busa/incsearch.vim'
 Plug 'tpope/vim-eunuch'
 Plug 'luochen1990/rainbow'
@@ -115,7 +114,6 @@ Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'w0rp/ale'
-Plug 'MattesGroeger/vim-bookmarks'
 Plug 'xolox/vim-session'
 Plug 'junegunn/goyo.vim'
 " Programming (END) }}}2
@@ -214,9 +212,6 @@ if has('multi_byte_ime')
 endif
 syntax on                      " Syntax highlighting
 highlight clear SignColumn  " SignColumn should match background
-" highlight BookmarkSign ctermbg=NONE ctermfg=160
-" highlight BookmarkLine ctermbg=194 ctermfg=NONE
-" highlight clear LineNr      " Current line number row will have same background color in relative mode
 " }}}2
 
 " Vim-Better-Whitespace {{{2
@@ -524,17 +519,6 @@ let g:maximizer_set_default_mapping = 0
 nmap  -  <Plug>(choosewin)
 " use overlay feature
 let g:choosewin_overlay_enable = 1
-" }}}2
-
-" vim-bookmarks {{{2
-highlight link BookmarkSign Boolean
-highlight link BookmarkAnnotationSign Conditional
-highlight link BookmarkLine DiffAdd
-highlight link BookmarkAnnotationLine Error
-
-let g:bookmark_sign = '★'
-let g:bookmark_annotation_sign = '☰'
-let g:bookmark_highlight_lines = 1
 " }}}2
 
 " Vim-GitGutter {{{2
@@ -994,11 +978,6 @@ let g:shell_fullscreen_items="mT"
 map /  <Plug>(incsearch-forward)
 map ?  <Plug>(incsearch-backward)
 map g/ <Plug>(incsearch-stay)
-"}}}2
-
-" Ferret {{{2
-let g:FerretExecutable='rg'
-let g:FerretMap=0
 "}}}2
 " PLUGIN SETUP (END) =======================================================}}}1
 
