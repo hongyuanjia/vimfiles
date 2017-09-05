@@ -1260,6 +1260,10 @@ nnoremap <silent><Leader>tp :tabprev<CR>
 " <Leader>u {{{2
 nnoremap <Leader>u :GundoToggle<CR>
 " }}}2
+" <Leader>v {{{2
+nnoremap <silent><Leader>vo :Unite -horizontal -direction=dynamicbottom -toggle -start-insert outline<CR>
+nnoremap <silent><Leader>vO :Unite -horizontal -direction=dynamictop -toggle -start-insert outline<CR>
+" }}}2
 " <Leader>w {{{2
 nnoremap <Leader>ww <C-W>w
 nnoremap <Leader>wr <C-W>r
