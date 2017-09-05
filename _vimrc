@@ -268,7 +268,6 @@ set noswapfile
 set nowritebackup
 " set nowrap         " Do not wrap long lines
 set textwidth=80
-set formatoptions+=mM
 set colorcolumn=81
 set autoindent                 " Indent at the same level of the previous line
 set autoread                   " Automatically read a file changed outside of vim
@@ -310,8 +309,11 @@ set wildmode=list:longest,full
 set wildignore+=*swp,*.class,*.pyc,*.png,*.jpg,*.gif,*.zip
 set wildignore+=*/tmp/*,*.o,*.obj,*.so     " Unix
 set wildignore+=*\\tmp\\*,*.exe            " Windows
+set formatoptions+=M "don't insert a space before or after a multi-byte when join
 set formatoptions+=m "Multibyte line breaking
 set formatoptions+=j "Remove a comment leader when joining
+set formatoptions+=q "New line will start with a commen leader
+set formatoptions+=n "When formatting text, recognize numbered lists
 set signcolumn=yes
 
 set lazyredraw
