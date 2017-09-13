@@ -116,6 +116,7 @@ Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'w0rp/ale'
 Plug 'xolox/vim-session'
 Plug 'junegunn/goyo.vim'
+Plug 'kshenoy/vim-signature'
 " Programming (END) }}}2
 
 " Git {{{2
