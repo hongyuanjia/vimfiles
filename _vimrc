@@ -22,7 +22,6 @@ set encoding=utf-8
 set fileencodings=utf-8,ucs-bom,cp936,gb18030,big5,euc-jp,euc-kr,latin1
 set fileencoding=utf-8
 set termencoding=utf-8
-language messages zh_CN.utf-8
 source $VIMRUNTIME/delmenu.vim
 source $VIMRUNTIME/menu.vim
 
