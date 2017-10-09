@@ -636,7 +636,7 @@ if executable('pt')
     let g:unite_source_grep_default_opts='--nocolor --nogroup --smart-case'
     let g:unite_source_grep_recursive_opt=''
     let g:unite_source_grep_encoding='utf-8'
-    let g:unite_source_rec_async_command= 'pt --nocolor --nogroup -g .'
+    let g:unite_source_rec_async_command= ['pt', '--nocolor', '--nogroup', '-g', '.']
 endif
 " }}}4
 
