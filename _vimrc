@@ -1220,7 +1220,7 @@ autocmd Filetype idf,osm nnoremap <buffer><silent><Leader>sO :Unite -auto-previe
 nnoremap <silent><Leader>sm :Unite -auto-preview mark<CR>
 nnoremap <silent><Leader>sf :Unite -vertical -winwidth=30 -auto-highlight -start-insert fold<CR>
 nnoremap <silent><Leader>sj :Unite jump<CR>
-nnoremap <silent><Leader>su :Unite undo<CR>
+nnoremap <silent><Leader>su :UniteResume<CR>
 " nnoremap <silent><Leader>st :Unite -toggle grep:%::FIXME|TODO|NOTE|XXX|COMBAK|@todo<CR>
 nnoremap <silent><Leader>sy :Unite history/yank<CR>
 nnoremap <silent><Leader>sC :Unite history/command<CR>
