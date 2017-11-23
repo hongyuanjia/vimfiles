@@ -256,7 +256,7 @@ filetype plugin indent on      " Automatically detect file types
 set fileformats=unix,dos,mac        " Use Unix as the standard file type
 set clipboard+=unnamed
 set cursorline              " Highlight current line
-set number                  " Line numbers on
+set relativenumber          " Line numbers on
 set nocompatible
 set winaltkeys=no
 set foldenable
