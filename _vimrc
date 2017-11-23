@@ -160,7 +160,7 @@ Plug 'terryma/vim-expand-region'
 " Easy Text Manipulation (END) }}}2
 
 " R Markdown {{{2
-Plug 'jalvesaq/Nvim-R'
+Plug 'jalvesaq/Nvim-R', {'tag': 'v0.9.10'}
 Plug 'rafaqz/citation.vim'
 Plug 'vim-pandoc/vim-pandoc'
 Plug 'vim-pandoc/vim-pandoc-syntax'
@@ -399,6 +399,8 @@ augroup r_pipe
     autocmd FileType R inoremap <buffer> <M-=> <c-v><Space>%>%<c-v><Space>
     autocmd FileType R inoremap <buffer> ® .[]
     autocmd FileType R inoremap <buffer> <M-.> .[]
+    autocmd FileType R inoremap <buffer> <M-;> <c-v><Space>:=<c-v><Space>
+    autocmd FileType R inoremap <buffer> <C-o> <C-x><C-o>
 augroup END
 " }}}2
 
@@ -952,9 +954,21 @@ let g:citation_vim_cache_path="~/.cache/citation"
 
 " Nvim-R {{{2
 let rmd_syn_hl_chunk = 1
+" not losing focus every time that you generate the pdf
 let R_openpdf = 1
+" highlight R functions only if the `(` is typed
+let R_hl_fun_paren = 1
+let R_hl_term = 1
+let R_listmethods = 1
+" lists the arguments of a function, but and also the arguments of its methods
+let R_objbr_opendf = 0
+let Rout_more_colors = 1
+let R_objbr_openlist = 0
+" show a preview window of function arguments description and arguments
+let R_show_arg_help = 1
 let R_commented_lines = 1
 let R_assign_map = "<M-->"
+" clear R Console line before sending commands~
 let R_clear_line = 1
 let R_source_args = "print.eval = TRUE, max.deparse.length = 1000, echo = TRUE, encoding = 'UTF-8'"
 let R_in_buffer = 0
