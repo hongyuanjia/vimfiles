@@ -109,7 +109,7 @@ Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'Yggdroot/indentLine'
 Plug 'skywind3000/asyncrun.vim'
-Plug 'scrooloose/nerdcommenter'
+Plug 'tpope/vim-commentary'
 Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'w0rp/ale'
@@ -404,6 +404,7 @@ augroup END
 
 " Auto delete trailing spaces when saving R, vim files {{{"
 autocmd FileType r,vim autocmd BufEnter <buffer> EnableStripWhitespaceOnSave
+autocmd FileType r,vim set completeopt-=preview
 " }}} Auto delete trailing spaces when saving R files "
 " FILETYPE AU ==============================================================}}}1
 
@@ -581,15 +582,6 @@ let g:indentLine_color_term = 239
 let g:indentLine_concealcursor='vc'      " default 'inc'
 let g:indentLine_fileTypeExclude = ['help', 'startify', 'NERDTree']
 " IndentLine (END) }}}2
-
-" NERDCommenter {{{2
-" Add spaces after comment delimiters by default
-let g:NERDSpaceDelims = 1
-" Allow commenting and inverting empty lines (useful when commenting a region)
-let g:NERDCommentEmptyLines = 1
-" Enable trimming of trailing whitespace when uncommenting
-let g:NERDTrimTrailingWhitespace = 1
-" }}}2
 
 " NeoMRU {{{
 " let g:neomru#file_mru_path = expand($HOME.'vimfiles/tmp/neomru/file')
