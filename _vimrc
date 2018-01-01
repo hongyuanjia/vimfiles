@@ -1085,7 +1085,7 @@ nnoremap <silent><Leader>ff :UniteWithBufferDir -silent -start-insert file file_
 nnoremap <silent><Leader>fr :Unite -silent -start-insert file_mru directory_mru<CR>
 nnoremap <silent><Leader>fF :UniteWithBufferDir -silent -start-insert file_rec/async<CR>
 nnoremap <silent><Leader>fn :UniteWithBufferDir -silent -start-insert file/new<CR>
-nnoremap <silent><Leader>fd :UniteWithBufferDir -silent -start-insert directory directory_mru<CR>
+nnoremap <silent><Leader>fd :Unite -silent -start-insert directory directory_mru<CR>
 nnoremap <silent><Leader>fD :UniteWithBufferDir -silent -start-insert directory_rec/async<CR>
 nnoremap <silent><Leader>fp :e <C-R><C-R>+<CR>
 nnoremap <silent><Leader>fN :NERDTree<CR>
