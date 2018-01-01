@@ -10,6 +10,10 @@ snippet roxygen "a templete of inserting R function documentation." b
 #' $7
 endsnippet
 
+snippet ## "" b
+#' ${VISUAL}$0
+endsnippet
+
 snippet param "" b
 #' @param ${1:param} ${2:desription}
 endsnippet
@@ -64,4 +68,22 @@ shinyApp(
         }
     )
 )
+endsnippet
+
+snippet db "debug me" b
+"!DEBUG ${VISUAL}$0"
+endsnippet
+
+snippet fail "assertthat::on_failure" b
+assertthat::on_failure(${VISUAL}$1) <- function (call, env) {
+    paste0(deparse(call$${2:x}), "${3:info}")
+}
+endsnippet
+
+snippet code "\code{}"
+\code{${VISUAL}$1}
+endsnippet
+
+snippet link "\link{}"
+\link{${VISUAL}$1}
 endsnippet

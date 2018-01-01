@@ -1,7 +1,7 @@
 snippet var "Output:Variable template"
 Output:Variable,
-    ${1:Key Value},          !- Key Value
-    ${2:Variable Name},           !- Variable Name
+    ${1:*},          !- Key Value
+    ${2:}${VISUAL},           !- Variable Name
     ${3:Timestep}$0;                !- Reporting Frequency
 endsnippet
 
